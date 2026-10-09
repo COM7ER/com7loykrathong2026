@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>คอมเซเว่น สานสายใจ 2569</title>
+<meta name="description" content="COM7 ลอยกระทง สานสายใจ 2569 — ลอยกระทงออนไลน์ + ประกวดนพมาศ AI แม้เราอยู่คนละที่ แต่หัวใจเดียวกัน">
+<meta property="og:title" content="COM7 ลอยกระทง สานสายใจ 2569">
+<meta property="og:image" content="assets/og_image.jpg">
+<link rel="icon" href="assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+
+/* ★ ฟอนต์ FC Mee Sakul (Non-commercial) — สำหรับหัวข้อ */
+@font-face{
+  font-family:'FC Mee Sakul';
+  src:url('assets/fonts/FCMeeSakul.ttf') format('truetype'),
+      url('assets/fonts/FCMeeSakul.otf') format('opentype');
+  font-weight:normal; font-display:swap;
+}
+
+/* ============================================================
+   COM7 ลอยกระทง สานสายใจ 2569 — หน้าแรก (Landing) v6
+   ผู้พัฒนา: แจ็ค (IT & Systems)
+   แนวทาง B: bg สายน้ำจริง (มีนางในภาพ) + การ์ดทองแบบไทยจริง (crop จาก mockup) วางทับ
+             แก้ข้อความได้ · responsive มือถือ · การ์ดกดได้จริง
+   ต้นแบบ: ภาพหน้าแรกเต็มที่ Director อัปโหลด (mockup_banner_wide → card_*_gold.png)
+   ============================================================ */
+
+:root{
+  --navy-900:#080b24; --navy-800:#0f1440;
+  --gold:#e8c874; --gold-2:#f6e2a6;
+  --ink:#f4f1e6; --ink-soft:#d9d2e8; --purple-soft:#b79ce0;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Kanit',system-ui,sans-serif; color:var(--ink);
+  /* พื้นหลังสายน้ำจริง (มีนางนพมาศฝั่งขวาในภาพอยู่แล้ว) + สีสำรอง */
+  background:var(--navy-900);
+  min-height:100vh; overflow-x:hidden; position:relative;
+}
+
+/* ---------- ชั้นพื้นหลัง hero (วิดีโอเคลื่อนไหว ตรึงเต็มจอ) ---------- */
+.hero-bg{position:fixed;inset:0;z-index:0;overflow:hidden;background:var(--navy-900)}
+/* พื้นหลังภาพนิ่ง (mockup) — เบา ลื่นมือถือ */
+.hero-bg .bg-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top}
+@media(max-width:860px){ .hero-bg .bg-img{object-position:72% top} }
+/* เลเยอร์ไล่เฉดคลุมล่าง ให้เนื้อหาอ่านง่าย */
+.hero-bg::after{content:"";position:absolute;inset:0;z-index:3;pointer-events:none;
+  background:linear-gradient(180deg, rgba(8,11,36,0) 55%, rgba(8,11,36,.35) 78%, var(--navy-900) 100%)}
+
+/* ===== ✨ CSS ANIMATION LAYERS (เบา ลื่นมือถือ ประหยัดแบต) ===== */
+.fx{position:absolute;inset:0;z-index:2;pointer-events:none;overflow:hidden}
+/* ดาวกระพริบ (ใช้ radial-gradient หลายจุด ไม่เปลือง DOM) */
+.fx-stars{background-image:
+  radial-gradient(1.5px 1.5px at 12% 18%, rgba(255,255,255,.9), transparent),
+  radial-gradient(1.5px 1.5px at 28% 12%, rgba(255,246,214,.8), transparent),
+  radial-gradient(1px 1px at 46% 22%, rgba(255,255,255,.7), transparent),
+  radial-gradient(1.5px 1.5px at 63% 10%, rgba(255,255,255,.85), transparent),
+  radial-gradient(1px 1px at 78% 20%, rgba(255,246,214,.7), transparent),
+  radial-gradient(1.5px 1.5px at 88% 14%, rgba(255,255,255,.8), transparent);
+  animation:twinkle 3.5s ease-in-out infinite}
+@keyframes twinkle{0%,100%{opacity:.35}50%{opacity:1}}
+/* โคมลอย (element เบา ๆ ลอยขึ้น) */
+.lantern{position:absolute;width:16px;height:22px;border-radius:50% 50% 45% 45%;
+  background:radial-gradient(circle at 50% 35%, #ffd98a, #ff8a3c 70%, #e0662c);
+  box-shadow:0 0 14px 4px rgba(255,170,80,.55);opacity:.85;bottom:-40px;
+  animation:rise linear infinite}
+.lantern::after{content:"";position:absolute;left:50%;top:100%;width:2px;height:6px;
+  background:rgba(255,180,90,.6);transform:translateX(-50%)}
+@keyframes rise{
+  0%{transform:translateY(0) translateX(0);opacity:0}
+  10%{opacity:.85}
+  90%{opacity:.85}
+  100%{transform:translateY(-108vh) translateX(24px);opacity:0}}
+/* ผิวน้ำระยิบ (ชั้นล่าง เลื่อนไหว) */
+.fx-water{top:auto;bottom:0;height:42%;
+  background:linear-gradient(180deg, transparent, rgba(120,150,255,.06) 40%, rgba(150,120,255,.1));
+  mask-image:linear-gradient(180deg, transparent, #000 40%)}
+.fx-water::before{content:"";position:absolute;inset:0;
+  background-image:repeating-linear-gradient(90deg, transparent 0 40px, rgba(255,255,255,.04) 40px 41px);
+  animation:shimmer 6s linear infinite}
+@keyframes shimmer{0%{transform:translateX(0)}100%{transform:translateX(41px)}}
+/* กลีบดอกไม้ร่วง */
+.petal{position:absolute;top:-20px;width:11px;height:11px;border-radius:0 100% 0 100%;
+  background:radial-gradient(circle at 30% 30%, #ffc0dd, #f7a8cf);opacity:.8;
+  animation:fall linear infinite}
+@keyframes fall{
+  0%{transform:translateY(0) rotate(0);opacity:0}
+  10%{opacity:.8}
+  100%{transform:translateY(112vh) rotate(320deg) translateX(40px);opacity:0}}
+/* มือถือ: ลดจำนวน element กัน lag (ซ่อนบางชั้น) */
+@media(max-width:860px){
+  .lantern:nth-child(n+5){display:none}
+  .petal:nth-child(n+5){display:none}
+}
+/* เคารพผู้ใช้ที่ปิด motion (accessibility) */
+@media(prefers-reduced-motion:reduce){
+  .fx-stars,.lantern,.fx-water::before,.petal{animation:none}
+  .lantern,.petal{display:none}
+}
+
+/* ---------- Top nav ---------- */
+.topbar{position:relative;z-index:6;display:flex;align-items:center;justify-content:space-between;
+  padding:16px 26px;max-width:1320px;margin:0 auto}
+.brand img{height:40px;width:auto;filter:drop-shadow(0 2px 8px rgba(0,0,0,.6))}
+.nav-links{display:flex;align-items:center;gap:30px;font-size:1rem;font-weight:500}
+.nav-links a{color:var(--ink);text-decoration:none;opacity:.9;transition:.2s;position:relative;padding:4px 0}
+.nav-links a:hover,.nav-links a.active{opacity:1}
+.nav-links a.active::after{content:"";position:absolute;left:0;right:0;bottom:-5px;height:2px;
+  background:linear-gradient(90deg,var(--gold),var(--gold-2));border-radius:2px}
+.nav-user{width:40px;height:40px;border-radius:50%;border:1.5px solid rgba(255,255,255,.4);
+  display:grid;place-items:center;font-size:1.15rem;cursor:pointer;color:#fff}
+.nav-toggle{display:none;background:none;border:0;color:#fff;font-size:1.7rem;cursor:pointer}
+
+/* ---------- Hero ---------- */
+.hero{position:relative;z-index:5;max-width:1200px;margin:0 auto;
+  padding:26px 22px 48px;min-height:calc(100vh - 72px);
+  display:flex;flex-direction:column;align-items:center}
+.title-logo{width:min(80vw,560px);height:auto;display:block;margin:6px auto 4px;
+  filter:drop-shadow(0 6px 30px rgba(246,226,166,.45))}
+.subtitle{text-align:center;margin:2px auto 4px;max-width:640px}
+.subtitle .l1{font-size:clamp(1.05rem,2.7vw,1.4rem);font-weight:600;color:var(--gold-2);
+  letter-spacing:.4px;text-shadow:0 2px 14px rgba(0,0,0,.7)}
+.subtitle .l1 .dot{color:var(--purple-soft);margin:0 10px}
+.subtitle .l2{font-size:clamp(.92rem,2.2vw,1.08rem);font-weight:400;color:var(--ink-soft);
+  margin-top:6px;text-shadow:0 2px 12px rgba(0,0,0,.7)}
+
+/* ---------- การ์ด 2 ใบ (เป็นภาพ crop จาก mockup — กดได้จริง) ---------- */
+.cards{position:relative;z-index:3;display:flex;gap:40px;justify-content:center;
+  align-items:flex-end;flex-wrap:wrap;margin-top:auto;padding-top:30px;width:100%}
+/* ---------- การ์ดปุ่ม: ภาพกรอบทอง HD (คมชัด · กรอบ+ข้อความฝังในรูป) ---------- */
+.card{position:relative;border:0;background:none;padding:0;cursor:pointer;
+  width:min(86vw,360px);transition:transform .28s ease, filter .28s ease;
+  filter:drop-shadow(0 16px 40px rgba(0,0,0,.5));-webkit-tap-highlight-color:transparent}
+.card picture{display:block}
+.card img{width:100%;height:auto;display:block;image-rendering:auto}
+.card:hover{transform:translateY(-10px);
+  filter:drop-shadow(0 26px 56px rgba(0,0,0,.6)) drop-shadow(0 0 28px rgba(246,226,166,.4))}
+.card:focus-visible{outline:3px solid var(--gold-2);outline-offset:6px;border-radius:20px}
+
+/* ---------- Scroll hint ---------- */
+.scroll-hint{position:relative;z-index:4;text-align:center;margin-top:34px;
+  font-size:.95rem;color:var(--ink-soft);opacity:.9;text-shadow:0 2px 10px rgba(0,0,0,.6)}
+.scroll-hint .chev{display:block;margin:8px auto 0;font-size:1.5rem;animation:bounce 1.8s infinite}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(7px)}}
+
+/* ---------- Responsive ---------- */
+@media(max-width:860px){
+  /* ซ่อนเมนูปกติ แล้วโชว์ปุ่ม hamburger */
+  .nav-links{display:none}
+  .nav-toggle{display:block}
+  /* เมนูเปิด = dropdown panel มุมขวาบน (แตะง่าย ไม่ทับปุ่ม) */
+  .nav-links.open{
+    display:flex;flex-direction:column;align-items:flex-start;gap:4px;
+    position:absolute;top:64px;right:20px;z-index:40;
+    background:rgba(10,14,42,.97);border:1px solid rgba(255,255,255,.16);
+    border-radius:16px;padding:12px 8px;min-width:180px;
+    box-shadow:0 18px 50px rgba(0,0,0,.5);backdrop-filter:blur(10px)}
+  .nav-links.open a{padding:12px 16px;width:100%;border-radius:10px;font-size:1.05rem}
+  .nav-links.open a:active,.nav-links.open a.active{background:rgba(255,255,255,.08)}
+  .nav-links.open a.active::after{display:none}
+  .cards{gap:26px;padding-top:24px}
+  .card{width:min(90vw,400px)}
+  .hero{padding-top:14px}
+}
+
+/* ===== 🎬 CINEMATIC INTRO REVEAL (เปิดหน้า element เผยทีละชั้น) ===== */
+/* พื้นหลัง fade + zoom เข้าช้า ๆ (Ken Burns เบา ๆ) */
+.hero-bg .bg-img{animation:bgReveal 1.6s ease-out both, bgDrift 26s ease-in-out 1.6s infinite alternate}
+@keyframes bgReveal{from{opacity:0;transform:scale(1.12)}to{opacity:1;transform:scale(1.04)}}
+@keyframes bgDrift{from{transform:scale(1.04) translateY(0)}to{transform:scale(1.08) translateY(-1.5%)}}
+
+/* element เผยทีละชั้น (fade + slide ขึ้น) */
+.reveal{opacity:0;transform:translateY(28px);
+  transition:opacity .9s cubic-bezier(.16,.8,.3,1), transform .9s cubic-bezier(.16,.8,.3,1)}
+.reveal.show{opacity:1;transform:translateY(0)}
+/* หน่วงทีละชิ้น (staggered) */
+.title-logo.reveal{transition-delay:.25s}
+.subtitle.reveal{transition-delay:.55s}
+.card.reveal:nth-child(1){transition-delay:.85s}
+.card.reveal:nth-child(2){transition-delay:1.05s}
+.scroll-hint.reveal{transition-delay:1.35s}
+/* การ์ด: เผยพร้อมสเกลเล็กน้อยให้ดูมีมิติ */
+.card.reveal{transform:translateY(34px) scale(.96)}
+.card.reveal.show{transform:translateY(0) scale(1)}
+
+/* scroll reveal (section ล่าง — เผยตอนเลื่อนถึง) */
+.sr{opacity:0;transform:translateY(36px);
+  transition:opacity .8s cubic-bezier(.16,.8,.3,1), transform .8s cubic-bezier(.16,.8,.3,1)}
+.sr.show{opacity:1;transform:translateY(0)}
+
+/* เคารพผู้ใช้ที่ปิด motion */
+@media(prefers-reduced-motion:reduce){
+  .reveal,.sr{opacity:1!important;transform:none!important;transition:none!important}
+  .hero-bg .bg-img{animation:none!important}
+}
+
+
+/* ===== ✨ หัวข้อกิจกรรมสีเด่น + ลูกเล่น ===== */
+.subtitle .l1{
+  background:linear-gradient(100deg, #f6e2a6 0%, #ffd0e8 30%, #e8c874 50%, #ffb8d9 70%, #f6e2a6 100%);
+  background-size:220% auto;
+  -webkit-background-clip:text; background-clip:text;
+  -webkit-text-fill-color:transparent; color:transparent;
+  filter:drop-shadow(0 2px 14px rgba(246,226,166,.5));
+  animation:shine 4.5s linear infinite;
+  font-weight:700;
+}
+@keyframes shine{to{background-position:220% center}}
+/* ประกายวิ่งผ่านหัวข้อ */
+.subtitle .l1{position:relative}
+.subtitle .l1 .dot{ -webkit-text-fill-color:#ffb8d9; color:#ffb8d9;
+  filter:drop-shadow(0 0 8px #ff8ac0); animation:sparkle 2s ease-in-out infinite}
+@keyframes sparkle{0%,100%{opacity:.5;transform:scale(.9)}50%{opacity:1;transform:scale(1.2)}}
+.subtitle .l2{color:var(--gold-2);text-shadow:0 2px 12px rgba(0,0,0,.7),0 0 18px rgba(246,226,166,.3)}
+@media(prefers-reduced-motion:reduce){ .subtitle .l1{animation:none} .subtitle .l1 .dot{animation:none} }
+
+
+/* ★ โลโก้ nav = ตัวหนังสือ COM7 สีขาว */
+.brand-text{font-size:1.5rem;font-weight:400;color:#fff;letter-spacing:1px;
+  text-shadow:0 2px 10px rgba(0,0,0,.6);font-family:'Kanit',sans-serif}
+/* ★ หัวข้อหลัก คอมเซเว่น สานสายใจ — ตัวหนา เด่น เรืองแสงชัด */
+.hero-title{text-align:center;margin:6px auto 6px;line-height:1.1;white-space:nowrap;
+  font-family:'FC Mee Sakul','Kanit',sans-serif;font-weight:400;
+  font-size:clamp(2.2rem,7vw,4.6rem);
+  color:#fff6d5;
+  text-shadow:0 2px 4px rgba(0,0,0,.55), 0 4px 18px rgba(0,0,0,.5), 0 0 2px rgba(120,80,20,.6);
+  letter-spacing:.5px}
+.hero-title-2{background:linear-gradient(100deg,#fff 0%,#f6e2a6 40%,#ffd0e8 60%,#f6e2a6 100%);
+  background-size:200% auto;-webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;
+  filter:drop-shadow(0 0 16px rgba(246,226,166,.8));
+  animation:shine 4.5s linear infinite}
+/* subtitle ล่าง = ตัวบาง */
+.subtitle .l1{font-weight:300!important}
+.subtitle .l2{font-weight:200!important}
+@media(prefers-reduced-motion:reduce){.hero-title-2{animation:none}}
+
+</style>
+</head>
+<body>
+
+<!-- พื้นหลัง hero (วิดีโอเคลื่อนไหว: desktop แนวนอน / mobile แนวตั้ง) -->
+<div class="hero-bg" aria-hidden="true">
+  <!-- พื้นหลังภาพนิ่ง (mockup) -->
+  <img class="bg-img" src="assets/v6_bg.jpg" alt="">
+  <!-- ✨ ชั้นอนิเมชั่น CSS (เบา ลื่นมือถือ) -->
+  <div class="fx fx-stars"></div>
+  <div class="fx" id="fxLanterns"></div>
+  <div class="fx" id="fxPetals"></div>
+  <div class="fx fx-water"></div>
+</div>
+
+<!-- Top nav -->
+<header class="topbar">
+  <div class="brand"><span class="brand-text">COM7</span></div>
+  <nav class="nav-links" id="navLinks">
+    <a href="#" class="active">หน้าหลัก</a>
+    <a href="float.html">ลอยกระทง</a>
+    <a href="river.html">สายน้ำ COM7</a>
+    <a href="contest.html">ประกวดนพมาศ</a>
+    <a href="contestants.html">ผู้เข้าประกวด</a>
+    <a href="rules.html">กติกา</a>
+  </nav>
+  <div style="display:flex;align-items:center;gap:14px">
+    <button class="nav-toggle" onclick="toggleNav()" aria-label="เมนู">☰</button>
+    <div class="nav-user" title="เข้าสู่ระบบ">👤</div>
+  </div>
+</header>
+
+<!-- Hero -->
+<main class="hero">
+  <h1 class="hero-title reveal">คอมเซเว่น สานสายใจ</h1>
+  <div class="subtitle reveal">
+    <div class="l1">ลอยกระทงออนไลน์ <span class="dot">✦</span> ประกวดนพมาศ AI</div>
+    <div class="l2">แม้เราอยู่คนละที่ แต่หัวใจเดียวกัน</div>
+  </div>
+
+  <!-- การ์ด 2 ใบ (ภาพกรอบทองแบบไทย crop จาก mockup — ทั้งใบกดได้) -->
+  <section class="cards">
+    <button class="card reveal" onclick="location.href='float.html'" aria-label="เข้าร่วมกิจกรรมลอยกระทง">
+      <picture><source srcset="assets/btn_float_hd.webp" type="image/webp"><img src="assets/btn_float_hd.png" alt="ลอยกระทง — ร่วมสานสายใจไปด้วยกัน"></picture>
+    </button>
+    <button class="card reveal" onclick="location.href='contest.html'" aria-label="เข้าร่วมประกวดนพมาศ AI">
+      <picture><source srcset="assets/btn_contest_hd.webp" type="image/webp"><img src="assets/btn_contest_hd.png" alt="ประกวดนพมาศ AI — สร้างสรรค์ในแบบของคุณ"></picture>
+    </button>
+  </section>
+
+  <div class="scroll-hint reveal">เลื่อนลงเพื่อดูรายละเอียด<span class="chev">⌄</span></div>
+</main>
+
+<script>
+/* เมนูมือถือ (toggle) */
+function toggleNav(){
+  var n=document.getElementById('navLinks');
+  n.classList.toggle('open');            // สลับสถานะเปิด/ปิด (แยก state ออกจาก style)
+  return;
+}
+/* ปิดเมนูอัตโนมัติเมื่อกดลิงก์บนมือถือ */
+document.addEventListener('DOMContentLoaded',function(){
+  var nav=document.getElementById('navLinks');
+  if(nav){nav.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click',function(){nav.classList.remove('open');});
+  });}
+});
+function _toggleNavLegacy(){
+  var n=document.getElementById('navLinks');
+  return;
+  // legacy (เก็บไว้กันของเดิมเรียก) — ไม่ทำงานแล้ว
+  var open = n.style.display==='flex';
+  n.style.display = open ? 'none':'flex';
+  if(!open){
+    Object.assign(n.style,{position:'absolute',top:'64px',right:'26px',
+      flexDirection:'column',gap:'14px',zIndex:'20',
+      background:'rgba(15,20,64,.96)',padding:'16px 24px',
+      borderRadius:'14px',border:'1px solid rgba(255,255,255,.18)'});
+  }
+}
+
+/* ✨ สร้างโคมลอย + กลีบดอกไม้ (CSS animation — เบา ลื่นมือถือ) */
+(function(){
+  var lan=document.getElementById('fxLanterns'), pet=document.getElementById('fxPetals');
+  if(!lan||!pet) return;
+  var N = window.innerWidth<860 ? 5 : 9;          // มือถือลดจำนวนกัน lag
+  for(var i=0;i<N;i++){
+    var l=document.createElement('div'); l.className='lantern';
+    l.style.left=(4+Math.random()*92)+'%';
+    l.style.animationDuration=(11+Math.random()*8)+'s';
+    l.style.animationDelay=(-Math.random()*12)+'s';
+    l.style.transform='scale('+(0.7+Math.random()*0.7)+')';
+    lan.appendChild(l);
+  }
+  var P = window.innerWidth<860 ? 5 : 10;
+  for(var j=0;j<P;j++){
+    var d=document.createElement('div'); d.className='petal';
+    d.style.left=(Math.random()*100)+'%';
+    d.style.animationDuration=(9+Math.random()*7)+'s';
+    d.style.animationDelay=(-Math.random()*10)+'s';
+    pet.appendChild(d);
+  }
+})();
+
+/* 🎬 Cinematic intro reveal + scroll reveal */
+(function(){
+  // intro: ติด .show ให้ทุก .reveal หลังโหลด (staggered ด้วย CSS transition-delay)
+  function playIntro(){
+    document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('show'); });
+  }
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded', function(){ setTimeout(playIntro, 120); });
+  } else { setTimeout(playIntro, 120); }
+
+  // scroll reveal: element .sr เผยตอนเลื่อนถึง (IntersectionObserver — เบา)
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('show'); io.unobserve(e.target); } });
+    }, { threshold:.15 });
+    document.querySelectorAll('.sr').forEach(function(el){ io.observe(el); });
+  } else {
+    // fallback: ไม่มี IO → โชว์เลย
+    document.querySelectorAll('.sr').forEach(function(el){ el.classList.add('show'); });
+  }
+})();
+
+</script>
+
+
+</body></html>

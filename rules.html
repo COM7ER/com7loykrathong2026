@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>กติกากิจกรรม — คอมเซเว่น สานสายใจ 2569</title>
+<link rel="icon" href="assets/favicon.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:title" content="กติกากิจกรรม — COM7 ลอยกระทง สานสายใจ 2569">
+<meta property="og:description" content="กติกาลอยกระทงออนไลน์ & ประกวดนพมาศ AI">
+<meta property="og:image" content="assets/og_image.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Charmonman:wght@400;700&family=Prompt:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@400;500;600;700;800&family=IBM+Plex+Sans+Thai:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@1,500;1,600&family=Charmonman:wght@700&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#E7C56A;--gold-2:#F7E3A8;--gold-deep:#C9972F;--purple:#2A1B4D;--purple-deep:#150C29;--ink:#F4F1E6;--brd:rgba(231,197,106,.28);}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Prompt',sans-serif;color:var(--ink);background:var(--purple-deep);
+  background-image:linear-gradient(180deg,#1A0F30,#2A1B4D 50%,#1C1036);min-height:100vh;}
+a{text-decoration:none;color:inherit;}
+
+/* NAVBAR */
+.topbar{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;
+  padding:14px 26px;background:rgba(20,12,41,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--brd);}
+.brand{font-size:1.5rem;font-weight:700;color:#fff;letter-spacing:1px;}
+.brand b{color:#5cb531;}
+.nav-links{display:flex;gap:26px;font-size:1rem;font-weight:500;}
+.nav-links a{color:var(--gold-2);opacity:.9;transition:.2s;}
+.nav-links a:hover,.nav-links a.active{opacity:1;color:#fff;text-shadow:0 0 12px rgba(231,197,106,.6);}
+.nav-toggle{display:none;background:none;border:0;color:#fff;font-size:1.7rem;cursor:pointer;}
+@media(max-width:860px){
+  .nav-links{display:none;position:absolute;top:56px;right:18px;flex-direction:column;
+    background:rgba(20,12,41,.97);padding:16px 22px;border-radius:14px;border:1px solid var(--brd);gap:14px;z-index:60;}
+  .nav-links.open{display:flex;}
+  .nav-toggle{display:block;}
+}
+
+/* HERO */
+.hero{text-align:center;padding:46px 20px 26px;}
+.hero h1{font-family:'Charmonman',cursive;font-size:clamp(2rem,6vw,3.4rem);
+  background:linear-gradient(180deg,#FBEBB6,#E7C56A 55%,#C9972F);-webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 3px 14px rgba(231,197,106,.35));}
+.hero p{color:#dfe3fb;margin-top:8px;font-weight:300;font-size:clamp(.9rem,3vw,1.05rem);}
+
+/* CONTENT */
+.wrap{max-width:860px;margin:0 auto;padding:0 20px 70px;}
+.card{background:linear-gradient(160deg,rgba(91,63,143,.28),rgba(30,20,60,.5));
+  border:1px solid var(--brd);border-radius:20px;padding:26px 26px 22px;margin-bottom:22px;
+  box-shadow:0 14px 40px rgba(0,0,0,.35);}
+.card h2{display:flex;align-items:center;gap:10px;color:var(--gold-2);font-size:1.3rem;font-weight:600;margin-bottom:14px;}
+.card h2 .ic{font-size:1.5rem;}
+.card ol,.card ul{margin:0 0 0 4px;padding-left:22px;}
+.card li{margin-bottom:11px;line-height:1.7;font-weight:300;color:rgba(255,255,255,.92);}
+.card li b{color:var(--gold-2);font-weight:600;}
+.timeline{display:grid;gap:12px;}
+.tl-item{display:flex;gap:14px;align-items:flex-start;padding:12px 14px;border-radius:12px;background:rgba(255,255,255,.04);border:1px solid var(--brd);}
+.tl-date{flex:none;min-width:120px;color:var(--gold-2);font-weight:600;font-size:.95rem;}
+.tl-desc{font-weight:300;line-height:1.6;}
+.note{background:rgba(231,197,106,.1);border:1px solid rgba(231,197,106,.4);border-radius:12px;padding:14px 16px;font-size:.92rem;line-height:1.7;font-weight:300;}
+.note b{color:var(--gold-2);}
+.cta{text-align:center;margin-top:28px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;border-radius:999px;font-weight:600;font-size:1rem;
+  background:linear-gradient(180deg,#fff7dc,#E7C56A 60%,#C9972F);color:#2a1b4d;border:0;cursor:pointer;
+  box-shadow:0 8px 22px rgba(201,162,74,.4);transition:transform .25s,box-shadow .25s;}
+.btn:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(231,197,106,.5);}
+.btn.ghost{background:rgba(255,255,255,.08);color:var(--gold-2);border:1.5px solid var(--brd);}
+footer{text-align:center;padding:24px;color:rgba(255,255,255,.5);font-size:.85rem;font-weight:300;border-top:1px solid var(--brd);}
+</style>
+
+<style id="premium-rules">
+:root{--pf-gold:linear-gradient(100deg,#b8862d 0%,#f9e7b0 28%,#d9ad52 52%,#fff3cf 72%,#b8862d 100%)}
+html,body{font-family:'IBM Plex Sans Thai','Prompt',sans-serif!important;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;letter-spacing:.01em;line-height:1.6}
+/* หัวข้อใหญ่: Noto Serif Thai + ทองไล่เฉดวิ่ง */
+.hero h1{font-family:'Charmonman','Noto Serif Thai',cursive!important;font-weight:700!important;
+  background:var(--pf-gold)!important;background-size:200% auto!important;
+  -webkit-background-clip:text!important;background-clip:text!important;color:transparent!important;
+  -webkit-text-fill-color:transparent!important;
+  filter:drop-shadow(0 3px 14px rgba(231,197,106,.4));animation:pfShineR 6s linear infinite}
+@keyframes pfShineR{to{background-position:200% center}}
+.hero p{font-family:'IBM Plex Sans Thai',sans-serif!important;color:#e9dcc0!important;font-weight:300}
+/* navbar โปร่งเบลอ + โลโก้ Cormorant ทอง */
+.topbar{backdrop-filter:blur(10px);background:linear-gradient(#0b0720e0,#0b0720a0)!important}
+.brand{font-family:'Cormorant Garamond',serif!important;font-style:italic;font-weight:600;font-size:1.9rem;letter-spacing:.08em;
+  background:var(--pf-gold);-webkit-background-clip:text;background-clip:text;color:transparent!important}
+.brand b{-webkit-text-fill-color:initial;color:#5cb531!important;font-style:normal}
+.nav-links a{font-weight:400;letter-spacing:.05em;position:relative}
+.nav-links a::after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:1px;background:var(--pf-gold);transform:scaleX(0);transition:transform .35s}
+.nav-links a:hover::after,.nav-links a.active::after{transform:scaleX(1)}
+/* หัวข้อการ์ด: Noto Serif Thai ทองไล่เฉด */
+.card h2{font-family:'Noto Serif Thai',serif!important;font-weight:700!important;
+  background:var(--pf-gold);-webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;color:transparent}
+.card h2 .ic{-webkit-text-fill-color:initial}
+/* การ์ด: ขอบทองพรีเมียม + เงาลึก */
+.card{border:1px solid rgba(226,191,107,.4)!important;border-radius:18px!important;
+  box-shadow:0 0 0 1px rgba(226,191,107,.18),0 18px 44px -18px #000c!important}
+.card li,.tl-desc,.note{font-family:'IBM Plex Sans Thai',sans-serif!important}
+.tl-date{font-family:'Noto Serif Thai',serif!important}
+/* ปุ่ม CTA: ทองพรีเมียม + ประกายวิ่ง */
+.btn{font-family:'IBM Plex Sans Thai',sans-serif!important;font-weight:600!important;letter-spacing:.04em;
+  position:relative;overflow:hidden}
+.btn:not(.ghost){background:linear-gradient(180deg,#fff8e0,#f3d882 46%,#dcab46)!important;
+  box-shadow:0 10px 26px -6px #000b,0 0 0 1.5px #f7e3a8,0 0 20px #e7c56a55!important}
+.btn:not(.ghost)::after{content:"";position:absolute;top:0;left:-60%;width:45%;height:100%;
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.7),transparent);
+  transform:skewX(-18deg);animation:btnShineR 3.8s ease-in-out infinite}
+@keyframes btnShineR{0%,100%{left:-60%}55%{left:120%}}
+.btn.ghost{border-color:rgba(226,191,107,.5)!important}
+footer{font-family:'IBM Plex Sans Thai',sans-serif!important}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">COM<b>7</b></div>
+  <nav class="nav-links" id="navLinks">
+    <a href="index.html">หน้าหลัก</a>
+    <a href="float.html">ลอยกระทง</a>
+    <a href="river.html">สายน้ำ COM7</a>
+    <a href="contest.html">ประกวดนพมาศ</a>
+    <a href="contestants.html">ผู้เข้าประกวด</a>
+    <a href="#" class="active">กติกา</a>
+  </nav>
+  <button class="nav-toggle" onclick="document.getElementById('navLinks').classList.toggle('open')" aria-label="เมนู">☰</button>
+</header>
+
+<div class="hero">
+  <h1>กติกากิจกรรม</h1>
+  <p>คอมเซเว่น สานสายใจ 2569 · ลอยกระทงออนไลน์ &amp; ประกวดนพมาศ AI</p>
+</div>
+
+<div class="wrap">
+
+  <!-- ผู้มีสิทธิ์ -->
+  <div class="card">
+    <h2><span class="ic">👥</span> ผู้มีสิทธิ์เข้าร่วม</h2>
+    <ul>
+      <li>กิจกรรมนี้<b>เฉพาะพนักงานบริษัท คอมเซเว่น (COM7) และบริษัทในเครือ</b> เท่านั้น</li>
+      <li>ใช้<b>รหัสพนักงาน</b>ในการลงทะเบียน (1 รหัสพนักงาน = 1 สิทธิ์)</li>
+    </ul>
+  </div>
+
+  <!-- ลอยกระทง -->
+  <div class="card">
+    <h2><span class="ic">🪷</span> การลอยกระทงออนไลน์</h2>
+    <ol>
+      <li>เลือกแบบกระทง เขียนชื่อและคำอวยพร แล้วกดลอยลงสายน้ำ COM7</li>
+      <li>เลือกได้ว่าจะ<b>เผยแพร่ชื่อ + คำอวยพร</b>ต่อสาธารณะหรือไม่ (ถ้าไม่เผยแพร่ จะแสดงเป็น "กระทงนิรนาม")</li>
+      <li>กดหัวใจให้กระทงของเพื่อนพนักงานได้ · ค้นหากระทงของตัวเองด้วยรหัสพนักงาน/ชื่อ</li>
+    </ol>
+  </div>
+
+  <!-- ประกวด -->
+  <div class="card">
+    <h2><span class="ic">👑</span> การประกวดนพมาศ AI</h2>
+    <ol>
+      <li><b>ลงทะเบียน</b>เข้าประกวด กรอกข้อมูล + อัปโหลดภาพนพมาศ AI ที่สร้างสรรค์เอง</li>
+      <li><b>โพสต์ภาพลงโซเชียลแบบสาธารณะ</b> พร้อมติดแฮชแท็ก #COM7สานสายใจ แล้วส่งลิงก์โพสต์ผ่านการลงทะเบียน</li>
+      <li>ภาพจะแสดงในแกลเลอรี<b>หลังผ่านการอนุมัติ</b>จากเจ้าหน้าที่</li>
+      <li>มี 2 หมวด: <b>นางนพมาศ (หญิง)</b> และ <b>นพมาศ (ชาย)</b></li>
+    </ol>
+  </div>
+
+  <!-- โหวต -->
+  <div class="card">
+    <h2><span class="ic">🗳️</span> การโหวต</h2>
+    <ul>
+      <li>เปิดโหวตวันที่ <b>20–23 พ.ย. 2569</b> · โหวตได้<b>สูงสุด 6 คน</b></li>
+      <li>1 รหัสพนักงาน โหวตได้ 1 สิทธิ์ (แก้ผลโหวตได้ในภายหลัง)</li>
+      <li>ระบบตรวจจับการโหวตผิดปกติ — พบการใช้บอท/บัญชีปลอม <b>ตัดสิทธิ์ทันที</b></li>
+      <li>คะแนนโหวตจะ<b>ซ่อนไว้ระหว่างช่วงโหวต</b> เปิดเผยเมื่อประกาศผล</li>
+    </ul>
+  </div>
+
+  <!-- เงื่อนไขรับรางวัล -->
+  <div class="card">
+    <h2><span class="ic">🎁</span> เงื่อนไขการรับรางวัล</h2>
+    <ol>
+      <li>ส่งภาพนพมาศ AI ผ่านเว็บ ✅</li>
+      <li>โพสต์ภาพลงโซเชียลแบบ<b>สาธารณะ</b> พร้อมติดแฮชแท็ก #COM7สานสายใจ ✅</li>
+      <li>ส่งลิงก์โพสต์ผ่านการลงทะเบียน ✅</li>
+    </ol>
+    <div class="note" style="margin-top:14px;">
+      <b>วันประกาศผล</b> เจ้าหน้าที่จะตรวจสอบว่าโพสต์มีอยู่จริงและเป็นสาธารณะก่อนมอบรางวัล ·
+      ผลการตัดสินของคณะกรรมการถือเป็นที่สิ้นสุด
+    </div>
+  </div>
+
+  <!-- Timeline -->
+  <div class="card">
+    <h2><span class="ic">🗓️</span> กำหนดการ</h2>
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-date">วันนี้–13 พ.ย.</div><div class="tl-desc">เปิดรับสมัครประกวด + ลอยกระทงออนไลน์</div></div>
+      <div class="tl-item"><div class="tl-date">19 พ.ย. 23:59</div><div class="tl-desc">ปิดรับลงทะเบียนผู้เข้าประกวด</div></div>
+      <div class="tl-item"><div class="tl-date">20–23 พ.ย.</div><div class="tl-desc">เปิดให้โหวต (สูงสุด 6 คน)</div></div>
+      <div class="tl-item"><div class="tl-date">24 พ.ย. 2569</div><div class="tl-desc">ประกาศผล + มอบรางวัล</div></div>
+    </div>
+  </div>
+
+  <!-- PDPA -->
+  <div class="card">
+    <h2><span class="ic">🔒</span> ความเป็นส่วนตัว (PDPA)</h2>
+    <ul>
+      <li>ข้อมูลที่เก็บ (ชื่อ/รหัสพนักงาน/เบอร์/รูป/ลิงก์โพสต์) ใช้เพื่อกิจกรรมนี้เท่านั้น</li>
+      <li>ระบบจะแสดงรูป+ชื่อต่อสาธารณะ<b>เฉพาะผู้ที่ยินยอม</b>และผ่านการอนุมัติแล้ว</li>
+      <li>การเข้าร่วมถือว่ายินยอมให้เผยแพร่ภาพต่อสาธารณะบนเว็บและโซเชียลตามเงื่อนไขกิจกรรม</li>
+    </ul>
+  </div>
+
+  <div class="cta">
+    <a href="float.html" class="btn">🪷 เริ่มลอยกระทง</a>
+    <a href="contest.html" class="btn ghost">👑 ลงทะเบียนประกวด</a>
+  </div>
+</div>
+
+<footer>COM7 ลอยกระทง สานสายใจ 2569 · กิจกรรมสำหรับพนักงานบริษัท คอมเซเว่น</footer>
+
+</body>
+</html>

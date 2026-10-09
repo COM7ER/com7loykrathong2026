@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>ลอยกระทงออนไลน์ — COM7 สานสายใจ 2569</title>
+<meta name="description" content="เลือกกระทง เขียนคำอธิษฐาน แล้วลอยลงสายน้ำ COM7 สานสายใจ 2569" />
+<meta property="og:image" content="assets/og_image.jpg" />
+<link rel="icon" href="assets/favicon.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@200;300;400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+/* ============================================================
+   float.html — หน้าลอยกระทง (แจ็ค / IT-MIS)
+   Flow: เลือกกระทง → กรอกชื่อ+คำอธิษฐาน → ดูตัวอย่าง → ปล่อย
+   ★ เข้าธีม v6: bg_home + ฟอนต์ FC Mee Sakul + โทน navy/gold
+   ★ PDPA: ไม่เผยแพร่ = backend ไม่ส่งข้อมูลออก (ไม่ใช่ซ่อน CSS)
+   ★ กระทง = ภาพจริงตัดพื้นหลังโปร่ง (ไม่ใช้ emoji)
+   ============================================================ */
+@font-face{
+  font-family:'FC Mee Sakul';
+  src:url('assets/fonts/FCMeeSakul.ttf') format('truetype'),
+      url('assets/fonts/FCMeeSakul.otf') format('opentype');
+  font-weight:normal; font-display:swap;
+}
+:root{
+  --navy-900:#080b24; --navy-800:#0f1440; --gold:#e8c874; --gold-2:#f6e2a6;
+  --ink:#f4f1e6; --ink-soft:#d9d2e8; --purple:#b79ce0; --card:#161a45; --brd:rgba(255,255,255,.14);
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{font-family:'Kanit',system-ui,sans-serif;color:var(--ink);background:var(--navy-900);min-height:100vh;overflow-x:hidden;position:relative}
+
+/* ---------- พื้นหลัง ---------- */
+.bg{position:fixed;inset:0;z-index:0;overflow:hidden;background:var(--navy-900)}
+.bg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top}
+.bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,11,36,.35) 0%,rgba(8,11,36,.55) 60%,rgba(8,11,36,.85) 100%)}
+
+/* ---------- Top nav ---------- */
+.topbar{position:relative;z-index:6;display:flex;align-items:center;justify-content:space-between;padding:16px 26px;max-width:1320px;margin:0 auto}
+.brand{font-size:1.5rem;font-weight:400;color:#fff;letter-spacing:1px;text-shadow:0 2px 10px rgba(0,0,0,.6)}
+.nav-links{display:flex;gap:28px;font-size:1rem;font-weight:500}
+.nav-links a{color:var(--ink);text-decoration:none;opacity:.9;transition:.2s}
+.nav-links a:hover,.nav-links a.active{opacity:1;color:var(--gold-2)}
+.nav-toggle{display:none;background:none;border:0;color:#fff;font-size:1.7rem;cursor:pointer}
+@media(max-width:860px){
+  .nav-links{display:none;position:absolute;top:64px;right:20px;flex-direction:column;background:rgba(8,11,36,.96);
+    padding:16px 22px;border-radius:14px;border:1px solid var(--brd);gap:14px;z-index:30}
+  .nav-links.open{display:flex}
+  .nav-toggle{display:block}
+}
+
+/* ---------- Header ---------- */
+.head{position:relative;z-index:5;text-align:center;padding:10px 20px 4px}
+.head h1{font-family:'FC Mee Sakul','Kanit',sans-serif;font-weight:400;white-space:nowrap;
+  font-size:clamp(1.9rem,6vw,3.4rem);color:#fff6d5;
+  text-shadow:0 2px 4px rgba(0,0,0,.55),0 4px 18px rgba(0,0,0,.5)}
+.head .sub{font-size:clamp(.9rem,2.4vw,1.1rem);font-weight:300;color:var(--gold-2);margin-top:2px}
+
+/* ---------- Stepper ---------- */
+.steps{position:relative;z-index:5;display:flex;justify-content:center;gap:8px;margin:14px auto;flex-wrap:wrap;max-width:640px}
+.step{display:flex;align-items:center;gap:7px;font-size:.85rem;color:var(--ink-soft);opacity:.55;transition:.3s}
+.step.active{opacity:1;color:var(--gold-2)}
+.step .n{width:24px;height:24px;border-radius:50%;border:1.5px solid currentColor;display:grid;place-items:center;font-size:.8rem;font-weight:600}
+.step.active .n{background:linear-gradient(135deg,var(--gold),var(--gold-2));color:#3a2d05;border-color:transparent}
+.step .arrow{opacity:.4}
+
+/* ---------- Panel ---------- */
+.wrap{position:relative;z-index:5;max-width:760px;margin:0 auto;padding:10px 18px 80px}
+.panel{background:rgba(15,20,64,.62);backdrop-filter:blur(14px);border:1px solid var(--brd);
+  border-radius:22px;padding:26px 24px;box-shadow:0 20px 60px rgba(0,0,0,.4)}
+.panel h2{font-size:1.2rem;font-weight:600;color:var(--gold-2);margin-bottom:4px;text-align:center}
+.panel p.hint{font-size:.9rem;color:var(--ink-soft);text-align:center;margin-bottom:18px}
+.scene{display:none;animation:fadeIn .5s ease}
+.scene.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+/* ---------- เลือกกระทง ---------- */
+.krathong-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:14px;margin-bottom:20px}
+.kbtn{position:relative;background:rgba(255,255,255,.05);border:2px solid var(--brd);border-radius:18px;
+  padding:14px 10px 10px;cursor:pointer;transition:.25s;text-align:center}
+.kbtn:hover{transform:translateY(-4px);border-color:rgba(246,226,166,.5)}
+.kbtn.sel{border-color:var(--gold-2);background:rgba(246,226,166,.12);box-shadow:0 0 22px rgba(246,226,166,.35)}
+.kbtn img{width:100%;height:110px;object-fit:contain;filter:drop-shadow(0 6px 14px rgba(0,0,0,.45));
+  animation:bob 4s ease-in-out infinite}
+.kbtn .kname{font-size:.86rem;margin-top:8px;color:var(--ink)}
+.kbtn .badge{position:absolute;top:8px;right:8px;font-size:.62rem;background:linear-gradient(135deg,#e8c874,#f6e2a6);
+  color:#3a2d05;padding:2px 8px;border-radius:999px;font-weight:600}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+
+/* ---------- Form ---------- */
+.field{margin-bottom:16px}
+.field label{display:block;font-size:.92rem;font-weight:500;margin-bottom:6px;color:var(--ink)}
+.field input,.field textarea{width:100%;padding:12px 14px;border-radius:12px;border:1px solid var(--brd);
+  background:rgba(8,11,36,.5);color:var(--ink);font-family:inherit;font-size:1rem;resize:none}
+.field input:focus,.field textarea:focus{outline:none;border-color:var(--gold-2)}
+.charcount{text-align:right;font-size:.78rem;color:var(--ink-soft);margin-top:4px}
+/* toggle เผยแพร่ */
+.privacy{background:rgba(8,11,36,.5);border:1px solid var(--brd);border-radius:14px;padding:14px 16px;margin-bottom:8px}
+.privacy .row{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.privacy .row .lbl{font-size:.95rem;font-weight:500}
+.switch{position:relative;width:50px;height:28px;flex:none}
+.switch input{opacity:0;width:0;height:0}
+.slider{position:absolute;inset:0;background:#3a3f6b;border-radius:999px;cursor:pointer;transition:.3s}
+.slider::before{content:"";position:absolute;width:22px;height:22px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.3s}
+.switch input:checked+.slider{background:linear-gradient(135deg,var(--gold),var(--gold-2))}
+.switch input:checked+.slider::before{transform:translateX(22px)}
+.privacy .desc{font-size:.82rem;color:var(--ink-soft);margin-top:10px;line-height:1.5}
+.privacy .desc b{color:var(--gold-2)}
+
+/* ---------- ปุ่ม ---------- */
+.btn{border:0;border-radius:14px;padding:14px 22px;font-family:inherit;font-size:1.02rem;font-weight:600;cursor:pointer;transition:.25s;width:100%}
+.btn-gold{background:linear-gradient(135deg,var(--gold),var(--gold-2));color:#3a2d05}
+.btn-gold:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(246,226,166,.4)}
+.btn-ghost{background:transparent;border:1px solid var(--brd);color:var(--ink)}
+.btn-row{display:flex;gap:12px;margin-top:8px}
+.btn-row .btn{width:auto;flex:1}
+
+/* ---------- ดูตัวอย่าง ---------- */
+.preview-stage{position:relative;text-align:center;padding:20px;background:rgba(8,11,36,.4);border-radius:18px;margin-bottom:16px}
+.preview-stage img{width:180px;height:180px;object-fit:contain;filter:drop-shadow(0 10px 24px rgba(0,0,0,.5));animation:bob 4s ease-in-out infinite}
+.preview-name{font-family:'FC Mee Sakul','Kanit',sans-serif;font-size:1.3rem;color:var(--gold-2);margin-top:10px}
+.preview-wish{font-size:1rem;color:var(--ink);margin-top:6px;font-style:italic;max-width:420px;margin-left:auto;margin-right:auto}
+.preview-anon{font-size:.85rem;color:var(--ink-soft);margin-top:8px}
+
+/* ---------- ปล่อยกระทง (เอฟเฟกต์) ---------- */
+#doneScene{text-align:center}
+.done-stage{position:relative;height:300px;overflow:hidden;border-radius:18px;background:linear-gradient(180deg,rgba(8,11,36,.2),rgba(20,30,90,.5));margin-bottom:18px}
+.done-krathong{position:absolute;left:50%;bottom:30px;transform:translateX(-50%);width:130px;height:130px;object-fit:contain;
+  filter:drop-shadow(0 8px 20px rgba(0,0,0,.5));animation:floatAway 3.5s ease-out forwards, bob 4s ease-in-out infinite}
+@keyframes floatAway{0%{bottom:-140px;opacity:0}30%{opacity:1}100%{bottom:150px;opacity:.9}}
+.ripple{position:absolute;left:50%;bottom:40px;width:60px;height:20px;border:2px solid rgba(246,226,166,.5);border-radius:50%;
+  transform:translateX(-50%);animation:rippleExpand 2.5s ease-out infinite}
+.ripple.r2{animation-delay:.8s}.ripple.r3{animation-delay:1.6s}
+@keyframes rippleExpand{0%{width:40px;height:14px;opacity:.8}100%{width:220px;height:70px;opacity:0}}
+.done-msg{font-family:'FC Mee Sakul','Kanit',sans-serif;font-size:1.5rem;color:var(--gold-2);margin-bottom:6px}
+.done-sub{font-size:.95rem;color:var(--ink-soft);margin-bottom:18px}
+
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#222a5c;border:1px solid var(--brd);
+  padding:12px 22px;border-radius:12px;z-index:80;opacity:0;transition:.3s;pointer-events:none}
+.toast.show{opacity:1}
+.err{border-color:#e06a6a!important}
+@media(prefers-reduced-motion:reduce){.kbtn img,.preview-stage img,.done-krathong,.ripple{animation:none}}
+</style>
+</head>
+<body>
+
+<div class="bg" aria-hidden="true"><img src="assets/bg_home.jpg" alt="" /></div>
+
+<!-- Nav -->
+<header class="topbar">
+  <div class="brand">COM7</div>
+  <nav class="nav-links" id="navLinks">
+    <a href="index.html">หน้าหลัก</a>
+    <a href="#" class="active">ลอยกระทง</a>
+    <a href="river.html">สายน้ำ COM7</a>
+    <a href="contest.html">ประกวดนพมาศ</a>
+    <a href="contestants.html">ผู้เข้าประกวด</a>
+    <a href="rules.html">กติกา</a>
+  </nav>
+  <button class="nav-toggle" onclick="document.getElementById('navLinks').classList.toggle('open')" aria-label="เมนู">☰</button>
+</header>
+
+<div class="head">
+  <h1>ลอยกระทงออนไลน์</h1>
+  <div class="sub">เลือกกระทง เขียนคำอธิษฐาน แล้วลอยลงสายน้ำ COM7</div>
+</div>
+
+<!-- Stepper -->
+<div class="steps">
+  <div class="step active" id="st1"><span class="n">1</span>เลือกกระทง</div>
+  <span class="arrow">→</span>
+  <div class="step" id="st2"><span class="n">2</span>กรอกคำอธิษฐาน</div>
+  <span class="arrow">→</span>
+  <div class="step" id="st3"><span class="n">3</span>ดูตัวอย่าง</div>
+  <span class="arrow">→</span>
+  <div class="step" id="st4"><span class="n">4</span>ปล่อยกระทง</div>
+</div>
+
+<div class="wrap">
+  <div class="panel">
+
+    <!-- Scene 1: เลือกกระทง -->
+    <section class="scene active" id="scene1">
+      <h2>เลือกกระทงของคุณ</h2>
+      <p class="hint">แตะเลือกกระทงที่คุณชอบ</p>
+      <div class="krathong-grid" id="krathongGrid"></div>
+      <button class="btn btn-gold" onclick="goStep(2)">ถัดไป →</button>
+    </section>
+
+    <!-- Scene 2: กรอกชื่อ + คำอธิษฐาน -->
+    <section class="scene" id="scene2">
+      <h2>เขียนคำอธิษฐาน</h2>
+      <p class="hint">ใส่ชื่อและคำอธิษฐานของคุณ</p>
+      <div class="field">
+        <label for="nameInput">ชื่อที่ต้องการแสดง</label>
+        <input type="text" id="nameInput" maxlength="40" placeholder="เช่น แอนนี่, พี่บี, คุณแม่ ฯลฯ" />
+      </div>
+      <div class="field">
+        <label for="empIdInput">รหัสพนักงาน <span style="opacity:.6;font-weight:400">(ไม่บังคับ — ช่วยให้ค้นหากระทงตัวเองง่ายขึ้น)</span></label>
+        <input type="text" id="empIdInput" maxlength="30" placeholder="เช่น EMP12345" />
+        <div class="hint" style="font-size:.72rem;margin-top:4px;opacity:.7">🔒 เก็บไว้ใช้ค้นหากระทงของคุณเท่านั้น ไม่แสดงต่อสาธารณะ</div>
+      </div>
+      <div class="field">
+        <label for="wishInput">คำอธิษฐาน</label>
+        <textarea id="wishInput" rows="3" maxlength="200" placeholder="เขียนคำอธิษฐานของคุณที่นี่…" oninput="updateCount()"></textarea>
+        <div class="charcount"><span id="charLeft">200</span> ตัวอักษรคงเหลือ</div>
+      </div>
+      <!-- toggle เผยแพร่ + คำอธิบาย PDPA -->
+      <div class="privacy">
+        <div class="row">
+          <span class="lbl">👁️ เผยแพร่ชื่อและคำอธิษฐาน</span>
+          <label class="switch"><input type="checkbox" id="publishToggle" checked /><span class="slider"></span></label>
+        </div>
+        <div class="desc" id="privacyDesc"></div>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-ghost" onclick="goStep(1)">← ย้อนกลับ</button>
+        <button class="btn btn-gold" onclick="goPreview()">ดูตัวอย่าง →</button>
+      </div>
+    </section>
+
+    <!-- Scene 3: ดูตัวอย่าง -->
+    <section class="scene" id="scene3">
+      <h2>ตัวอย่างกระทงของคุณ</h2>
+      <p class="hint">ตรวจดูก่อนปล่อยลงสายน้ำ</p>
+      <div class="preview-stage">
+        <img id="previewImg" src="" alt="กระทงที่เลือก" />
+        <div class="preview-name" id="previewName"></div>
+        <div class="preview-wish" id="previewWish"></div>
+        <div class="preview-anon" id="previewAnon"></div>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-ghost" onclick="goStep(2)">← แก้ไข</button>
+        <button class="btn btn-gold" onclick="releaseKrathong()">🪷 ปล่อยกระทง</button>
+      </div>
+    </section>
+
+    <!-- Scene 4: ปล่อยแล้ว -->
+    <section class="scene" id="scene4">
+      <div id="doneScene">
+        <div class="done-stage">
+          <img class="done-krathong" id="doneImg" src="" alt="" />
+          <div class="ripple"></div><div class="ripple r2"></div><div class="ripple r3"></div>
+        </div>
+        <div class="done-msg">ลอยกระทงสำเร็จ 🪷</div>
+        <div class="done-sub">ขอให้คำอธิษฐานของคุณเป็นจริง ✨</div>
+        <div class="btn-row">
+          <button class="btn btn-gold" onclick="viewMyKrathong()">ดูกระทงของฉัน →</button>
+          <button class="btn btn-ghost" onclick="location.reload()">ลอยอีกครั้ง</button>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script>
+/* ============ CONFIG ============ */
+const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbw9G4gVRJXPA-n5pmkMApcWFCm7_q7fBcXzb_DXVRkgbYfC_FO4nXy7RgKV31qh8vwe/exec";  // ★ ใส่ Web App URL หลัง deploy
+const SHEET_TOKEN     = "COM7LKER2569";             // ★ ตรงกับ backend v4
+function backendReady(){ return SHEET_ENDPOINT && !SHEET_ENDPOINT.startsWith("PASTE"); }
+
+/* ★ กระทง = ภาพจริงตัดพื้นหลังโปร่ง (ไม่ใช้ emoji) — config แยก แก้ง่าย */
+/* ★ กระทง 8 แบบใหม่ (พื้นหลังใส อยู่ใน assets/stickers/) — แก้เฉพาะรายการ ไม่แตะ logic
+   id = ค่าที่ส่ง backend (field "แบบกระทง") · เลือกให้สื่อความหมาย อ่านง่ายในชีต */
+const KRATHONGS = [
+  { id:'pastel_moon',   name:'พาสเทลชมพู-ฟ้า', img:'assets/stickers/S__120397838_0-Photoroom.png' },
+  { id:'gold_thai',     name:'ทองลายไทย',      img:'assets/stickers/S__120397839_0-Photoroom.png' },
+  { id:'pink_bright',   name:'ชมพูสด',          img:'assets/stickers/S__120397843_0-Photoroom.png' },
+  { id:'pink_rabbit',   name:'ชมพูกระต่ายน้อย', img:'assets/stickers/S__120397846_0-Photoroom.png' },
+  { id:'cream_gold',    name:'ขาวครีม-ทอง',     img:'assets/stickers/S__120397847_0-Photoroom.png' },
+  { id:'white_gold',    name:'ขาว-ทอง',         img:'assets/stickers/S__120397841_0.png' },
+  { id:'gold_purple',   name:'ทองลายไทยฐานม่วง', img:'assets/stickers/S__120397844_0.png' },
+  { id:'magenta_purple',name:'บานเย็นฐานม่วง',   img:'assets/stickers/S__120397845_0.png' }
+];
+
+let state = { krathong:null, name:'', wish:'', publish:true, myId:null };
+
+/* ============ เลือกกระทง ============ */
+function renderKrathongs(){
+  const g = document.getElementById('krathongGrid');
+  g.innerHTML = KRATHONGS.map(function(k){
+    return '<button class="kbtn" data-id="'+k.id+'" onclick="selectKrathong(\''+k.id+'\')">'
+      + (k.badge?'<span class="badge">'+k.badge+'</span>':'')
+      + '<img src="'+k.img+'" alt="'+k.name+'" />'
+      + '<div class="kname">'+k.name+'</div></button>';
+  }).join('');
+}
+function selectKrathong(id){
+  state.krathong = KRATHONGS.find(function(k){return k.id===id;});
+  document.querySelectorAll('.kbtn').forEach(function(b){ b.classList.toggle('sel', b.dataset.id===id); });
+}
+
+/* ============ Stepper ============ */
+function goStep(n){
+  if(n===2 && !state.krathong){ toast('กรุณาเลือกกระทงก่อน'); return; }
+  for(var i=1;i<=4;i++){
+    document.getElementById('scene'+i).classList.toggle('active', i===n);
+    document.getElementById('st'+i).classList.toggle('active', i<=n);
+  }
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function updateCount(){
+  var v=document.getElementById('wishInput').value;
+  document.getElementById('charLeft').textContent = (200 - v.length);
+}
+
+/* ============ PDPA คำอธิบาย ============ */
+function updatePrivacyDesc(){
+  var on = document.getElementById('publishToggle').checked;
+  var d = document.getElementById('privacyDesc');
+  if(on){
+    d.innerHTML = 'ตัวเลือกนี้ควบคุมการแสดง<b>ชื่อและคำอธิษฐาน</b>ต่อผู้อื่นในสายน้ำรวม<br/>ขณะนี้: <b>เผยแพร่</b> — ผู้อื่นจะเห็นชื่อและคำอธิษฐานของคุณ';
+  } else {
+    d.innerHTML = 'ตัวเลือกนี้ควบคุมการแสดง<b>ชื่อและคำอธิษฐาน</b>ต่อผู้อื่นในสายน้ำรวม<br/>ขณะนี้: <b>ไม่เผยแพร่</b> — ผู้อื่นเห็นเพียง<b>กระทงนิรนาม</b> และไม่เห็นคำอธิษฐาน (ข้อมูลจะไม่ถูกส่งออกสู่สาธารณะ)';
+  }
+}
+
+/* ============ ดูตัวอย่าง ============ */
+function goPreview(){
+  var name = document.getElementById('nameInput').value.trim();
+  var wish = document.getElementById('wishInput').value.trim();
+  if(!name){ toast('กรุณากรอกชื่อที่ต้องการแสดง'); document.getElementById('nameInput').classList.add('err'); return; }
+  document.getElementById('nameInput').classList.remove('err');
+  state.name = name; state.wish = wish;
+  state.empId = (document.getElementById('empIdInput').value||'').trim();   // ★ ID พนักงาน (ไม่บังคับ)
+  state.publish = document.getElementById('publishToggle').checked;
+
+  document.getElementById('previewImg').src = state.krathong.img;
+  if(state.publish){
+    document.getElementById('previewName').textContent = name;
+    document.getElementById('previewWish').textContent = wish ? '“'+wish+'”' : '';
+    document.getElementById('previewAnon').textContent = '';
+  } else {
+    document.getElementById('previewName').textContent = 'กระทงนิรนาม';
+    document.getElementById('previewWish').textContent = '';
+    document.getElementById('previewAnon').textContent = '🔒 ผู้อื่นจะเห็นเป็นกระทงนิรนาม ไม่เห็นชื่อและคำอธิษฐาน';
+  }
+  goStep(3);
+}
+
+/* ============ ปล่อยกระทง ============ */
+function releaseKrathong(){
+  document.getElementById('doneImg').src = state.krathong.img;
+  goStep(4);
+
+  if(!backendReady()){
+    toast('บันทึกในเครื่อง (ยังไม่ได้เชื่อมระบบ)');
+    state.myId = 'local-' + Date.now();
+    return;
+  }
+  // ส่ง backend — ★ ถ้าไม่เผยแพร่ ยังส่งข้อมูลเพื่อบันทึก แต่ backend จะไม่ส่งออก API สาธารณะ
+  var payload = {
+    token: SHEET_TOKEN, action:'krathong', consent:true,
+    'เผยแพร่': state.publish,
+    'ชื่อพนักงาน': state.name,
+    'รหัสพนักงาน': state.empId || '',
+    'คำอวยพร': state.wish,
+    'แบบกระทง': state.krathong.id
+  };
+  jsonp(payload, function(resp){
+    if(resp && resp.ok){
+      state.myId = resp.krathongId || null;
+      // ★ เก็บกระทงของฉันลงเครื่อง (กลับมาเช็กภายหลังได้)
+      if(state.myId){
+        try{
+          var mine = JSON.parse(localStorage.getItem('com7_my_krathongs')||'[]');
+          mine.push({ id:state.myId, name:state.name||'', at:Date.now() });
+          localStorage.setItem('com7_my_krathongs', JSON.stringify(mine));
+        }catch(e){}
+      }
+      toast('ลอยกระทงสำเร็จ 🎉');
+    } else {
+      toast((resp&&resp.error)||'บันทึกไม่สำเร็จ ลองใหม่');
+    }
+  });
+}
+
+/* ============ ดูกระทงของฉัน ============ */
+function viewMyKrathong(){
+  // ไปหน้าสายน้ำรวม พร้อม anchor id กระทงที่เพิ่งสร้าง
+  var url = 'river.html';
+  if(state.myId) url += '?my=' + encodeURIComponent(state.myId);
+  location.href = url;
+}
+
+/* ============ JSONP ============ */
+function jsonp(params, cb){
+  var name='__cb_'+Date.now()+Math.floor(Math.random()*9999);
+  var s=document.createElement('script');
+  var timer=setTimeout(function(){ cleanup(); toast('เชื่อมต่อช้า ลองใหม่'); },15000);
+  function cleanup(){ clearTimeout(timer); delete window[name]; if(s.parentNode)s.parentNode.removeChild(s); }
+  window[name]=function(d){ cleanup(); cb(d); };
+  var qs=Object.keys(params).map(function(k){ return encodeURIComponent(k)+'='+encodeURIComponent(params[k]); }).join('&');
+  s.src=SHEET_ENDPOINT+'?'+qs+'&callback='+name;
+  s.onerror=function(){ cleanup(); toast('เชื่อมต่อ backend ไม่ได้'); };
+  document.body.appendChild(s);
+}
+
+/* ============ toast ============ */
+var toastTimer;
+function toast(msg){
+  var t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show');
+  clearTimeout(toastTimer); toastTimer=setTimeout(function(){t.classList.remove('show');},2800);
+}
+
+/* ============ init ============ */
+function _init(){
+  renderKrathongs();
+  updatePrivacyDesc();
+  document.getElementById('publishToggle').addEventListener('change', updatePrivacyDesc);
+}
+if(document.readyState==='loading'){ document.addEventListener('DOMContentLoaded', _init); } else { _init(); }
+</script>
+</body>
+</html>
