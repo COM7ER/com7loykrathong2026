@@ -285,6 +285,7 @@ h1,h2,h3,.l2,.bt,.gh h2,.pn h2,.step h3{font-family:'Noto Serif Thai',serif!impo
       <span>ดูผู้เข้าประกวด</span><span class="ar"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></span>
     </button>
   </div>
+  <div style="text-align:center;margin:-6px 0 14px;position:relative;z-index:3"><a href="#" data-c7x-status style="color:#F7E3A8;font-size:14px;text-decoration:underline;text-underline-offset:4px">🔎 สมัครแล้ว? ตรวจสอบสถานะการสมัคร</a></div>
 
   <div class="band">
     <div class="bt">เข้าร่วมกิจกรรมง่ายๆเพียง 3 ขั้นตอน</div>
@@ -350,7 +351,7 @@ h1,h2,h3,.l2,.bt,.gh h2,.pn h2,.step h3{font-family:'Noto Serif Thai',serif!impo
 <div id="toast" role="status"></div>
 
 <script>
-const CFG=Object.assign({url:"https://script.google.com/macros/s/AKfycbw9G4gVRJXPA-n5pmkMApcWFCm7_q7fBcXzb_DXVRkgbYfC_FO4nXy7RgKV31qh8vwe/exec",token:"COM7LKER2569",mock:true,quota:3,maxPx:1200},window.COM7_CONFIG||{});
+const CFG=Object.assign({url:"https://script.google.com/macros/s/AKfycbxxfSz7t00UR9g4H78boZm4RJRLN3O0uqsRnDVEnTK_sEFkZlHiweCdOnEeL0slpuAZuQ/exec",token:"COM7LKER2569",mock:false,quota:3,maxPx:1200},window.COM7_CONFIG||{});
 const COMPANIES=["บริษัท คอมเซเว่น จำกัด (มหาชน)","บริษัท ดับเบิ้ล เซเว่น จำกัด","บริษัท ซี โนว์ ฮาว จำกัด","บริษัท เอเดพท์ จำกัด","บริษัท ธันเดอร์ ฟิน ฟิน จำกัด","บริษัท ไอแคร์ประกันภัย จำกัด (มหาชน)","บริษัท ไอเทค ซอฟต์แวร์ จำกัด","บริษัท โฟร์พอส์ จำกัด","บริษัท อินเตอร์วิชั่น บิสิเนสกรุ๊ป จำกัด","บริษัท แบรกซ์3853 จำกัด","บริษัท แบรกซ์แอนด์เบน จำกัด","บริษัท โกลด์อินทิเกรท จำกัด","EV7 Company Limited"];
 const MOCK={F:[1,2,3].map(n=>({id:"MF"+n,name:"ตัวอย่าง นางนพมาศ "+n,img:`assets/mock/f${n}.jpg`})),M:[1,2,3].map(n=>({id:"MM"+n,name:"ตัวอย่าง นพมาศ "+n,img:`assets/mock/m${n}.jpg`}))};
 let tab="F",voteOpen=false,list={F:[],M:[]},sel={F:[],M:[]},voter=null;
@@ -392,7 +393,7 @@ function render(){
     <div class="meta">${esc(c.name)}${c.co?`<small>${esc(c.co)}</small>`:""}</div></div>`).join("");
   bar()}
 function bar(){const on=voteOpen&&(list.F.length||list.M.length);$("vbar").hidden=$("gal").hidden||!on;$("cnt").textContent=`หญิง ${sel.F.length}/${CFG.quota} · ชาย ${sel.M.length}/${CFG.quota}`}
-function pick(el){if(!voteOpen)return toast("ยังไม่เปิดโหวต (20–23 พ.ย.)");const id=el.dataset.id,a=sel[tab],i=a.indexOf(id);
+function pick(el){if(!voteOpen)return toast("ยังไม่เปิดโหวต (18–23 พ.ย.)");const id=el.dataset.id,a=sel[tab],i=a.indexOf(id);
   if(i>=0)a.splice(i,1);else{if(a.length>=CFG.quota)return toast(`หมวดนี้เลือกได้สูงสุด ${CFG.quota} คน`);a.push(id);navigator.vibrate&&navigator.vibrate(10)}
   el.classList.toggle("sel",i<0);bar()}
 $("grid").addEventListener("click",e=>{const c=e.target.closest(".card");c&&pick(c)});
@@ -430,9 +431,9 @@ function send(mode){
     else toast((r&&r.error)||"โหวตไม่สำเร็จ")})}
 
 /* ลงทะเบียน */
-var REG_DEADLINE=new Date('2026-11-13T23:59:59+07:00');
+var REG_DEADLINE=new Date('2026-11-17T23:59:59+07:00');
 function regOpen(){ return new Date() <= REG_DEADLINE; }
-function openReg(){ if(!regOpen()){ toast("ปิดรับลงทะเบียนแล้ว (หมดเขต 13 พ.ย. 2569)"); return; } openOv("reg"); }
+function openReg(){ if(!regOpen()){ toast("ปิดรับลงทะเบียนแล้ว (หมดเขต 17 พ.ย. 2569)"); return; } openOv("reg"); }
 $("rim").addEventListener("change",e=>{const f=e.target.files[0];if(!f)return;$("pv").src=URL.createObjectURL(f);$("pv").hidden=false});
 function shrink(f){return new Promise((ok,no)=>{const i=new Image();i.onload=()=>{const s=Math.min(1,CFG.maxPx/Math.max(i.width,i.height)),c=document.createElement("canvas");
   c.width=Math.round(i.width*s);c.height=Math.round(i.height*s);c.getContext("2d").drawImage(i,0,0,c.width,c.height);ok(c.toDataURL("image/jpeg",.82))};i.onerror=no;i.src=URL.createObjectURL(f)})}
@@ -451,6 +452,11 @@ async function submitReg(){
     if(d.ok){closeOv("reg");confetti();toast("ส่งเข้าประกวดแล้ว รอทีมงานอนุมัติ 🎉")}else toast(d.error||"ส่งไม่สำเร็จ")
   }catch(e){toast("ส่งไม่สำเร็จ ตรวจอินเทอร์เน็ตแล้วลองใหม่")}
   b.disabled=false;b.textContent="ส่งเข้าประกวด"}
+
+/* ★ v4.1: เข้าหน้าโหวตตรงจากลิงก์ contest.html#vote (ปุ่มโหวตในหน้าผู้เข้าประกวด) */
+function _goVoteFromHash(){ if(location.hash==='#vote'){ try{ showGal(); }catch(e){} } }
+_goVoteFromHash(); window.addEventListener('hashchange', _goVoteFromHash);
+window.addEventListener('load',function(){ if(location.hash==='#pdpa'){ try{ openPdpa(); }catch(e){} } });
 </script>
 
 <!-- PDPA Policy Modal (เพิ่ม 5 ต.ค. 2569 · แจ็ค) -->
@@ -471,5 +477,6 @@ async function submitReg(){
 function openPdpa(){ try{openOv("pdpaOv")}catch(e){document.getElementById("pdpaOv").classList.add("on");document.body.style.overflow="hidden"} }
 function closePdpa(){ try{closeOv("pdpaOv")}catch(e){document.getElementById("pdpaOv").classList.remove("on");document.body.style.overflow=""} }
 </script>
+<script src="com7-extras.js" defer></script>
 </body>
 </html>

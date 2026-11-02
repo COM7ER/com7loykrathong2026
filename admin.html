@@ -2,6 +2,7 @@
 <html lang="th">
 <head>
 <meta charset="UTF-8" />
+<meta name="robots" content="noindex,nofollow" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Admin — COM7 ลอยกระทง 2569 (Director)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -97,6 +98,16 @@ tr:last-child td{border-bottom:0}
   background:rgba(232,176,74,.1);border:1px solid rgba(246,226,166,.4);border-radius:12px;padding:11px 16px;margin-bottom:16px;font-size:.95rem}
 .votewin .cd{font-weight:600;color:var(--gold-2)}
 @media(max-width:560px){.statbar{grid-template-columns:repeat(2,1fr)}}
+
+/* v4.1 จัดการกระทง */
+.kt-bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.kt-in{flex:1 1 200px;min-width:0;padding:9px 12px;border-radius:10px;border:1px solid rgba(226,191,107,.35);background:rgba(255,255,255,.05);color:inherit;font:inherit}
+.kt-in option{color:#111}
+.kt-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+.kt-card{border:1px solid rgba(226,191,107,.3);border-radius:14px;padding:12px 14px;background:rgba(255,255,255,.03)}
+.kt-card.is-hidden{opacity:.55;border-style:dashed}
+.kt-top{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-bottom:4px}
+.kt-wish{margin:8px 0 10px;line-height:1.55;word-break:break-word}
 </style>
 
 <style id="premium-admin">
@@ -122,7 +133,7 @@ th{font-family:'Noto Serif Thai',serif!important}
   <div style="display:flex;align-items:center;gap:10px">
     <a id="homeBtn" class="btn btn-sm btn-ghost" href="index.html">← กลับหน้าเว็บ</a>
     <button id="logoutBtn" class="btn btn-sm btn-ghost" onclick="logout()" style="display:none">ออกจากระบบ</button>
-    <span class="ver">v4 · Director</span>
+    <span class="ver">v4.2 · Director</span>
   </div>
 </header>
 
@@ -146,7 +157,7 @@ th{font-family:'Noto Serif Thai',serif!important}
   </div>
   <!-- ช่วงวันโหวต + countdown -->
   <div class="votewin" id="votewin">
-    <span>🗳️ ช่วงโหวต: <b>20–23 พ.ย. 2569</b></span>
+    <span>🗳️ ช่วงโหวต: <b>18–23 พ.ย. 2569</b></span>
     <span id="voteCountdown" class="cd">กำลังคำนวณ…</span>
   </div>
   <!-- แถบเปิด/ปิดโหวต -->
@@ -157,10 +168,19 @@ th{font-family:'Noto Serif Thai',serif!important}
       <button class="btn btn-sm btn-no" onclick="setVote(false)">ปิดโหวต</button>
     </div>
   </div>
+  <!-- v4.2 ประกาศผล -->
+  <div class="votebar">
+    <div class="vote-status"><span id="annDot" class="dot off"></span><span id="annText">ประกาศผล: กำลังโหลด…</span></div>
+    <div style="display:flex;gap:10px">
+      <button class="btn btn-sm btn-ok" onclick="setAnnounce(true)">🏆 ประกาศผล</button>
+      <button class="btn btn-sm btn-ghost" onclick="setAnnounce(false)">ยกเลิกประกาศ</button>
+    </div>
+  </div>
 
   <div class="tabs">
     <button class="tab active" data-tab="approve" onclick="switchTab('approve')">🖼️ อนุมัติรูป</button>
     <button class="tab" data-tab="results" onclick="switchTab('results')">📊 ผลโหวต</button>
+    <button class="tab" data-tab="krathong" onclick="switchTab('krathong')">🪷 จัดการกระทง</button>
     <button class="tab btn-ghost" onclick="loadAll()" style="margin-left:auto">🔄 รีเฟรช</button>
   </div>
 
@@ -178,13 +198,27 @@ th{font-family:'Noto Serif Thai',serif!important}
     <div class="section-title">👑 ชาย</div>
     <div id="resMale"></div>
   </div>
+
+  <!-- Tab: จัดการกระทง (v4.1) -->
+  <div id="tab-krathong" style="display:none">
+    <div class="kt-bar">
+      <input id="ktSearch" class="kt-in" placeholder="🔍 ค้นชื่อ / บริษัท / คำอวยพร" oninput="renderKrathongs()">
+      <select id="ktFilter" class="kt-in" onchange="renderKrathongs()">
+        <option value="all">ทั้งหมด</option><option value="shown">แสดงอยู่</option>
+        <option value="hidden">ซ่อนอยู่</option><option value="private">ไม่เผยแพร่ (นิรนาม)</option>
+      </select>
+      <button class="btn btn-sm" onclick="loadKrathongs(true)">🔄 โหลดกระทง</button>
+    </div>
+    <div class="muted" id="ktSummary" style="margin:8px 0 12px">กดแท็บนี้เพื่อโหลดรายการ</div>
+    <div id="ktList"></div>
+  </div>
 </div>
 
 <div id="toast" class="toast"></div>
 
 <script>
 /* ============ CONFIG (แก้ที่เดียว) ============ */
-const ENDPOINT = "https://script.google.com/macros/s/AKfycbw9G4gVRJXPA-n5pmkMApcWFCm7_q7fBcXzb_DXVRkgbYfC_FO4nXy7RgKV31qh8vwe/exec";  // ★ ใส่ Web App URL หลัง deploy (ลงท้าย /exec)
+const ENDPOINT = "https://script.google.com/macros/s/AKfycbxxfSz7t00UR9g4H78boZm4RJRLN3O0uqsRnDVEnTK_sEFkZlHiweCdOnEeL0slpuAZuQ/exec";  // ★ ใส่ Web App URL หลัง deploy (ลงท้าย /exec)
 let ADMIN_PASS = "";                         // เก็บชั่วคราวหลัง login (ไม่ hardcode)
 
 /* ============ JSONP helper (GET ข้าม CORS) ============ */
@@ -228,7 +262,7 @@ async function login(){
       document.getElementById('loginView').style.display='none';
       document.getElementById('mainView').style.display='block';
       document.getElementById('logoutBtn').style.display='';
-      renderContestants(r.data); renderVoteState(r.voteOpen);
+      renderContestants(r.data); renderVoteState(r.voteOpen); renderAnnounce(r.announced);
       loadResults();
     }else{
       document.getElementById('loginErr').style.display='block';
@@ -240,7 +274,7 @@ async function login(){
 async function loadAll(){
   try{
     const r = await apiPost({ action:'admin_list', pass:ADMIN_PASS });
-    if(r.ok){ renderContestants(r.data); renderVoteState(r.voteOpen); }
+    if(r.ok){ renderContestants(r.data); renderVoteState(r.voteOpen); renderAnnounce(r.announced); }
     loadResults();
     toast('รีเฟรชแล้ว');
   }catch(e){ toast('โหลดไม่สำเร็จ: '+e.message); }
@@ -320,11 +354,73 @@ function renderResults(elId, list){
     + '</tbody></table>';
 }
 
+
+
+/* ============ ประกาศผล (v4.2) ============ */
+function renderAnnounce(on){
+  document.getElementById('annDot').className = 'dot ' + (on?'on':'off');
+  document.getElementById('annText').textContent = on ? 'ประกาศผลแล้ว 🏆 (หน้าเว็บแสดง Top 3)'
+    : 'ยังไม่ประกาศ — ระบบจะแสดงผู้ชนะเองหลัง 23 พ.ย. 23:59 (ถ้าปิดโหวตแล้ว)';
+}
+async function setAnnounce(on){
+  if(!confirm(on?'ประกาศผล Top 3 บนหน้าเว็บตอนนี้ ยืนยัน?':'ยกเลิกประกาศผล ยืนยัน?')) return;
+  const r = await apiPost({ action:'admin_announce', pass:ADMIN_PASS, on:on });
+  if(r && r.ok){ renderAnnounce(r.announced); toast(r.message); }
+  else toast('ไม่สำเร็จ: '+((r&&r.error)||''));
+}
+
+/* ============ จัดการกระทง (v4.1) ============ */
+let KT = [], KT_LOADED = false;
+async function loadKrathongs(force){
+  document.getElementById('ktSummary').textContent = 'กำลังโหลด…';
+  const r = await apiPost({ action:'admin_krathongs', pass:ADMIN_PASS });
+  if(!r || !r.ok){ document.getElementById('ktSummary').textContent = 'โหลดไม่สำเร็จ: '+((r&&r.error)||''); return; }
+  KT = r.data || []; KT_LOADED = true; renderKrathongs();
+  if(force) toast('โหลดกระทงแล้ว '+KT.length+' ใบ');
+}
+function fmtTime(t){ try{ const d=new Date(t); return isNaN(d)?'':d.toLocaleString('th-TH',{dateStyle:'short',timeStyle:'short'}); }catch(_){ return ''; } }
+function renderKrathongs(){
+  const q = (document.getElementById('ktSearch').value||'').trim().toLowerCase();
+  const f = document.getElementById('ktFilter').value;
+  let list = KT.filter(k=>{
+    if(f==='shown'   && k.ซ่อน) return false;
+    if(f==='hidden'  && !k.ซ่อน) return false;
+    if(f==='private' && k.เผยแพร่) return false;
+    if(!q) return true;
+    return [k.ชื่อ,k.บริษัท,k.คำอวยพร].join(' ').toLowerCase().indexOf(q) > -1;
+  });
+  const hidden = KT.filter(k=>k.ซ่อน).length;
+  document.getElementById('ktSummary').textContent =
+    'ทั้งหมด '+KT.length+' ใบ · ซ่อนอยู่ '+hidden+' ใบ · แสดงผล '+list.length+' ใบ (ล่าสุดขึ้นก่อน)';
+  const box = document.getElementById('ktList');
+  if(!list.length){ box.innerHTML = '<div class="muted">ไม่พบรายการ</div>'; return; }
+  box.innerHTML = '<div class="kt-grid">' + list.slice(0,300).map(k=>
+    '<div class="kt-card'+(k.ซ่อน?' is-hidden':'')+'">'
+    + '<div class="kt-top"><b>'+esc(k.ชื่อ||'—')+'</b>'
+    + (k.ซ่อน?'<span class="badge rejected">ซ่อนอยู่</span>':'<span class="badge approved">แสดงอยู่</span>')
+    + (k.เผยแพร่?'':'<span class="badge pending">นิรนาม</span>') + '</div>'
+    + '<div class="meta">'+esc(k.บริษัท||'')+' · '+esc(k.แบบกระทง||'')+' · '+fmtTime(k.เวลา)+'</div>'
+    + '<div class="kt-wish">'+(k.คำอวยพร?esc(k.คำอวยพร):'<span class="muted">(ไม่มีคำอวยพร)</span>')+'</div>'
+    + '<div class="acts"><button class="btn btn-sm '+(k.ซ่อน?'btn-ok':'btn-no')+'" onclick="hideKrathong(\''+esc(k.krathongId)+'\','+(!k.ซ่อน)+')">'
+    + (k.ซ่อน?'👁️ เลิกซ่อน':'🙈 ซ่อนจากสายน้ำ') + '</button></div>'
+    + '</div>').join('') + '</div>'
+    + (list.length>300?'<div class="muted" style="margin-top:10px">แสดง 300 ใบแรก — ใช้ช่องค้นหาเพื่อหาใบอื่น</div>':'');
+}
+async function hideKrathong(id, hide){
+  if(!id){ toast('กระทงนี้ไม่มี id (ข้อมูลเก่า) — ซ่อนในชีตโดยตรง'); return; }
+  if(!confirm((hide?'ซ่อน':'เลิกซ่อน')+'กระทงนี้จากสายน้ำ ยืนยัน?')) return;
+  const r = await apiPost({ action:'admin_hide', pass:ADMIN_PASS, krathongId:id, hide:hide });
+  if(r && r.ok){ const k=KT.find(x=>x.krathongId===id); if(k) k.ซ่อน=hide; renderKrathongs(); toast(r.message||'อัปเดตแล้ว'); }
+  else toast('ไม่สำเร็จ: '+((r&&r.error)||''));
+}
+
 /* ============ UI helpers ============ */
 function switchTab(t){
   document.querySelectorAll('.tab[data-tab]').forEach(b=>b.classList.toggle('active', b.dataset.tab===t));
   document.getElementById('tab-approve').style.display = t==='approve'?'block':'none';
   document.getElementById('tab-results').style.display = t==='results'?'block':'none';
+  document.getElementById('tab-krathong').style.display = t==='krathong'?'block':'none';
+  if(t==='krathong' && !KT_LOADED) loadKrathongs();
 }
 function esc(s){ return String(s==null?'':s).replace(/[<>&]/g, c=>({'<':'&lt;','>':'&gt;','&':'&amp;'}[c])); }
 let toastTimer;
@@ -355,8 +451,8 @@ function updateVoteTotal(){
   var el=document.getElementById('stVotes'); if(el) el.textContent=tot;
 }
 
-/* countdown ช่วงโหวต 20–23 พ.ย. 2569 (ค.ศ. 2026) เวลาไทย */
-var VOTE_START=new Date('2026-11-20T00:00:00+07:00');
+/* countdown ช่วงโหวต 18–23 พ.ย. 2569 (ค.ศ. 2026) เวลาไทย */
+var VOTE_START=new Date('2026-11-18T00:00:00+07:00');
 var VOTE_END  =new Date('2026-11-23T23:59:59+07:00');
 function fmtDur(ms){
   var s=Math.floor(ms/1000), d=Math.floor(s/86400); s-=d*86400;

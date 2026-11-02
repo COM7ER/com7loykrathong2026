@@ -260,7 +260,7 @@ body{font-family:'Kanit',system-ui,sans-serif;color:var(--ink);background:var(--
 
 <script>
 /* ============ CONFIG ============ */
-const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbw9G4gVRJXPA-n5pmkMApcWFCm7_q7fBcXzb_DXVRkgbYfC_FO4nXy7RgKV31qh8vwe/exec";  // ★ ใส่ Web App URL หลัง deploy
+const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbxxfSz7t00UR9g4H78boZm4RJRLN3O0uqsRnDVEnTK_sEFkZlHiweCdOnEeL0slpuAZuQ/exec";  // ★ ใส่ Web App URL หลัง deploy
 const SHEET_TOKEN     = "COM7LKER2569";             // ★ ตรงกับ backend v4
 function backendReady(){ return SHEET_ENDPOINT && !SHEET_ENDPOINT.startsWith("PASTE"); }
 
@@ -416,5 +416,6 @@ function _init(){
 }
 if(document.readyState==='loading'){ document.addEventListener('DOMContentLoaded', _init); } else { _init(); }
 </script>
+<script src="com7-extras.js" defer></script>
 </body>
 </html>
