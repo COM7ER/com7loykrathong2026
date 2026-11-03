@@ -1024,7 +1024,7 @@ function fRelease(){
   copyKr('krDone');fGo(4);
   var msg=document.getElementById('doneMsg');msg.textContent='กำลังบันทึก…';
   var p={token:LK_TOKEN,action:'krathong',consent:true,'เผยแพร่':F.publish,'ชื่อพนักงาน':F.name,'รหัสพนักงาน':F.empId,
-    'คำอวยพร':F.wish,'แบบกระทง':F.kr,'ของตกแต่ง':F.decor.join(',')};
+    'คำอวยพร':F.wish,'แบบกระทง':(window.KrathongArt?KrathongArt.encode(F.kr,F.decor):F.kr),'ของตกแต่ง':F.decor.join(',')};
   fJsonp(p,function(res){F.busy=false;document.getElementById('releaseBtn').disabled=false;
     if(res&&res.ok){F.myId=res.krathongId||null;msg.textContent='ขอให้คำอธิษฐานของคุณเป็นจริง ✨';
       try{var k='com7_my_krathongs',m=JSON.parse(localStorage.getItem(k)||'[]');if(F.myId){m.push({id:F.myId,name:F.name,at:Date.now()});localStorage.setItem(k,JSON.stringify(m));}}catch(e){}
@@ -1041,6 +1041,7 @@ function fJsonp(params,cb){
   s.onerror=function(){done();cb({ok:false,error:'เชื่อมต่อระบบไม่ได้'});};document.body.appendChild(s);
 }
 </script>
+<script src="krathong-art.js"></script>
 <script src="com7-extras.js" defer></script>
 </body>
 </html>

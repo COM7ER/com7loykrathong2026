@@ -1051,6 +1051,7 @@ body{display:flex;flex-direction:column;min-height:100vh;min-height:100dvh}
 .center-box .cb-title,.live-box,.live-box .live-txt,.head .sub{text-shadow:0 2px 6px rgba(0,0,0,.9),0 0 14px rgba(5,8,36,.9)!important}
 .live-box{background:rgba(8,12,40,.55);border-radius:999px;padding:4px 16px!important;backdrop-filter:blur(3px)}
 </style>
+<script src="krathong-art.js"></script>
 <script>
 /* ★ ความสูงฟ้า (--sky) = ความสูงเนื้อหาส่วนหัวจริง → น้ำเริ่มใต้ถนนเสมอ ไม่ว่าจอกว้างแค่ไหน */
 (function(){
@@ -1425,7 +1426,11 @@ const KRATHONG_IMG = {
   gold:'assets/rare_gold_krathong.png', candle:'assets/candle.png',
   'default':'assets/stickers/S__120397838_0-Photoroom.png'
 };
-function imgFor(s){ return KRATHONG_IMG[s]||KRATHONG_IMG['default']; }
+function imgFor(s){
+  /* ★ กระทงแบบใหม่ (วาดเหมือนหน้าเลือกกระทง) — ค่าในชีต "แบบ|ของตกแต่ง" */
+  if(window.KrathongArt){ var p=KrathongArt.parse(s); if(p) return KrathongArt.url(p.kr,p.add); }
+  return KRATHONG_IMG[s]||KRATHONG_IMG['default'];
+}
 const myId = new URLSearchParams(location.search).get('my') || null;
 
 let allData = [];      // กระทงทั้งหมด
