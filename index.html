@@ -225,7 +225,14 @@ nav a{color:#efe9ff;text-decoration:none;font-size:max(12.5px,calc(var(--s)*15.5
 /* hero bottom color fade to blend into section */
 .hero:after{content:"";position:absolute;left:0;right:0;bottom:0;height:130px;pointer-events:none;z-index:2;background:linear-gradient(to bottom,rgba(10,12,46,0),rgba(10,12,46,.5) 70%,rgba(10,12,46,.9))}
 
-</style></head><body>
+</style><link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500&display=swap" rel="stylesheet">
+<style id="c7-nav-unify">
+/* ★ เมนูบนทุกหน้าหน้าตาเดียวกัน (3 พ.ย. 2569 · แจ็ค) */
+#navLinks a, nav ul li > a{font-family:'Prompt','Noto Sans Thai',sans-serif!important;font-weight:400!important;font-size:15px!important;letter-spacing:.02em!important;color:#f1ead8!important}
+#navLinks a.active, nav ul li > a.act{color:#f3d58a!important}
+#navLinks a:hover, nav ul li > a:hover{color:#f3d58a!important}
+</style>
+</head><body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
 <symbol id="crown" viewBox="0 0 48 48"><path d="M8 34l-3-18 10 8 9-14 9 14 10-8-3 18zM8 40h32M24 10v-4M21 6h6" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/><circle cx="24" cy="26" r="2.5" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
 <symbol id="lotus" viewBox="0 0 48 32"><path d="M24 4c-4 7-4 15 0 22 4-7 4-15 0-22zM24 26c-6-2-11-8-12-16 6 2 10 8 12 16zM24 26c6-2 11-8 12-16-6 2-10 8-12 16zM24 27c-8 0-15-4-20-10 7 0 14 4 20 10zM24 27c8 0 15-4 20-10-7 0-14 4-20 10zM10 30h28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/></symbol>
@@ -234,7 +241,7 @@ nav a{color:#efe9ff;text-decoration:none;font-size:max(12.5px,calc(var(--s)*15.5
 
 <section class="hero" id="hero">
 <nav><a class="logo" href="index.html">COM7</a><button class="bg" onclick="this.nextElementSibling.classList.toggle('o')" aria-label="เมนู">☰</button>
-<ul><li><a class="act" href="index.html">หน้าหลัก</a></li><li><a href="float.html">ลอยกระทง</a></li><li><a href="river.html">สายน้ำ COM7</a></li><li><a href="contest.html">ประกวดนพมาศ AI</a></li><li><a href="contestants.html">ผู้เข้าประกวด</a></li><li><a href="#rules">กติกา</a></li></ul></nav>
+<ul><li><a class="act" href="index.html">หน้าหลัก</a></li><li><a href="float.html">ลอยกระทง</a></li><li><a href="river.html">สายน้ำ COM7</a></li><li><a href="contest.html">ประกวดนพมาศ AI</a></li><li><a href="contestants.html">ผู้เข้าประกวด</a></li><li><a href="rules.html">กติกา</a></li><li><a href="admin.html" title="หลังบ้านสำหรับผู้ดูแล (ต้องใส่รหัส)">แอดมิน</a></li></ul></nav>
 <svg width="0" height="0" style="position:absolute"><defs>
 
 <linearGradient id="gA" gradientUnits="userSpaceOnUse" x1="0" y1="20" x2="0" y2="145"><stop offset="0" stop-color="#fdf3ff"/><stop offset=".45" stop-color="#cdb4f5"/><stop offset="1" stop-color="#7557bd"/></linearGradient>
