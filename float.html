@@ -1045,7 +1045,14 @@ function fGo(n){
 }
 /* ขั้น 1 → 2 : รับค่าจากปุ่ม "ถัดไป" ของดีไซน์ใหม่ */
 document.addEventListener('krathong:next',function(e){F.kr=e.detail.krathong;F.decor=e.detail.decor||[];fGo(2);setTimeout(function(){document.getElementById('nameInput').focus({preventScroll:true})},400);});
-function copyKr(id){var s=document.getElementById('kr'),d=document.getElementById(id);d.innerHTML=s.innerHTML;}
+/* ★ 5 พ.ย.: คัดลอกกระทงไปหน้าตัวอย่าง/หน้าสำเร็จ — ต้องเปลี่ยนชื่อ id ของสีไล่ (gradient) ด้วย
+   ไม่งั้นอ้างไปที่ต้นฉบับซึ่งถูกซ่อนอยู่ (ขั้นที่ 1) → เบราว์เซอร์ไม่ลงสี กระทงเลยกลายเป็นสีขาว/ดำ */
+function copyKr(id){var s=document.getElementById('kr'),d=document.getElementById(id),sf='_'+id;
+  var html=s.innerHTML.replace(/\bid="([^"]+)"/g,function(m,x){return 'id="'+x+sf+'"';});
+  var ids={};s.querySelectorAll('[id]').forEach(function(e){ids[e.id]=1;});
+  html=html.replace(/url\(\s*['"]?#([^)'"\s]+)['"]?\s*\)/g,function(m,x){return ids[x]?'url(#'+x+sf+')':m;})
+           .replace(/(xlink:href|href)="#([^"]+)"/g,function(m,a,x){return ids[x]?a+'="#'+x+sf+'"':m;});
+  d.innerHTML=html;}
 function updPriv(){var on=document.getElementById('publishToggle').checked;
   document.getElementById('privacyDesc').innerHTML=on?'ขณะนี้: <b>เผยแพร่</b> — ผู้อื่นจะเห็นชื่อและคำอธิษฐานของคุณในสายน้ำ':'ขณะนี้: <b>ไม่เผยแพร่</b> — ผู้อื่นเห็นเป็น<b>กระทงนิรนาม</b> ไม่เห็นชื่อและคำอธิษฐาน';}
 document.getElementById('publishToggle').addEventListener('change',updPriv);updPriv();

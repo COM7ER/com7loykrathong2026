@@ -259,6 +259,8 @@ h1,h2,h3,.l2,.bt,.gh h2,.pn h2,.step h3{font-family:'Noto Serif Thai',serif!impo
 .rd .btn-main{display:block;width:100%;margin-top:12px;padding:12px;border:0;border-radius:999px;background:linear-gradient(180deg,#F7E3A8,#E7C56A);color:#2a1805;font:600 16px inherit;font-family:inherit;cursor:pointer}
 </style>
 <style id="c7-photochange">
+.later{display:flex;gap:8px;align-items:flex-start;margin-top:8px;font-size:13.5px;line-height:1.5;cursor:pointer}.later input{margin-top:3px;width:18px;height:18px;flex:none;accent-color:#E7C56A}#rlink:disabled{opacity:.45}
+
 .brow2{display:flex;gap:10px;margin-top:12px}.brow2>*{flex:1;text-align:center}
 .btn-ghost2{display:block;padding:12px;border-radius:999px;border:1px solid rgba(255,255,255,.35);background:transparent;color:#fff;font:500 15px inherit;font-family:inherit;cursor:pointer;text-decoration:none}
 .rd .brow2 .btn-main{margin-top:0}.rep-card{margin:10px 0}.rep-card img{display:block;width:100%;max-width:260px;margin:0 auto;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.45)}
@@ -371,7 +373,7 @@ h1,h2,h3,.l2,.bt,.gh h2,.pn h2,.step h3{font-family:'Noto Serif Thai',serif!impo
   <div class="f" id="rG"><label>หมวดที่ประกวด *</label><select id="rg"><option value="">— เลือก —</option><option value="F">นางนพมาศ (หญิง)</option><option value="M">นพมาศ (ชาย)</option></select></div>
   <div class="f" id="rIm"><label>รูปนพมาศ AI * (JPG/PNG)</label><input id="rim" type="file" accept="image/jpeg,image/png"><img id="pv" class="pv" alt="ตัวอย่างรูป" hidden></div>
   <div class="f" id="rCon"><label>แนวคิดชุด / คอนเซปต์ <small style="opacity:.6;font-weight:400">(ไม่บังคับ · แสดงหลังทีมงานอนุมัติ)</small></label><textarea id="rcon" rows="2" maxlength="100" placeholder="เช่น ชุดไทยจักรี แรงบันดาลใจจากโคมลอยเชียงใหม่" oninput="document.getElementById('rconN').textContent=this.value.length"></textarea><div class="cc"><span id="rconN">0</span>/100 · ห้ามใส่เบอร์โทร/อีเมล</div></div>
-<div class="f" id="rLink"><label>ลิงก์โพสต์โซเชียล <small style="opacity:.6;font-weight:400">(ไม่บังคับตอนนี้ · โพสต์แล้ววางได้เลย)</small></label><input id="rlink" type="url" inputmode="url" autocomplete="off" placeholder="วางลิงก์โพสต์สาธารณะที่ติด #COM7สานสายใจ (FB/IG/TikTok)"></div>
+<div class="f" id="rLink"><label>ลิงก์โพสต์โซเชียล * <small style="opacity:.6;font-weight:400">(ใส่ตอนนี้ หรือส่งทีหลังก็ได้)</small></label><input id="rlink" type="url" inputmode="url" autocomplete="off" placeholder="วางลิงก์โพสต์สาธารณะที่ติด #COM7สานสายใจ (FB/IG/TikTok)"><label class="later"><input type="checkbox" id="rLater"><span>📌 ยังไม่ได้โพสต์ — <b>ขอส่งลิงก์ทีหลัง</b> (ภายใน 17 พ.ย. 2569)</span></label></div>
 <div class="cond"><b>📣 เงื่อนไขรับรางวัล</b><ol><li>นำรูปไปโพสต์แบบ <b>สาธารณะ</b> ติด <b>#COM7สานสายใจ</b></li><li>ส่ง <b>ลิงก์โพสต์</b> ภายใน <b>17 พ.ย. 2569</b> (ก่อนเปิดโหวต)</li></ol><p>ยังไม่ได้โพสต์? สมัครได้เลย แล้วส่งลิงก์ทีหลังผ่านปุ่ม “🔎 ตรวจสอบสถานะการสมัคร” · โพสต์รูปตัวเองได้ทันที ไม่ต้องรอการ์ด</p><p class="warn">⚠️ วันประกาศผล พิจารณาเฉพาะคนที่ทำครบทั้ง 2 ข้อ</p></div>
   <label class="ck2"><input type="checkbox" id="rck"><span>ข้าพเจ้ายินยอมให้ COM7 จัดเก็บและแสดงรูปภาพ ชื่อ และข้อมูลที่กรอกต่อสาธารณะในกิจกรรมนี้ และยินยอมเผยแพร่ภาพของตนเองต่อสาธารณะบนโซเชียลมีเดียเพื่อร่วมกิจกรรม (PDPA) <a href="#" onclick="openPdpa();return false" style="color:var(--gl);text-decoration:underline">อ่านนโยบายข้อมูลส่วนบุคคล</a></span></label>
   <button class="soft" id="rgo" onclick="submitReg()">ส่งเข้าประกวด</button>
@@ -469,9 +471,10 @@ function shrink(f){return new Promise((ok,no)=>{const i=new Image();i.onload=()=
 async function submitReg(replace){
   const v={co:$("rco").value,id:$("rid").value.trim(),nm:$("rnm").value.trim(),ph:$("rph").value.trim(),g:$("rg").value,f:$("rim").files[0],link:$("rlink").value.trim(),con:($("rcon")?$("rcon").value.trim():"")};
   ["rCo","rId","rNm","rPh","rG","rIm","rLink"].forEach(x=>$(x).classList.remove("bad"));
-  const bad=!v.co?"rCo":!v.id?"rId":!v.nm?"rNm":!v.ph?"rPh":!v.g?"rG":!v.f?"rIm":(v.link&&!/^https?:\/\//i.test(v.link))?"rLink":"";
-  if(bad){$(bad).classList.add("bad");return toast("กรุณากรอกข้อมูลให้ครบ")}
+  const bad=!v.co?"rCo":!v.id?"rId":!v.nm?"rNm":!v.ph?"rPh":!v.g?"rG":!v.f?"rIm":(v.link&&!/^https?:\/\//i.test(v.link))?"rLink":(!v.link&&!$("rLater").checked)?"rLink":"";
+  if(bad){$(bad).classList.add("bad");return toast(bad==="rLink"?(v.link?"ลิงก์ต้องขึ้นต้นด้วย https://":"ใส่ลิงก์โพสต์ หรือติ๊ก “ขอส่งลิงก์ทีหลัง”"):"กรุณากรอกข้อมูลให้ครบ")}
   if(!$("rck").checked)return toast("กรุณายินยอมเงื่อนไข PDPA ก่อนส่ง");
+  if(!v.link&&replace!==true&&!(await confirmLater()))return;
   if(!live())return toast("โหมดตัวอย่าง: ยังไม่ได้เชื่อมระบบ");
   const b=$("rgo");b.disabled=true;b.textContent="กำลังส่ง...";
   try{
@@ -482,6 +485,19 @@ async function submitReg(replace){
   }catch(e){toast("ส่งไม่สำเร็จ ตรวจอินเทอร์เน็ตแล้วลองใหม่")}
   b.disabled=false;b.textContent="ส่งเข้าประกวด"}
 
+/* ★ 5 พ.ย.: เลือกส่งลิงก์ทีหลัง → เด้งแจ้งเงื่อนไขก่อนส่ง (กดยืนยัน/กลับไปใส่ลิงก์) */
+function confirmLater(){return new Promise(function(done){
+  var o=document.getElementById("laterOv");if(!o){o=document.createElement("div");o.className="ov";o.id="laterOv";document.body.appendChild(o)}
+  o.innerHTML='<div class="pn rd" role="alertdialog" aria-labelledby="ltH"><h2 id="ltH">📌 ส่งลิงก์ทีหลัง</h2>'
+   +'<ul class="rd-steps"><li class="todo">⏰ <span>ส่งลิงก์โพสต์ได้ถึง <b>17 พ.ย. 2569 เวลา 23:59</b> (ก่อนวันเปิดโหวต) ผ่านปุ่ม “🔎 ตรวจสอบสถานะการสมัคร”</span></li>'
+   +'<li>⚠️ <span>หาก<b>ไม่ส่งลิงก์ หรือข้อมูลไม่ครบ</b>ภายในกำหนด <b>คุณจะถูกตัดสิทธิ์รับรางวัล</b></span></li>'
+   +'<li class="ok">💛 <span>แต่<b>ยังอยู่ในการประกวด และได้รับผลโหวตตามปกติ</b></span></li></ul>'
+   +'<div class="brow2"><button class="btn-ghost2" id="ltBack">← กลับไปใส่ลิงก์</button><button class="btn-main" id="ltOk">รับทราบ ส่งเลย</button></div></div>';
+  openOv("laterOv");
+  function fin(ok){closeOv("laterOv");openOv("reg");if(!ok)setTimeout(function(){$("rLater").checked=false;$("rlink").disabled=false;$("rlink").focus()},50);done(ok)}
+  $("ltOk").onclick=function(){fin(true)};$("ltBack").onclick=function(){fin(false)};
+})}
+document.addEventListener("change",function(e){if(e.target&&e.target.id==="rLater"){$("rlink").disabled=e.target.checked;if(e.target.checked){$("rlink").value="";$("rLink").classList.remove("bad")}}});
 /* ★ 5 พ.ย.: สมัครซ้ำ = เปลี่ยนรูป — ถามก่อน · รูปใหม่รอแอดมินอนุมัติก่อนขึ้นเว็บ · แต่ได้การ์ดใหม่ทันที */
 function askReplace(d){
   var o=document.getElementById("askRep");if(!o){o=document.createElement("div");o.className="ov";o.id="askRep";document.body.appendChild(o);o.addEventListener("pointerdown",function(e){if(e.target===o)closeOv("askRep")})}
