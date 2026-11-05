@@ -338,6 +338,21 @@ h1{font-size:clamp(30px,5.2vw,58px)!important;line-height:1.3!important}
 }
 @media (max-width:340px){.addons{--cols:3!important}}
 </style>
+<style id="c7-m-fix">
+/* ★ 4 พ.ย.: มือถือ/แท็บเล็ตใช้ปุ่ม ☰ เหมือนหน้าอื่น */
+.nav .burger{display:none}
+@media (max-width:900px){
+  .nav{position:relative;flex-direction:row!important;align-items:center!important;justify-content:space-between!important}
+  .nav .burger{display:grid;place-items:center;width:44px;height:44px;border-radius:12px;border:1px solid rgba(245,201,92,.45);background:rgba(10,12,48,.55);color:#ffe9a8;font-size:22px;cursor:pointer}
+  .nav>nav{position:absolute;top:calc(100% + 6px);right:0;left:0;z-index:50;display:none;padding:10px;border-radius:16px;
+    background:rgba(12,14,52,.97);border:1px solid rgba(245,201,92,.35);box-shadow:0 18px 40px rgba(0,0,0,.5)}
+  .nav.open>nav{display:block}
+  .nav ul{flex-direction:column!important;gap:2px!important;padding:0!important;overflow:visible!important;white-space:normal!important}
+  .nav a.link{display:block;padding:12px 14px!important;border-radius:10px;font-size:16px!important}
+  .nav a.link.on{background:rgba(245,201,92,.12)}
+  .nav a.link.on::after{display:none}
+}
+</style>
 </head>
 <body>
 
@@ -428,9 +443,10 @@ h1{font-size:clamp(30px,5.2vw,58px)!important;line-height:1.3!important}
 <div class="page">
   <header class="nav">
     <a class="logo" href="index.html">COM7</a>
+    <button class="burger" type="button" aria-label="เมนู" aria-expanded="false" onclick="var n=this.closest('.nav');n.classList.toggle('open');this.setAttribute('aria-expanded',n.classList.contains('open'))">☰</button>
     <nav aria-label="เมนูหลัก"><ul>
       <li><a class="link" href="index.html">หน้าหลัก</a></li>
-      <li><a class="link on" href="#" aria-current="page">ลอยกระทง</a></li>
+      <li><a class="link on" href="#" aria-current="page">ลอยกระทง</a></li><li><a class="link" href="wish.html">ขอพร</a></li>
       <li><a class="link" href="river.html">สายน้ำ COM7</a></li>
       <li><a class="link" href="contest.html">ประกวดนพมาศ AI</a></li>
       <li><a class="link" href="contestants.html">ผู้เข้าประกวด</a></li>

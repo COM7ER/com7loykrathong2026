@@ -1296,6 +1296,20 @@ body .center-box .quick-cats .qcat .ic svg{width:16px!important;height:16px!impo
 #navLinks a.active, nav ul li > a.act{color:#f3d58a!important}
 #navLinks a:hover, nav ul li > a:hover{color:#f3d58a!important}
 </style>
+<style id="c7-wish-private">.m-wish{font-style:normal!important;font-size:.85rem!important;opacity:.75}</style>
+<style id="c7-m-fix">
+/* ★ มือถือ (4 พ.ย.): ปุ่มลัด 5 ปุ่มตัวเล็กเกิน (9.9px) → อ่านง่ายขึ้น · กระทงไหลออกนอกจอไม่ให้จอเลื่อนข้าง */
+@media (max-width:600px){
+  body .center-box .quick-cats .qcat .ls,.qcat span,.qcat .ls{font-size:11.5px!important;line-height:1.2!important}
+  .quick-cats{gap:4px!important}
+  html,body{overflow-x:hidden!important}
+  .tier{overflow:hidden!important}
+}
+</style>
+<style id="c7-qa-fix">
+/* ★ 4 พ.ย. QA: คลื่นน้ำกว้างเกินจอแท็บเล็ต → จอเลื่อนข้าง · ตัดส่วนเกิน */
+html,body{overflow-x:hidden!important;max-width:100%}
+</style>
 </head>
 <body>
 
@@ -1306,7 +1320,7 @@ body .center-box .quick-cats .qcat .ic svg{width:16px!important;height:16px!impo
   <div class="brand">COM7</div>
   <nav class="nav-links" id="navLinks">
     <a href="index.html">หน้าหลัก</a>
-    <a href="float.html">ลอยกระทง</a>
+    <a href="float.html">ลอยกระทง</a> <a href="wish.html">ขอพร</a>
     <a href="#" class="active">สายน้ำ COM7</a>
     <a href="contest.html">ประกวดนพมาศ AI</a>
     <a href="contestants.html">ผู้เข้าประกวด</a>
@@ -1492,7 +1506,7 @@ function buildKrathongHTML(k, realIdx, dup){
   var wishHtml = '';
   if(!anon){
     var nm = '<div class="kw-name">'+name+'</div>';
-    var ws = k['คำอวยพร'] ? '<div class="kw-wish">"'+esc(k['คำอวยพร'])+'"</div>' : '';
+    var ws = ''; /* ★ PDPA 3 พ.ย.: ไม่แสดงคำอธิษฐานบนป้ายกระทง */
     wishHtml = '<div class="kwish">'+nm+ws+'</div>';
   }
   // ★ ขนาดเล็ก+กลางสลับกัน (ใบคู่เล็ก / ใบคี่กลาง)
@@ -1564,7 +1578,7 @@ function openModal(idx){
   document.getElementById('mImg').src = imgFor(k['แบบกระทง']);
   document.getElementById('mName').textContent = anon ? 'กระทงนิรนาม' : k['ชื่อ'];
   // แสดงคำอธิษฐานเฉพาะที่อนุญาตเผยแพร่ (backend ส่งว่างมาถ้าไม่เผยแพร่)
-  document.getElementById('mWish').textContent = k['คำอวยพร'] ? '"'+k['คำอวยพร']+'"' : '';
+  document.getElementById('mWish').textContent = anon ? '' : '🔒 คำอธิษฐานเป็นความลับระหว่างเจ้าของกับสายน้ำ'; /* ★ PDPA 3 พ.ย.: ไม่แสดงคำอธิษฐาน */
   document.getElementById('mAnon').textContent = anon ? '🔒 กระทงนิรนาม (ไม่เปิดเผยชื่อและคำอธิษฐาน)' : '';
   // หัวใจ
   var likedMap=getLiked();
@@ -1675,10 +1689,7 @@ document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeModa
 function qcatFloat(){ location.href = 'float.html'; }
 
 // 2) คำขอพร → เลื่อนลงไปดูสายน้ำ (คำอวยพร)
-function qcatWishes(){
-  var el = document.querySelector('.river');
-  if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
-}
+function qcatWishes(){ location.href = 'wish.html'; }  /* ★ 4 พ.ย.: ไปหน้าต้นไม้แห่งคำอธิษฐาน */
 
 // 3) จำนวนหัวใจ → เรียงกระทงที่หัวใจเยอะสุดขึ้นก่อน (toggle กลับ = ล่าสุด)
 var _sortByHearts = false;
@@ -1764,7 +1775,7 @@ function searchMineByName(){
       box.innerHTML = head + resp.data.map(function(m){
         var when = m['เวลา'] ? new Date(m['เวลา']).toLocaleDateString('th-TH',{day:'numeric',month:'short'}) : '';
         var co = m['บริษัท'] ? esc(m['บริษัท']) : '';
-        var wish = m['คำอวยพร'] ? esc(m['คำอวยพร']) : '';
+        var wish = ''; /* ★ PDPA 3 พ.ย.: ค้นด้วยชื่อได้ จึงไม่แสดงคำอธิษฐาน */
         return '<button class="mine-card" onclick="gotoMine(\''+m.krathongId+'\')">'
           + '<img src="'+imgFor(m['แบบกระทง'])+'" alt="" />'
           + '<div class="mc-body">'

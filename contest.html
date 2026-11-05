@@ -245,6 +245,10 @@ h1,h2,h3,.l2,.bt,.gh h2,.pn h2,.step h3{font-family:'Noto Serif Thai',serif!impo
 #navLinks a.active, nav ul li > a.act{color:#f3d58a!important}
 #navLinks a:hover, nav ul li > a:hover{color:#f3d58a!important}
 </style>
+<style id="c7-qa-fix">
+/* ★ 4 พ.ย. QA: คำอธิบายขั้นตอน 4 ขั้น เล็กถึง 10.4px บนจอ 1280 → ไม่ต่ำกว่า 12.5px */
+.step p{font-size:max(12.5px,.82cqw)!important}
+</style>
 </head>
 <body>
 
@@ -257,7 +261,7 @@ h1,h2,h3,.l2,.bt,.gh h2,.pn h2,.step h3{font-family:'Noto Serif Thai',serif!impo
     <div class="brand">COM7</div>
     <nav class="nav-links" id="navLinks">
       <a href="index.html">หน้าหลัก</a>
-      <a href="float.html">ลอยกระทง</a>
+      <a href="float.html">ลอยกระทง</a> <a href="wish.html">ขอพร</a>
       <a href="river.html">สายน้ำ COM7</a>
       <a href="#" class="active">ประกวดนพมาศ AI</a>
       <a href="contestants.html">ผู้เข้าประกวด</a>

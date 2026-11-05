@@ -140,7 +140,7 @@ th{font-family:'Noto Serif Thai',serif!important}
   <div style="display:flex;align-items:center;gap:10px">
     <nav class="adm-nav" aria-label="เมนูเว็บ">
       <a href="index.html" target="_blank">หน้าหลัก</a>
-      <a href="float.html" target="_blank">ลอยกระทง</a>
+      <a href="float.html" target="_blank">ลอยกระทง</a> <a  target="_blank" href="wish.html">ขอพร</a>
       <a href="river.html" target="_blank">สายน้ำ COM7</a>
       <a href="contest.html" target="_blank">ประกวดนพมาศ AI</a>
       <a href="contestants.html" target="_blank">ผู้เข้าประกวด</a>
@@ -148,7 +148,7 @@ th{font-family:'Noto Serif Thai',serif!important}
       <a href="admin.html" class="on" aria-current="page">แอดมิน</a>
     </nav>
     <button id="logoutBtn" class="btn btn-sm btn-ghost" onclick="logout()" style="display:none">ออกจากระบบ</button>
-    <span class="ver">v4.2 · Director</span>
+    <span class="ver">v4.5 · Director</span>
   </div>
 </header>
 
@@ -195,7 +195,7 @@ th{font-family:'Noto Serif Thai',serif!important}
   <div class="tabs">
     <button class="tab active" data-tab="approve" onclick="switchTab('approve')">🖼️ อนุมัติรูป</button>
     <button class="tab" data-tab="results" onclick="switchTab('results')">📊 ผลโหวต</button>
-    <button class="tab" data-tab="krathong" onclick="switchTab('krathong')">🪷 จัดการกระทง</button>
+    <button class="tab" data-tab="krathong" onclick="switchTab('krathong')">🪷 จัดการกระทง</button><button class="tab" data-tab="wish" onclick="switchTab('wish')">🌳 จัดการคำขอพร</button>
     <button class="tab btn-ghost" onclick="loadAll()" style="margin-left:auto">🔄 รีเฟรช</button>
   </div>
 
@@ -229,6 +229,19 @@ th{font-family:'Noto Serif Thai',serif!important}
   </div>
 </div>
 
+<div id="tab-wish" style="display:none;max-width:1200px;margin:0 auto;padding:0 16px 40px">
+    <div class="kt-bar">
+      <input id="wsSearch" class="kt-in" placeholder="🔍 ค้นคำขอพร / รหัสพนักงาน" oninput="renderWishes()">
+      <select id="wsFilter" class="kt-in" onchange="renderWishes()">
+        <option value="all">ทั้งหมด</option><option value="public">🌕 เปิดเผย (คนอื่นอ่านได้)</option>
+        <option value="sealed">🔒 ปิดผนึก</option><option value="hidden">ซ่อนอยู่</option>
+      </select>
+      <button class="btn btn-sm" onclick="loadWishes(true)">🔄 โหลดคำขอพร</button>
+    </div>
+    <div class="muted" style="margin:6px 0">💡 ควรตรวจใบ "เปิดเผย" ก่อน — ถ้าข้อความไม่เหมาะสม กด "ปิดผนึก" หรือ "ซ่อนจากต้นไม้"</div>
+    <div class="muted" id="wsSummary" style="margin:8px 0 12px">กดแท็บนี้เพื่อโหลดรายการ</div>
+    <div id="wsList"></div>
+  </div>
 <div id="toast" class="toast"></div>
 
 <script>
@@ -436,6 +449,38 @@ function switchTab(t){
   document.getElementById('tab-results').style.display = t==='results'?'block':'none';
   document.getElementById('tab-krathong').style.display = t==='krathong'?'block':'none';
   if(t==='krathong' && !KT_LOADED) loadKrathongs();
+  document.getElementById('tab-wish').style.display = t==='wish'?'block':'none';
+  if(t==='wish' && !WS_LOADED) loadWishes();
+}
+/* ============ จัดการคำขอพร (v4.5) ============ */
+let WS = [], WS_LOADED = false;
+const WCAT = {love:'💖 ความรัก',work:'💼 การงาน',study:'📖 การเรียน',health:'✨ สุขภาพ',family:'👨‍👩‍👧 ครอบครัว',money:'💰 การเงิน',other:'🙂 อื่นๆ'};
+async function loadWishes(force){
+  document.getElementById('wsSummary').textContent='กำลังโหลด…';
+  const r = await apiPost({ action:'admin_wishes', pass:ADMIN_PASS });
+  if(!r||!r.ok){ document.getElementById('wsSummary').textContent='โหลดไม่สำเร็จ: '+((r&&r.error)||'')+' (ต้องใช้ระบบหลังบ้าน v4.5)'; return; }
+  WS = r.data||[]; WS_LOADED = true; renderWishes(); if(force) toast('โหลดคำขอพรแล้ว '+WS.length+' ใบ');
+}
+function renderWishes(){
+  const q=(document.getElementById('wsSearch').value||'').trim().toLowerCase(), f=document.getElementById('wsFilter').value;
+  const list=WS.filter(w=>{ if(f==='public'&&(!w.เปิดเผย||w.ซ่อน))return false; if(f==='sealed'&&w.เปิดเผย)return false; if(f==='hidden'&&!w.ซ่อน)return false;
+    return !q || [w.คำอธิษฐาน,w.รหัสพนักงาน].join(' ').toLowerCase().indexOf(q)>-1; });
+  document.getElementById('wsSummary').textContent='ทั้งหมด '+WS.length+' ใบ · เปิดเผย '+WS.filter(w=>w.เปิดเผย&&!w.ซ่อน).length+' · ซ่อน '+WS.filter(w=>w.ซ่อน).length+' · แสดงผล '+list.length;
+  const box=document.getElementById('wsList'); if(!list.length){ box.innerHTML='<div class="muted">ไม่พบรายการ</div>'; return; }
+  box.innerHTML='<div class="kt-grid">'+list.slice(0,300).map(w=>'<div class="kt-card'+(w.ซ่อน?' is-hidden':'')+'">'
+    +'<div class="kt-top"><b>'+(WCAT[w.หมวด]||w.หมวด)+'</b>'
+    +(w.ซ่อน?'<span class="badge rejected">ซ่อนอยู่</span>':(w.เปิดเผย?'<span class="badge approved">🌕 เปิดเผย</span>':'<span class="badge pending">🔒 ปิดผนึก</span>'))+'</div>'
+    +'<div class="meta">รหัส '+esc(w.รหัสพนักงาน||'')+' · 💛 '+(w.พลังใจ||0)+' · '+fmtTime(w.เวลา)+'</div>'
+    +'<div class="kt-wish">'+esc(w.คำอธิษฐาน||'')+'</div><div class="acts">'
+    +(w.เปิดเผย?'<button class="btn btn-sm" onclick="setWish(\''+esc(w.wishId)+'\',{public:false})">🔒 ปิดผนึก</button>':'')
+    +'<button class="btn btn-sm '+(w.ซ่อน?'btn-ok':'btn-no')+'" onclick="setWish(\''+esc(w.wishId)+'\',{hide:'+(!w.ซ่อน)+'})">'+(w.ซ่อน?'👁️ เลิกซ่อน':'🙈 ซ่อนจากต้นไม้')+'</button>'
+    +'</div></div>').join('')+'</div>';
+}
+async function setWish(id,o){
+  if(!confirm('ยืนยันการเปลี่ยนแปลงคำขอพรนี้?'))return;
+  const r=await apiPost(Object.assign({action:'admin_wish_set',pass:ADMIN_PASS,wishId:id},o));
+  if(r&&r.ok){ const w=WS.find(x=>x.wishId===id); if(w){ if(o.hide!=null)w.ซ่อน=o.hide; if(o.public!=null)w.เปิดเผย=o.public; } renderWishes(); toast('อัปเดตแล้ว'); }
+  else toast('ไม่สำเร็จ: '+((r&&r.error)||''));
 }
 function esc(s){ return String(s==null?'':s).replace(/[<>&]/g, c=>({'<':'&lt;','>':'&gt;','&':'&amp;'}[c])); }
 let toastTimer;

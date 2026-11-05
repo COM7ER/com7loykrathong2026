@@ -566,6 +566,14 @@ body{font-family:'IBM Plex Sans Thai','Prompt',sans-serif!important;-webkit-font
 #navLinks a.active, nav ul li > a.act{color:#f3d58a!important}
 #navLinks a:hover, nav ul li > a:hover{color:#f3d58a!important}
 </style>
+<style id="c7-m-fix">
+/* ★ มือถือ (4 พ.ย.): ตัวเลขนับถอยหลัง/ป้ายหมวด ตัวเล็กเกิน (10.5px) → 12px */
+@media (max-width:600px){ .cd-unit span{font-size:12px!important;opacity:.85!important} .badge-type{font-size:12px!important} }
+</style>
+<style id="c7-qa-fix">
+/* ★ 4 พ.ย. QA: ป้ายนับถอยหลัง/ป้ายหมวด เล็ก 10.5px ทุกขนาดจอ → 12px */
+.cd-unit span{font-size:12px!important;opacity:.85!important}.badge-type{font-size:12px!important}
+</style>
 </head>
 <body>
 
@@ -578,7 +586,7 @@ body{font-family:'IBM Plex Sans Thai','Prompt',sans-serif!important;-webkit-font
     </div>
     <div class="nav-links" id="navLinks">
       <a href="index.html">หน้าหลัก</a>
-      <a href="float.html">ลอยกระทง</a>
+      <a href="float.html">ลอยกระทง</a> <a href="wish.html">ขอพร</a>
       <a href="river.html">สายน้ำ COM7</a>
       <a href="contest.html">ประกวดนพมาศ AI</a>
       <a href="#" class="active">ผู้เข้าประกวด</a>
