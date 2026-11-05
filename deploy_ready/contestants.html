@@ -1,0 +1,1250 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>ประกวดนางนพมาศ AI | ผู้เข้าประกวด</title>
+<link rel="icon" href="assets/favicon.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:title" content="ผู้เข้าประกวดนพมาศ AI — COM7 สานสายใจ 2569">
+<meta property="og:description" content="ชมและโหวตผู้เข้าประกวดนพมาศ AI">
+<meta property="og:image" content="https://com7er.github.io/com7loykrathong2026/assets/og_image.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Charm:wght@400;700&family=Prompt:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@400;500;600;700;800&family=IBM+Plex+Sans+Thai:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@1,500;1,600&family=Charmonman:wght@700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   :ROOT
+   ============================================================ */
+:root{
+  --gold:#E7C56A;
+  --gold-light:#F7E3A8;
+  --gold-pale:#FDF3D2;
+  --gold-deep:#C9972F;
+  --purple:#2A1B4D;
+  --purple-deep:#150C29;
+  --ink:#10081F;
+  --gold-grad:linear-gradient(180deg,#FBEBB6 0%,#E7C56A 45%,#C9972F 100%);
+  --sh-text:0 2px 12px rgba(0,0,0,.8), 0 0 24px rgba(42,27,77,.6);
+  --radius-card:22px 22px 14px 14px;
+  --maxw:1440px;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+html,body{max-width:100%;overflow-x:hidden;}
+body{
+  font-family:'Prompt',sans-serif; color:#fff;
+  -webkit-font-smoothing:antialiased;
+  background:#150C29 url('assets/pages/contestants_bg.webp') center top/cover no-repeat fixed;
+}
+/* พื้นหลังแบบ fixed กิน battery/สะดุดบน iOS ปรับเป็น scroll บนจอเล็ก */
+@media(max-width:820px){
+  body{background-attachment:scroll;}
+}
+/* ม่านม่วงคลุมทั้งหน้า ให้ตัวหนังสืออ่านออกทุกจุด */
+body::before{
+  content:""; position:fixed; inset:0; z-index:0; pointer-events:none;
+  background:linear-gradient(180deg,
+    rgba(21,12,41,.30) 0%, rgba(24,14,48,.55) 38%,
+    rgba(21,12,41,.82) 72%, rgba(16,8,31,.96) 100%);
+}
+.wrap{position:relative;z-index:1;max-width:var(--maxw);margin:0 auto;padding:0 20px;}
+a{text-decoration:none;color:inherit;}
+button,input,select{font-family:inherit;}
+img{display:block;max-width:100%;}
+
+/* ============================================================
+   NAVBAR
+   ============================================================ */
+.nav{
+  position:sticky; top:0; z-index:60;
+  backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
+  background:rgba(19,10,38,.62);
+  border-bottom:1px solid rgba(231,197,106,.22);
+}
+.nav-in{
+  max-width:var(--maxw); margin:0 auto; padding:12px 20px;
+  display:flex; align-items:center; gap:18px;
+}
+.logo{font-weight:600;font-size:20px;letter-spacing:.5px;display:flex;align-items:center;gap:8px;}
+.logo b{background:var(--gold-grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
+.logo small{display:block;font-size:9px;font-weight:300;opacity:.7;letter-spacing:1.4px;}
+.nav-links{margin-left:auto;display:flex;gap:26px;font-size:14.5px;font-weight:300;}
+.nav-links a{position:relative;padding:4px 0;opacity:.85;transition:opacity .25s,color .25s;}
+.nav-links a::after{
+  content:"";position:absolute;left:0;bottom:0;width:0;height:1.5px;
+  background:var(--gold);transition:width .3s ease;
+}
+.nav-links a:hover,.nav-links a.active{opacity:1;color:var(--gold-light);}
+.nav-links a:hover::after,.nav-links a.active::after{width:100%;}
+.nav-user{
+  width:34px;height:34px;display:grid;place-items:center;flex:none;
+  border:1px solid rgba(231,197,106,.6);border-radius:50%;cursor:pointer;
+  transition:background .2s,box-shadow .2s,transform .15s;
+}
+.nav-user:hover{background:rgba(231,197,106,.16);box-shadow:0 0 16px rgba(231,197,106,.45);}
+.nav-user:active{transform:scale(.9);}
+.nav-user svg{width:17px;height:17px;stroke:var(--gold-light);fill:none;stroke-width:1.6;}
+.burger{display:none;width:34px;height:34px;place-items:center;cursor:pointer;transition:transform .15s;}
+.burger:active{transform:scale(.88);}
+.burger svg{width:22px;height:22px;stroke:var(--gold-light);fill:none;stroke-width:1.8;stroke-linecap:round;}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero{padding:44px 0 26px;text-align:center;position:relative;}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:10px;
+  font-size:14px;font-weight:300;letter-spacing:.04em;color:#fff;text-shadow:var(--sh-text);
+}
+.hero-eyebrow::before,.hero-eyebrow::after{
+  content:"";width:34px;height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+}
+.hero-title{
+  margin-top:6px;font-family:'Charm',cursive;font-weight:700;
+  font-size:clamp(34px,5.4vw,66px);line-height:1.15;
+  background:var(--gold-grad);-webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 3px 14px rgba(0,0,0,.6));
+}
+.hero-sub{margin-top:10px;font-size:clamp(13px,1.5vw,17px);font-weight:300;
+          color:var(--gold-light);text-shadow:var(--sh-text);}
+.hero-desc{margin-top:5px;font-size:clamp(12px,1.25vw,14.5px);font-weight:200;
+           color:rgba(255,255,255,.88);text-shadow:var(--sh-text);}
+
+/* ---- COUNTDOWN ---- */
+.countdown{
+  margin:26px auto 0;display:inline-flex;align-items:center;gap:10px;
+  padding:12px 20px;border:1px solid rgba(231,197,106,.5);border-radius:999px;
+  background:rgba(35,20,66,.5);backdrop-filter:blur(8px);
+  max-width:100%;
+}
+.cd-label{font-size:12.5px;font-weight:300;color:var(--gold-light);white-space:nowrap;}
+.cd-grid{display:flex;gap:8px;}
+.cd-unit{min-width:44px;text-align:center;}
+.cd-unit b{
+  display:block;font-size:22px;font-weight:600;line-height:1.1;
+  background:var(--gold-grad);-webkit-background-clip:text;background-clip:text;color:transparent;
+  font-variant-numeric:tabular-nums;
+}
+.cd-unit span{font-size:10.5px;font-weight:300;opacity:.72;}
+
+/* ============================================================
+   LEADERBOARD (Top 3)
+   ============================================================ */
+.section-head{
+  display:flex;align-items:center;justify-content:center;gap:11px;
+  margin:54px 0 22px;font-size:clamp(18px,2.2vw,26px);font-weight:600;
+  background:var(--gold-grad);-webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 2px 8px rgba(0,0,0,.6));
+  text-align:center;
+}
+.section-head svg{width:26px;height:26px;stroke:var(--gold);fill:none;stroke-width:1.5;flex:none;
+                  animation:lotusPulse 4s ease-in-out infinite;}
+@keyframes lotusPulse{
+  0%,100%{transform:scale(1);filter:drop-shadow(0 0 0 rgba(231,197,106,0));}
+  50%{transform:scale(1.09);filter:drop-shadow(0 0 10px rgba(231,197,106,.85));}
+}
+
+.podium{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:860px;margin:0 auto;}
+.pod{
+  position:relative;display:flex;align-items:center;gap:13px;min-width:0;
+  padding:13px 16px;border-radius:16px;cursor:pointer;
+  border:1px solid rgba(231,197,106,.4);
+  background:linear-gradient(135deg,rgba(60,38,112,.6),rgba(30,17,58,.72));
+  backdrop-filter:blur(7px);
+  transition:transform .25s cubic-bezier(.2,.8,.3,1),box-shadow .25s;
+}
+.pod:hover{transform:translateY(-4px);box-shadow:0 12px 30px rgba(0,0,0,.45),0 0 24px rgba(231,197,106,.3);}
+.pod:active{transform:translateY(-1px) scale(.98);}
+.pod-rank{
+  width:32px;height:32px;flex:none;display:grid;place-items:center;border-radius:50%;
+  font-size:14px;font-weight:600;color:var(--ink);
+  background:var(--gold-grad);box-shadow:0 0 14px rgba(231,197,106,.6);
+}
+.pod:nth-child(2) .pod-rank{background:linear-gradient(180deg,#F2F4F7,#B7BEC9);}
+.pod:nth-child(3) .pod-rank{background:linear-gradient(180deg,#E8B489,#B2714A);}
+.pod-ava{width:46px;height:46px;flex:none;border-radius:50%;object-fit:cover;
+         border:2px solid rgba(231,197,106,.7);background:#2A1B4D;}
+.pod-info{min-width:0;}
+.pod-info b{display:block;font-size:14px;font-weight:500;white-space:nowrap;
+            overflow:hidden;text-overflow:ellipsis;}
+.pod-info span{font-size:12px;font-weight:300;color:var(--gold-light);}
+
+/* ============================================================
+   TOOLBAR : ค้นหา + กรอง + เรียง
+   ============================================================ */
+.toolbar{
+  display:flex;flex-wrap:wrap;align-items:center;gap:12px;
+  margin:12px 0 26px;padding:14px 16px;border-radius:16px;
+  border:1px solid rgba(231,197,106,.28);
+  background:rgba(28,16,55,.55);backdrop-filter:blur(8px);
+}
+.search{position:relative;flex:1 1 240px;min-width:0;}
+.search svg{position:absolute;left:13px;top:50%;transform:translateY(-50%);
+            width:16px;height:16px;stroke:rgba(231,197,106,.8);fill:none;stroke-width:1.8;}
+.search input{
+  width:100%;padding:11px 14px 11px 38px;font-size:14px;font-weight:300;color:#fff;
+  border:1px solid rgba(231,197,106,.35);border-radius:999px;
+  background:rgba(18,10,36,.6);outline:none;transition:border-color .25s,box-shadow .25s;
+}
+.search input::placeholder{color:rgba(255,255,255,.42);}
+.search input:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(231,197,106,.16);}
+
+.selectbox{position:relative;flex:none;}
+.selectbox select{
+  appearance:none;padding:11px 36px 11px 15px;font-size:14px;font-weight:300;color:#fff;
+  border:1px solid rgba(231,197,106,.35);border-radius:999px;
+  background:rgba(18,10,36,.6);outline:none;cursor:pointer;transition:border-color .25s;
+  max-width:150px;text-overflow:ellipsis;
+}
+.selectbox select:focus{border-color:var(--gold);}
+.selectbox option{background:#1C1036;color:#fff;}
+.selectbox::after{
+  content:"";position:absolute;right:15px;top:50%;width:7px;height:7px;
+  border-right:1.6px solid var(--gold);border-bottom:1.6px solid var(--gold);
+  transform:translateY(-70%) rotate(45deg);pointer-events:none;
+}
+
+.chips{display:flex;gap:8px;flex-wrap:wrap;}
+.chip{
+  padding:9px 16px;font-size:13px;font-weight:300;border-radius:999px;cursor:pointer;
+  border:1px solid rgba(231,197,106,.35);background:rgba(18,10,36,.5);color:rgba(255,255,255,.85);
+  transition:all .2s ease;
+}
+.chip:hover{border-color:var(--gold);color:#fff;}
+.chip:active{transform:scale(.94);}
+.chip.on{
+  background:linear-gradient(180deg,rgba(231,197,106,.9),rgba(201,151,47,.9));
+  color:var(--ink);font-weight:500;border-color:var(--gold-pale);
+  box-shadow:0 0 18px rgba(231,197,106,.5);
+}
+.result-count{margin-left:auto;font-size:13px;font-weight:300;color:var(--gold-light);}
+
+/* ============================================================
+   GRID การ์ดผู้เข้าประกวด
+   ============================================================ */
+.grid{display:grid;grid-template-columns:repeat(6,1fr);gap:16px;}
+@media(max-width:1280px){.grid{grid-template-columns:repeat(4,1fr);}}
+@media(max-width:900px){.grid{grid-template-columns:repeat(3,1fr);}}
+@media(max-width:640px){.grid{grid-template-columns:repeat(2,1fr);gap:12px;}}
+@media(max-width:380px){.grid{grid-template-columns:1fr;max-width:280px;margin:0 auto;}}
+
+.card{
+  position:relative;min-width:0;border-radius:var(--radius-card);overflow:hidden;
+  border:1.5px solid var(--c,rgba(231,197,106,.55));
+  background:linear-gradient(180deg,rgba(48,28,92,.5),rgba(22,12,44,.9));
+  box-shadow:0 8px 26px rgba(0,0,0,.42);
+  opacity:0;transform:translateY(18px);
+  animation:cardIn .6s cubic-bezier(.2,.75,.3,1) forwards;
+  transition:transform .3s cubic-bezier(.2,.8,.3,1),box-shadow .3s,border-color .3s;
+}
+@keyframes cardIn{to{opacity:1;transform:translateY(0);}}
+.card:hover{
+  transform:translateY(-7px);border-color:var(--gold-pale);
+  box-shadow:0 18px 44px rgba(0,0,0,.55),0 0 30px color-mix(in srgb,var(--c) 55%,transparent);
+}
+.card-media{position:relative;aspect-ratio:3/4.3;overflow:hidden;cursor:pointer;background:#241540;}
+.card-media img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.2,.8,.3,1);}
+.card:hover .card-media img{transform:scale(1.07);}
+.card-media::after{
+  content:"";position:absolute;inset:auto 0 0 0;height:46%;
+  background:linear-gradient(to bottom,transparent,rgba(16,8,31,.9));
+}
+.badge-no{
+  position:absolute;top:10px;left:10px;z-index:2;
+  padding:4px 11px;border-radius:999px;font-size:12px;font-weight:600;color:var(--ink);
+  background:var(--gold-grad);box-shadow:0 2px 10px rgba(0,0,0,.4);
+}
+.badge-type{
+  position:absolute;top:10px;right:10px;z-index:2;
+  padding:4px 10px;border-radius:999px;font-size:10.5px;font-weight:300;white-space:nowrap;
+  color:var(--gold-pale);border:1px solid rgba(231,197,106,.6);
+  background:rgba(16,8,31,.62);backdrop-filter:blur(5px);
+}
+.zoom-hint{
+  position:absolute;inset:0;z-index:1;display:grid;place-items:center;
+  background:rgba(16,8,31,.35);opacity:0;transition:opacity .3s;
+}
+.card-media:hover .zoom-hint{opacity:1;}
+.zoom-hint svg{width:34px;height:34px;stroke:var(--gold-pale);fill:none;stroke-width:1.6;
+               filter:drop-shadow(0 0 10px rgba(0,0,0,.6));}
+
+.card-body{padding:11px 12px 14px;text-align:center;min-width:0;}
+.card-body h3{font-size:14.5px;font-weight:500;line-height:1.3;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.card-body .branch{margin-top:2px;font-size:12px;font-weight:300;color:var(--gold-light);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+
+.bar{margin:9px 0 3px;height:5px;border-radius:999px;background:rgba(255,255,255,.12);overflow:hidden;}
+.bar i{display:block;height:100%;border-radius:999px;width:0;
+       background:linear-gradient(90deg,var(--gold-deep),var(--gold-pale));
+       box-shadow:0 0 10px rgba(231,197,106,.7);
+       transition:width 1.1s cubic-bezier(.2,.8,.3,1);}
+.votes{display:flex;align-items:center;justify-content:center;gap:5px;
+       font-size:12px;font-weight:300;color:rgba(255,255,255,.88);}
+.votes b{font-size:14px;font-weight:600;color:var(--gold-pale);font-variant-numeric:tabular-nums;}
+
+.card-actions{display:flex;gap:7px;margin-top:11px;}
+.btn-vote{
+  position:relative;overflow:hidden;flex:1;min-width:0;
+  display:flex;align-items:center;justify-content:center;gap:7px;
+  min-height:44px;padding:10px 10px;font-size:14px;font-weight:500;
+  border:1.5px solid var(--gold);border-radius:999px;cursor:pointer;color:var(--ink);
+  background:linear-gradient(180deg,#FBEBB6,#E7C56A 55%,#C9972F);
+  box-shadow:0 4px 16px rgba(231,197,106,.4);
+  transition:transform .2s cubic-bezier(.2,.8,.3,1),box-shadow .2s,filter .2s;
+}
+.btn-vote svg{width:17px;height:17px;flex:none;stroke:var(--ink);fill:none;stroke-width:1.9;
+              stroke-linecap:round;stroke-linejoin:round;transition:transform .3s;}
+.btn-vote span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.btn-vote:hover{transform:translateY(-2px);filter:brightness(1.08);
+                box-shadow:0 8px 26px rgba(231,197,106,.7);}
+.btn-vote:hover svg{transform:scale(1.15);}
+.btn-vote:active{transform:translateY(0) scale(.94);filter:brightness(.97);}
+.btn-vote.voted{
+  background:rgba(231,197,106,.14);color:var(--gold-pale);
+  border-color:rgba(231,197,106,.6);box-shadow:none;cursor:default;
+}
+.btn-vote.voted:hover{transform:none;filter:none;box-shadow:none;}
+.btn-vote.voted svg{stroke:var(--gold-pale);fill:var(--gold-pale);}
+.btn-vote.disabled{
+  background:rgba(255,255,255,.08);color:rgba(255,255,255,.55);
+  border-color:rgba(255,255,255,.25);box-shadow:none;cursor:not-allowed;
+}
+.btn-vote.disabled:hover{transform:none;filter:none;box-shadow:none;}
+.btn-vote.disabled svg{stroke:rgba(255,255,255,.5);}
+.btn-vote.flash{animation:voteFlash .6s ease-out;}
+@keyframes voteFlash{
+  0%{box-shadow:0 0 0 0 rgba(255,238,190,.95),0 0 40px rgba(231,197,106,.95);}
+  100%{box-shadow:0 0 0 20px rgba(255,238,190,0),0 4px 16px rgba(231,197,106,.4);}
+}
+.btn-share{
+  width:44px;min-height:44px;flex:none;display:grid;place-items:center;
+  border:1.5px solid rgba(231,197,106,.55);border-radius:50%;cursor:pointer;
+  background:rgba(231,197,106,.08);transition:all .2s;
+}
+.btn-share svg{width:17px;height:17px;stroke:var(--gold-light);fill:none;stroke-width:1.7;
+               stroke-linecap:round;stroke-linejoin:round;}
+.btn-share:hover{background:rgba(231,197,106,.25);border-color:var(--gold-pale);
+                 box-shadow:0 0 18px rgba(231,197,106,.5);transform:translateY(-2px);}
+.btn-share:active{transform:translateY(0) scale(.9);}
+
+/* หัวใจลอยตอนโหวต */
+.heart{
+  position:fixed;z-index:200;pointer-events:none;font-size:20px;
+  animation:heartUp 1.15s cubic-bezier(.25,.7,.4,1) forwards;
+}
+@keyframes heartUp{
+  0%{opacity:0;transform:translate(-50%,0) scale(.4);}
+  18%{opacity:1;transform:translate(-50%,-14px) scale(1.15);}
+  100%{opacity:0;transform:translate(calc(-50% + var(--dx,0px)),-130px) scale(.75);}
+}
+
+/* ============================================================
+   LOAD MORE + CTA ลงทะเบียน
+   ============================================================ */
+.more-wrap{display:flex;justify-content:center;margin-top:30px;}
+.btn-more{
+  padding:13px 34px;font-size:14.5px;font-weight:400;color:#fff;cursor:pointer;
+  border:1.5px solid var(--gold);border-radius:999px;
+  background:rgba(42,27,77,.5);backdrop-filter:blur(7px);
+  transition:all .25s;
+}
+.btn-more:hover{background:rgba(70,46,120,.6);box-shadow:0 0 26px rgba(231,197,106,.55);
+                transform:translateY(-2px);}
+.btn-more:active{transform:translateY(0) scale(.96);}
+.btn-more[disabled]{opacity:.4;cursor:not-allowed;transform:none;box-shadow:none;}
+
+.cta-band{margin:64px 0 16px;text-align:center;padding:0 8px;}
+.btn-register{
+  position:relative;overflow:hidden;isolation:isolate;max-width:100%;
+  display:inline-flex;align-items:center;gap:16px;
+  padding:18px 26px 18px 40px;
+  font-size:clamp(16px,2.2vw,26px);font-weight:500;color:var(--gold-pale);
+  border:1.6px solid var(--gold);border-radius:999px;cursor:pointer;
+  background:linear-gradient(180deg,rgba(70,44,126,.75),rgba(32,18,62,.9));
+  backdrop-filter:blur(8px);
+  box-shadow:0 0 26px rgba(231,197,106,.4),inset 0 0 24px rgba(231,197,106,.1);
+  animation:breathGlow 3.4s ease-in-out infinite;
+  transition:transform .25s cubic-bezier(.2,.8,.3,1),box-shadow .25s;
+}
+@keyframes breathGlow{
+  0%,100%{box-shadow:0 0 20px rgba(231,197,106,.32),inset 0 0 18px rgba(231,197,106,.08);}
+  50%{box-shadow:0 0 44px rgba(231,197,106,.65),inset 0 0 28px rgba(231,197,106,.18);}
+}
+.btn-register::before{
+  content:"";position:absolute;top:0;left:-120%;width:55%;height:100%;z-index:-1;
+  background:linear-gradient(105deg,transparent,rgba(255,240,200,.4),transparent);
+  transform:skewX(-20deg);
+}
+.btn-register:hover::before{animation:shimmer .9s ease-out;}
+@keyframes shimmer{from{left:-120%;}to{left:150%;}}
+.btn-register:hover{transform:translateY(-3px) scale(1.02);animation-play-state:paused;}
+.btn-register:active{transform:translateY(-1px) scale(.98);}
+.btn-register span:first-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.btn-register .arrow{
+  width:36px;height:36px;flex:none;display:grid;place-items:center;border-radius:50%;
+  border:1.4px solid rgba(231,197,106,.8);transition:all .25s;
+}
+.btn-register .arrow svg{width:14px;height:14px;stroke:var(--gold-pale);fill:none;stroke-width:2.3;
+                         stroke-linecap:round;stroke-linejoin:round;}
+.btn-register:hover .arrow{background:rgba(231,197,106,.25);transform:translateX(4px);}
+.cta-note{margin-top:14px;font-size:13px;font-weight:200;color:rgba(255,255,255,.8);
+          display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;}
+.cta-note span::before{content:"✦ ";color:var(--gold);}
+
+/* ============================================================
+   FEATURES
+   ============================================================ */
+.features{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:18px;
+  margin:46px 0 0;padding:26px 0;
+  border-top:1px solid rgba(231,197,106,.22);border-bottom:1px solid rgba(231,197,106,.22);
+}
+.feat{display:flex;align-items:flex-start;gap:12px;min-width:0;}
+.feat svg{width:30px;height:30px;flex:none;stroke:var(--gold);fill:none;stroke-width:1.4;
+          stroke-linecap:round;stroke-linejoin:round;}
+.feat b{display:block;font-size:14.5px;font-weight:500;}
+.feat span{font-size:12.5px;font-weight:200;color:rgba(255,255,255,.75);}
+@media(max-width:900px){.features{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:520px){.features{grid-template-columns:1fr;}}
+
+/* ============================================================
+   RULES + FOOTER
+   ============================================================ */
+.rules{
+  margin:34px 0;padding:20px 22px;border-radius:16px;
+  border:1px solid rgba(231,197,106,.25);background:rgba(24,13,48,.55);
+}
+.rules h4{font-size:15px;font-weight:500;color:var(--gold-light);margin-bottom:10px;}
+.rules ul{list-style:none;display:grid;gap:7px;}
+.rules li{position:relative;padding-left:18px;font-size:13px;font-weight:200;
+          color:rgba(255,255,255,.82);line-height:1.6;}
+.rules li::before{content:"✦";position:absolute;left:0;color:var(--gold);font-size:11px;}
+
+footer{padding:34px 0 46px;border-top:1px solid rgba(231,197,106,.18);
+       background:rgba(12,6,24,.7);position:relative;z-index:1;}
+.foot-in{max-width:var(--maxw);margin:0 auto;padding:0 20px;
+         display:flex;flex-wrap:wrap;gap:20px;align-items:center;}
+.foot-links{display:flex;gap:20px;flex-wrap:wrap;font-size:13px;font-weight:200;}
+.foot-links a{opacity:.75;transition:opacity .25s,color .25s;}
+.foot-links a:hover{opacity:1;color:var(--gold-light);}
+.foot-social{margin-left:auto;display:flex;gap:10px;}
+.foot-social a{
+  width:34px;height:34px;display:grid;place-items:center;border-radius:50%;
+  border:1px solid rgba(231,197,106,.4);transition:all .2s;
+}
+.foot-social a:hover{background:rgba(231,197,106,.2);box-shadow:0 0 16px rgba(231,197,106,.5);}
+.foot-social a:active{transform:scale(.9);}
+.foot-social svg{width:16px;height:16px;stroke:var(--gold-light);fill:none;stroke-width:1.6;}
+.copy{width:100%;font-size:12px;font-weight:200;opacity:.55;}
+
+/* ============================================================
+   MODAL
+   ============================================================ */
+.modal{
+  position:fixed;inset:0;z-index:150;display:grid;place-items:center;padding:20px;
+  background:rgba(10,5,22,.86);backdrop-filter:blur(9px);
+  opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s;
+}
+.modal.open{opacity:1;visibility:visible;}
+.modal-box{
+  position:relative;width:min(880px,100%);max-height:88vh;overflow:auto;
+  display:grid;grid-template-columns:1fr 1fr;gap:0;
+  border:1.5px solid rgba(231,197,106,.55);border-radius:20px;
+  background:linear-gradient(160deg,rgba(52,31,98,.96),rgba(20,11,40,.98));
+  box-shadow:0 30px 80px rgba(0,0,0,.7);
+  transform:scale(.92) translateY(14px);transition:transform .35s cubic-bezier(.2,.8,.3,1);
+}
+.modal.open .modal-box{transform:scale(1) translateY(0);}
+.modal-img{width:100%;height:100%;min-height:340px;object-fit:cover;
+           border-radius:20px 0 0 20px;background:#241540;}
+.modal-info{padding:28px 26px;display:flex;flex-direction:column;min-width:0;}
+.modal-info .badge-no{position:static;align-self:flex-start;margin-bottom:10px;}
+.modal-info h2{font-size:24px;font-weight:600;line-height:1.25;word-break:break-word;}
+.modal-info .branch{margin-top:3px;font-size:14px;color:var(--gold-light);}
+.modal-info p.bio{margin-top:14px;font-size:13.5px;font-weight:200;line-height:1.75;
+                  color:rgba(255,255,255,.82);}
+.modal-stats{display:flex;gap:22px;margin-top:18px;padding-top:16px;
+             border-top:1px solid rgba(231,197,106,.25);}
+.mstat b{display:block;font-size:22px;font-weight:600;
+         background:var(--gold-grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
+.mstat span{font-size:11.5px;font-weight:200;opacity:.7;}
+.modal-actions{display:flex;gap:9px;margin-top:auto;padding-top:20px;}
+.modal-close{
+  position:absolute;top:12px;right:12px;z-index:3;
+  width:34px;height:34px;display:grid;place-items:center;border-radius:50%;cursor:pointer;
+  border:1px solid rgba(231,197,106,.55);background:rgba(16,8,31,.7);transition:all .25s;
+}
+.modal-close:hover{background:rgba(231,197,106,.25);transform:rotate(90deg);}
+.modal-close:active{transform:rotate(90deg) scale(.9);}
+.modal-close svg{width:15px;height:15px;stroke:var(--gold-pale);stroke-width:2;stroke-linecap:round;}
+@media(max-width:700px){
+  .modal-box{grid-template-columns:1fr;max-height:90vh;}
+  .modal-img{border-radius:20px 20px 0 0;min-height:260px;max-height:42vh;}
+  .modal-info{padding:20px 18px 24px;}
+}
+
+/* ============================================================
+   TOAST
+   ============================================================ */
+.toast{
+  position:fixed;left:50%;bottom:calc(28px + env(safe-area-inset-bottom,0px));z-index:300;
+  transform:translate(-50%,120%);opacity:0;max-width:calc(100vw - 32px);
+  display:flex;align-items:center;gap:10px;
+  padding:13px 22px;border-radius:999px;font-size:14px;font-weight:300;
+  border:1px solid rgba(231,197,106,.6);
+  background:linear-gradient(180deg,rgba(60,38,112,.95),rgba(26,14,52,.97));
+  box-shadow:0 12px 38px rgba(0,0,0,.6),0 0 28px rgba(231,197,106,.35);
+  transition:transform .4s cubic-bezier(.2,.9,.3,1),opacity .4s;
+}
+.toast.show{transform:translate(-50%,0);opacity:1;}
+.toast svg{width:18px;height:18px;stroke:var(--gold-pale);fill:none;stroke-width:2;
+           stroke-linecap:round;stroke-linejoin:round;flex:none;}
+.toast span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+
+/* ============================================================
+   RESPONSIVE NAV
+   ============================================================ */
+@media(max-width:820px){
+  .nav-links{
+    position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:0;
+    background:rgba(19,10,38,.97);backdrop-filter:blur(14px);
+    border-bottom:1px solid rgba(231,197,106,.25);
+    max-height:0;overflow:hidden;transition:max-height .35s ease;
+  }
+  .nav-links.open{max-height:260px;}
+  .nav-links a{padding:14px 22px;border-bottom:1px solid rgba(231,197,106,.1);}
+  .burger{display:grid;margin-left:auto;}
+  .nav-user{margin-left:4px;}
+  .toolbar{gap:10px;}
+  .result-count{margin-left:0;width:100%;}
+  .podium{grid-template-columns:1fr;max-width:420px;}
+  .hero{padding:30px 0 18px;}
+  .countdown{flex-direction:column;gap:8px;padding:14px 22px;}
+}
+@media(max-width:400px){
+  .card-body h3{font-size:13px;}
+  .btn-vote{font-size:13px;}
+  .btn-share{width:40px;}
+  .selectbox select{max-width:120px;}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;opacity:1!important;}
+}
+</style>
+
+<style id="premium-contestants">
+:root{--pf-gold:linear-gradient(100deg,#b8862d 0%,#f9e7b0 28%,#d9ad52 52%,#fff3cf 72%,#b8862d 100%)}
+body{font-family:'IBM Plex Sans Thai','Prompt',sans-serif!important;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;letter-spacing:.01em}
+.hero-title{font-family:'FC Mee Sakul','Charmonman',cursive!important;font-weight:700!important;
+  background:var(--pf-gold)!important;background-size:200% auto!important;-webkit-background-clip:text!important;background-clip:text!important;
+  color:transparent!important;-webkit-text-fill-color:transparent!important;
+  filter:drop-shadow(0 2px 10px rgba(0,0,0,.6)) drop-shadow(0 0 26px rgba(255,210,120,.42));animation:pfShineC 6s linear infinite}
+@keyframes pfShineC{to{background-position:200% center}}
+.hero-sub,.hero-desc,.hero-eyebrow{font-family:'IBM Plex Sans Thai',sans-serif!important;letter-spacing:.03em}
+.logo{font-family:'Cormorant Garamond',serif!important;font-style:italic;font-weight:600;letter-spacing:.06em;
+  background:var(--pf-gold);-webkit-background-clip:text;background-clip:text;color:transparent!important;-webkit-text-fill-color:transparent}
+.nav-links a{font-weight:400;letter-spacing:.05em;position:relative}
+.nav-links a::after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:1px;background:var(--pf-gold);transform:scaleX(0);transition:transform .35s}
+.nav-links a:hover::after,.nav-links a.active::after{transform:scaleX(1)}
+/* การ์ดผู้เข้าประกวด: ขอบทองพรีเมียม */
+.card{box-shadow:0 0 0 1px rgba(226,191,107,.22),0 16px 40px -16px #000c!important}
+/* ปุ่มลงทะเบียน/โหวต: ทองพรีเมียม + ประกายวิ่ง */
+.btn-register{position:relative;overflow:hidden;font-family:'IBM Plex Sans Thai',sans-serif!important;font-weight:600!important;letter-spacing:.04em}
+.btn-register::after{content:"";position:absolute;top:0;left:-60%;width:45%;height:100%;
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.7),transparent);transform:skewX(-18deg);animation:ctaShineC 3.8s ease-in-out infinite}
+@keyframes ctaShineC{0%,100%{left:-60%}55%{left:120%}}
+.btn-vote,.btn-share{font-family:'IBM Plex Sans Thai',sans-serif!important;font-weight:600!important}
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500&display=swap" rel="stylesheet">
+<style id="c7-nav-unify">
+/* ★ เมนูบนทุกหน้าหน้าตาเดียวกัน (3 พ.ย. 2569 · แจ็ค) */
+#navLinks a, nav ul li > a{font-family:'Prompt','Noto Sans Thai',sans-serif!important;font-weight:400!important;font-size:15px!important;letter-spacing:.02em!important;color:#f1ead8!important}
+#navLinks a.active, nav ul li > a.act{color:#f3d58a!important}
+#navLinks a:hover, nav ul li > a:hover{color:#f3d58a!important}
+</style>
+<style id="c7-m-fix">
+/* ★ มือถือ (4 พ.ย.): ตัวเลขนับถอยหลัง/ป้ายหมวด ตัวเล็กเกิน (10.5px) → 12px */
+@media (max-width:600px){ .cd-unit span{font-size:12px!important;opacity:.85!important} .badge-type{font-size:12px!important} }
+</style>
+<style id="c7-qa-fix">
+/* ★ 4 พ.ย. QA: ป้ายนับถอยหลัง/ป้ายหมวด เล็ก 10.5px ทุกขนาดจอ → 12px */
+.cd-unit span{font-size:12px!important;opacity:.85!important}.badge-type{font-size:12px!important}
+</style>
+<style id="c7-concept">
+.card-body .concept{margin:6px 0 2px;font-size:12.5px;line-height:1.45;color:#f3e7c4;opacity:.92;font-style:italic;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+#mBio{font-style:italic;line-height:1.6}#mBio:empty{display:none}
+</style>
+<style id="c7-votecard">
+.btn-card{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 14px;flex:none;border:1.5px solid rgba(231,197,106,.55);border-radius:999px;cursor:pointer;background:rgba(231,197,106,.08);color:#f7e3a8;font:500 14px inherit;font-family:inherit;transition:all .2s}
+.btn-card svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.btn-card:hover{background:rgba(231,197,106,.18)}.btn-card:disabled{opacity:.6;cursor:wait}
+@media (max-width:420px){.btn-card span{display:none}.btn-card{padding:0;width:44px;justify-content:center}}
+</style>
+<style id="c7-linklater">
+.badge-ok{position:absolute;left:10px;bottom:10px;z-index:2;padding:4px 10px;border-radius:999px;font-size:12px;font-weight:500;color:#10301a;background:linear-gradient(180deg,#b8f0c4,#6fd38a);box-shadow:0 2px 10px rgba(0,0,0,.35)}
+@media (max-width:480px){.card-media .badge-no{top:8px;left:8px;padding:3px 8px;font-size:11px}.card-media .badge-type{top:8px;right:8px;padding:3px 8px;font-size:11px!important}.badge-ok{left:8px;top:38px;bottom:auto;padding:3px 8px;font-size:11px}}
+.m-note{margin:10px 0 0;font-size:12px;line-height:1.5;opacity:.6}.m-note a{color:#F7E3A8}
+</style>
+</head>
+<body>
+
+<!-- ===================== NAVBAR ===================== -->
+<nav class="nav">
+  <div class="nav-in">
+    <div class="logo"><div><b>COM7</b></div></div>
+    <div class="burger" id="burger">
+      <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </div>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html">หน้าหลัก</a>
+      <a href="float.html">ลอยกระทง</a> <a href="wish.html">ขอพร</a>
+      <a href="river.html">สายน้ำ COM7</a>
+      <a href="contest.html">ประกวดนพมาศ AI</a>
+      <a href="#" class="active">ผู้เข้าประกวด</a>
+      <a href="rules.html">กติกา</a>
+      <a href="admin.html" title="หลังบ้านสำหรับผู้ดูแล (ต้องใส่รหัส)">แอดมิน</a>
+    </div>
+    <div class="nav-user" title="บัญชีของฉัน">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c.6-3.8 3.5-5.8 7-5.8s6.4 2 7 5.8"/></svg>
+    </div>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <!-- ===================== HERO ===================== -->
+  <header class="hero">
+    <div class="hero-eyebrow">ประกวด</div>
+    <h1 class="hero-title">นพมาศ AI</h1>
+    <p class="hero-sub">สีสันสานความงดงาม &#10022; สู่โลกอนาคต</p>
+    <p class="hero-desc">สร้างสรรค์ในแบบของคุณ โชว์ความเป็นตัวตน ด้วยพลัง AI</p>
+
+    <div class="countdown">
+      <span class="cd-label" id="cdLabel">ปิดโหวตในอีก</span>
+      <div class="cd-grid">
+        <div class="cd-unit"><b id="cdD">--</b><span>วัน</span></div>
+        <div class="cd-unit"><b id="cdH">--</b><span>ชั่วโมง</span></div>
+        <div class="cd-unit"><b id="cdM">--</b><span>นาที</span></div>
+        <div class="cd-unit"><b id="cdS">--</b><span>วินาที</span></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===================== LEADERBOARD ===================== -->
+  <div id="com7-winners" style="margin:0 auto 28px;padding:0 16px"></div>
+  <h2 class="section-head">
+    <svg viewBox="0 0 24 24"><path d="M6 20h12M8 20v-3.5M16 20v-3.5"/><path d="M12 16.5c-3 0-5-2.2-5-5V4h10v7.5c0 2.8-2 5-5 5z"/><path d="M17 5.5h2.5a2.5 2.5 0 0 1 0 5H18M7 5.5H4.5a2.5 2.5 0 0 0 0 5H6"/></svg>
+    <span>อันดับยอดโหวตสูงสุด</span>
+  </h2>
+  <div class="podium" id="podium"></div>
+
+  <!-- ===================== TOOLBAR ===================== -->
+  <h2 class="section-head" id="gallery">
+    <svg viewBox="0 0 24 24"><path d="M12 4c1.9 1.8 2.8 3.9 2.8 6.2 0 2.4-1 4.4-2.8 5.9-1.8-1.5-2.8-3.5-2.8-5.9C9.2 7.9 10.1 5.8 12 4z"/><path d="M12 16.1c-2.4 1.4-5.2 1.3-7.6-.6 1-2.6 3-4.2 5.5-4.4"/><path d="M12 16.1c2.4 1.4 5.2 1.3 7.6-.6-1-2.6-3-4.2-5.5-4.4"/><path d="M4.4 15.5c1.9 2.9 4.6 4.4 7.6 4.4s5.7-1.5 7.6-4.4"/></svg>
+    <span>ผู้เข้าประกวดทั้งหมด</span>
+  </h2>
+
+  <div class="toolbar">
+    <label class="search">
+      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg>
+      <input type="search" id="q" placeholder="ค้นหาชื่อ หรือหมายเลข…">
+    </label>
+
+    <div class="chips" id="typeChips">
+      <button class="chip on" data-type="">ทั้งหมด</button>
+      <button class="chip" data-type="female">นพมาศหญิง</button>
+      <button class="chip" data-type="male">นพมาศชาย</button>
+    </div>
+
+    <span class="result-count" id="count">—</span>
+  </div>
+
+  <div class="grid" id="grid"></div>
+
+  <div class="more-wrap">
+    <button class="btn-more" id="more">ดูเพิ่มเติม</button>
+  </div>
+
+  <!-- ===================== CTA ===================== -->
+  <section class="cta-band">
+    <button type="button" class="btn-register" onclick="openRegForm()">
+      <span>ลงทะเบียนประกวด</span>
+      <span class="arrow"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></span>
+    </button>
+    <div class="cta-note">
+      <span>ปิดรับลงทะเบียน 17 พ.ย. 2569</span>
+      <span>สร้างสรรค์นางนพมาศในแบบของคุณ</span>
+    </div>
+  </section>
+
+  <!-- ===================== FEATURES ===================== -->
+  <section class="features">
+    <div class="feat">
+      <svg viewBox="0 0 24 24"><path d="M12 3l1.6 4.2L18 8.8l-4.4 1.6L12 14.6l-1.6-4.2L6 8.8l4.4-1.6L12 3z"/><path d="M18.5 14.5l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8.8-2z"/></svg>
+      <div><b>สร้างสรรค์ได้ไม่จำกัด</b><span>ทั้งแบบไทยและสไตล์โมเดิร์น</span></div>
+    </div>
+    <div class="feat" id="prize">
+      <svg viewBox="0 0 24 24"><rect x="3" y="8.5" width="18" height="12" rx="1.5"/><path d="M3 12.5h18M12 8.5V20.5"/><path d="M12 8.5S10.5 4 8 4a2.2 2.2 0 0 0 0 4.5zM12 8.5S13.5 4 16 4a2.2 2.2 0 0 1 0 4.5z"/></svg>
+      <div><b>ลุ้นรับรางวัล</b><span>สำหรับผู้ได้รับคะแนนสูงสุด</span></div>
+    </div>
+    <div class="feat">
+      <svg viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-9.2A4.1 4.1 0 0 1 12 8a4.1 4.1 0 0 1 7 2.8C19 15.6 12 20 12 20z"/></svg>
+      <div><b>เปิดให้โหวต</b><span>18–23 พ.ย. (โหวตได้สูงสุด 6 คน)</span></div>
+    </div>
+    <div class="feat">
+      <svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9.5" r="2.3"/><path d="M3 19c.5-3.2 3-5 6-5s5.5 1.8 6 5"/><path d="M15.5 14.4c2.3.3 3.9 1.9 4.3 4.6"/></svg>
+      <div><b>เฉพาะพนักงาน COM7</b><span>กิจกรรมสำหรับพนักงานบริษัท คอมเซเว่น เท่านั้น</span></div>
+    </div>
+  </section>
+
+  <!-- ===================== RULES ===================== -->
+  <section class="rules" id="rules">
+    <h4>กติกาการโหวต</h4>
+    <ul>
+      <li>กิจกรรมนี้<b>เฉพาะพนักงานบริษัท คอมเซเว่น (COM7)</b> เท่านั้น</li>
+      <li>ระบบตรวจจับการโหวตผิดปกติ หากพบการใช้บอทหรือบัญชีปลอม จะถูกตัดสิทธิ์ทันที</li>
+      <li>ปิดรับลงทะเบียนผู้เข้าประกวด วันที่ 17 พ.ย. 2569 เวลา 23:59 น.</li>
+      <li>เปิดให้โหวตวันที่ <b>18–23 พ.ย. 2569</b> โหวตได้สูงสุด <b>6 คน</b></li>
+      <li><b>เงื่อนไขรับรางวัล:</b> ผู้เข้าร่วมต้องทำครบทุกข้อ (1) ส่งภาพนพมาศ AI ผ่านเว็บ (2) โพสต์ภาพลงโซเชียลแบบ<b>สาธารณะ</b> พร้อมติดแฮชแท็ก #COM7สานสายใจ (3) ส่งลิงก์โพสต์ผ่านการลงทะเบียน</li><li>วันประกาศผล เจ้าหน้าที่จะ<b>ตรวจสอบว่าโพสต์จริงและเป็นสาธารณะ</b> ก่อนมอบรางวัล</li><li>ผลการตัดสินของคณะกรรมการถือเป็นที่สิ้นสุด</li>
+    </ul>
+  </section>
+
+</div>
+
+<!-- ===================== FOOTER ===================== -->
+<footer>
+  <div class="foot-in">
+    <div class="foot-links">
+      <a href="rules.html">เงื่อนไขกิจกรรม</a>
+      <a href="contest.html#pdpa">นโยบายความเป็นส่วนตัว</a>
+      <a href="#" data-c7x-status>ตรวจสอบสถานะการสมัคร</a>
+      <a href="rules.html">กติกา & ของรางวัล</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ===================== MODAL ===================== -->
+<div class="modal" id="modal">
+  <div class="modal-box">
+    <button class="modal-close" id="mClose" aria-label="ปิด">
+      <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+    <img class="modal-img" id="mImg" alt="">
+    <div class="modal-info">
+      <span class="badge-no" id="mNo">#000</span>
+      <h2 id="mName">—</h2>
+      <p class="branch" id="mBranch">—</p>
+      <p class="bio" id="mBio">—</p>
+      <div class="modal-stats">
+        <div class="mstat"><b id="mVotes">0</b><span>คะแนนโหวต</span></div>
+        <div class="mstat"><b id="mRank">-</b><span>อันดับปัจจุบัน</span></div>
+      </div>
+      <div class="modal-actions">
+        <button class="btn-vote" id="mVote">
+          <svg viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-9.2A4.1 4.1 0 0 1 12 8a4.1 4.1 0 0 1 7 2.8C19 15.6 12 20 12 20z"/></svg>
+          <span>โหวต</span>
+        </button>
+        <button class="btn-card" id="mCard" type="button" aria-label="ดาวน์โหลดการ์ดชวนโหวต" title="ดาวน์โหลดการ์ดชวนโหวต"><svg viewBox="0 0 24 24"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg><span>การ์ด</span></button>
+          <button class="btn-share" id="mShare" aria-label="แชร์">
+          <svg viewBox="0 0 24 24"><circle cx="18" cy="5.5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="18.5" r="2.5"/><path d="M8.2 10.8l7.6-4M8.2 13.2l7.6 4"/></svg>
+        </button>
+      </div>
+        <p class="m-note" id="mNote">💡 เป็นผู้เข้าประกวด? ส่งลิงก์โพสต์ภายใน <b>17 พ.ย.</b> ผ่าน <a href="#" data-c7x-status>🔎 ตรวจสอบสถานะ</a> เพื่อสิทธิ์รับรางวัล</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== TOAST ===================== -->
+<div class="toast" id="toast">
+  <svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+  <span id="toastMsg">โหวตสำเร็จ</span>
+</div>
+
+<script>
+(function(){
+try{
+
+/* ============================================================
+   1) ข้อมูลผู้เข้าประกวด  — ต่อ API จริงให้แทนที่ array นี้
+   ============================================================ */
+const MOCK_DATA = [];   // ★ 5 พ.ย. แจ็ค: ลบรูปตัวอย่าง 6 รูป (ไม่ได้ใช้แล้ว · ใช้ข้อมูลจริงจากระบบเท่านั้น) — ลดขนาดหน้า ~800KB
+
+/* ===== ต่อ Backend จริง (gallery + vote) — ★ FIX โดยแจ็ค ===== */
+const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbxxfSz7t00UR9g4H78boZm4RJRLN3O0uqsRnDVEnTK_sEFkZlHiweCdOnEeL0slpuAZuQ/exec";
+const SHEET_TOKEN    = "COM7LKER2569";
+let DATA = [];
+function beReady(){ return SHEET_ENDPOINT && SHEET_ENDPOINT.indexOf("PASTE")<0; }
+function jsonp(params, cb){
+  var name='__cb_'+Date.now()+Math.floor(Math.random()*9999);
+  var s=document.createElement('script'); var timer=setTimeout(function(){clean();cb(null);},15000);
+  function clean(){ clearTimeout(timer); try{delete window[name];}catch(_){} if(s.parentNode)s.parentNode.removeChild(s); }
+  window[name]=function(d){ clean(); cb(d); };
+  var qs=Object.keys(params).map(function(k){return encodeURIComponent(k)+'='+encodeURIComponent(params[k]);}).join('&');
+  s.src=SHEET_ENDPOINT+'?'+qs+'&callback='+name; s.onerror=function(){clean();cb(null);};
+  document.body.appendChild(s);
+}
+// แปลงรูป Google Drive -> thumbnail URL ที่โหลดได้
+function driveThumb(u){
+  if(!u) return '';
+  var m=String(u).match(/[-\w]{25,}/);
+  return m ? ('https://drive.google.com/thumbnail?id='+m[0]+'&sz=w600') : u;
+}
+// map ข้อมูลจาก backend gallery -> โครง DATA ที่หน้านี้ใช้
+function mapContestant(r, i){
+  return {
+    id: r.id || ('c'+i),
+    name: r['ชื่อ'] || 'ผู้เข้าประกวด',
+    branch: r['บริษัท'] || '',
+    type: (r['เพศ']==='ญ' || r.gender==='F') ? 'female' : 'male',
+    img: driveThumb(r['รูป'] || r.img || ''),
+    votes: Number(r['คะแนน']||0),
+    color: '#E7C56A',
+    bio: r['แนวคิด'] || '',
+    ok: r['ครบเงื่อนไข'] === true   // ★ 5 พ.ย. ส่งลิงก์ผ่านการตรวจแล้ว   // ★ 5 พ.ย. แนวคิดชุด (ผ่านอนุมัติแล้ว)
+  };
+}
+// ดึงผู้เข้าประกวดจริงจาก backend (fallback = MOCK_DATA ถ้าว่าง/ยังไม่พร้อม)
+function loadGallery(){
+  // ★ v4.1: ไม่โชว์ข้อมูลตัวอย่างอีกแล้ว — ว่างก็บอกว่าว่าง
+  if(!beReady()){ DATA = []; render(); return; }
+  jsonp({ action:'gallery' }, function(resp){
+    DATA = (resp && resp.ok && resp.data) ? resp.data.map(mapContestant) : [];
+    LOAD_FAILED = !(resp && resp.ok);
+    render();
+  });
+}
+
+const PER_PAGE   = 12;                          /* จำนวนต่อหน้า */
+const REGISTER_END = new Date('2026-11-17T23:59:59+07:00');  /* ปิดรับลงทะเบียนผู้เข้าประกวด */
+const VOTE_START   = new Date('2026-11-18T00:00:00+07:00');  /* ช่วงที่อนุญาตให้เปิดโหวต (เริ่ม) */
+const VOTE_END     = new Date('2026-11-23T23:59:59+07:00');  /* ช่วงที่อนุญาตให้เปิดโหวต (สิ้นสุด) */
+const STORE_KEY  = 'np_votes_v1';
+
+/* สถานะเปิด/ปิดโหวตจริง ควรดึงมาจาก API ที่แอดมินกดเปิด-ปิดหลังบ้าน
+   ตอนนี้ใช้ค่าคงที่ไปก่อนเป็นตัวจำลอง — แอดมินจะสลับเป็น true ช่วงวันที่เปิดโหวตจริง */
+let LOAD_FAILED = false;
+function scoresVisible(){ return !ADMIN_VOTING_OPEN && new Date() > VOTE_END; }  /* ★ ซ่อนคะแนนจนกว่าปิดโหวต (ตรงกับหลังบ้าน) */
+let ADMIN_VOTING_OPEN = false;   /* ★ v4.1: อ่านสถานะจริงจากหลังบ้าน (แอดมินกดเปิด/ปิดใน admin.html) */
+window.addEventListener('load', function(){ try{ if(beReady()) jsonp({action:'health'}, function(r){ if(r && r.ok){ ADMIN_VOTING_OPEN = !!r.voteOpen; try{ render(); tick(); }catch(_){} } }); }catch(_){} });
+function votingOpen(){
+  const now = new Date();
+  return ADMIN_VOTING_OPEN && now >= VOTE_START && now <= VOTE_END;
+}
+
+/* ============================================================
+   2) STATE + HELPERS
+   ============================================================ */
+let state = {q:'', type:'', page:1};
+let voted  = JSON.parse(localStorage.getItem(STORE_KEY) || '{}');
+const _STUB = new Proxy({}, {
+  get(t,k){
+    if(k==='classList') return {add(){},remove(){},toggle(){},contains(){return false;}};
+    if(k==='style') return new Proxy({},{get(){return '';},set(){return true;}});
+    if(k==='querySelector'||k==='closest') return ()=>_STUB;
+    if(k==='querySelectorAll') return ()=>[];
+    if(k==='addEventListener'||k==='appendChild'||k==='remove'||k==='focus') return ()=>{};
+    if(k==='dataset') return {};
+    if(k==='files') return [];
+    return '';
+  },
+  set(){ return true; }
+});
+const $  = s => document.querySelector(s) || _STUB;
+const $$ = s => [...document.querySelectorAll(s)];
+const fmt = n => n.toLocaleString('th-TH');
+const today = () => new Date().toISOString().slice(0,10);
+const hasVoted = id => voted[id] === today();
+
+/* ============================================================
+   3) COUNTDOWN
+   ============================================================ */
+function tick(){
+  const now = new Date();
+  let target, label;
+  if(votingOpen()){
+    target = VOTE_END; label = 'ปิดโหวตในอีก';
+  }else if(now < VOTE_START){
+    target = VOTE_START; label = 'เปิดโหวตในอีก';
+  }else{
+    $('#cdLabel').textContent = 'ปิดรับโหวตแล้ว';
+    ['cdD','cdH','cdM','cdS'].forEach(i=>$('#'+i).textContent='00');
+    return;
+  }
+  $('#cdLabel').textContent = label;
+  const diff = target - now;
+  if(diff <= 0){ ['cdD','cdH','cdM','cdS'].forEach(i=>$('#'+i).textContent='00'); return; }
+  const d = Math.floor(diff/864e5),
+        h = Math.floor(diff%864e5/36e5),
+        m = Math.floor(diff%36e5/6e4),
+        s = Math.floor(diff%6e4/1000);
+  $('#cdD').textContent = d;
+  $('#cdH').textContent = String(h).padStart(2,'0');
+  $('#cdM').textContent = String(m).padStart(2,'0');
+  $('#cdS').textContent = String(s).padStart(2,'0');
+}
+tick(); setInterval(tick,1000);
+
+/* ============================================================
+   4) FILTER / SORT
+   ============================================================ */
+function filtered(){
+  let list = DATA.filter(p=>{
+    const q = state.q.trim().toLowerCase();
+    const okQ = !q || p.name.toLowerCase().includes(q)
+                   || p.branch.toLowerCase().includes(q)
+                   || String(p.id) === q.replace('#','');
+    return okQ && (!state.type || p.type === state.type);
+  });
+  if(scoresVisible()) list.sort((a,b)=>b.votes-a.votes); else list.sort((a,b)=>String(a.id).localeCompare(String(b.id)));   /* ★ ซ่อนอันดับระหว่างโหวต */
+  return list;
+}
+
+/* ============================================================
+   5) RENDER GRID
+   ============================================================ */
+const ICON_HEART = '<svg viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-9.2A4.1 4.1 0 0 1 12 8a4.1 4.1 0 0 1 7 2.8C19 15.6 12 20 12 20z"/></svg>';
+const ICON_SHARE = '<svg viewBox="0 0 24 24"><circle cx="18" cy="5.5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="18.5" r="2.5"/><path d="M8.2 10.8l7.6-4M8.2 13.2l7.6 4"/></svg>';
+const ICON_ZOOM  = '<svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5M11 8.5v5M8.5 11h5"/></svg>';
+
+function render(){
+  const list = filtered();
+  const max  = Math.max(1, ...DATA.map(p=>p.votes));
+  const show = list.slice(0, state.page * PER_PAGE);
+  const SV = scoresVisible();
+  if(!DATA.length){
+    $('#count').textContent = '';
+    $('#more').style.display = 'none';
+    $('#grid').innerHTML = `<div class="empty-state" style="grid-column:1/-1;text-align:center;padding:48px 20px;border:1px dashed rgba(231,197,106,.45);border-radius:22px;background:rgba(255,255,255,.03)">
+      <div style="font-size:2.4rem;margin-bottom:10px">🪷</div>
+      <h3 style="margin:0 0 8px;color:#F7E3A8">${LOAD_FAILED ? 'โหลดรายชื่อไม่สำเร็จ' : 'ยังไม่มีผู้เข้าประกวด'}</h3>
+      <p style="margin:0 0 18px;opacity:.8">${LOAD_FAILED ? 'ตรวจอินเทอร์เน็ตแล้วรีเฟรชอีกครั้ง' : 'ผลงานจะแสดงที่นี่หลังทีมงานอนุมัติ — ส่งผลงานเป็นคนแรกได้เลย!'}</p>
+      ${LOAD_FAILED ? '' : '<a href="contest.html" class="btn-more" style="display:inline-block;text-decoration:none">ลงทะเบียนประกวด →</a>'}
+    </div>`;
+    renderPodium(); return;
+  }
+
+  $('#count').textContent = `แสดง ${show.length} จาก ${list.length} คน`;
+  $('#more').style.display = show.length < list.length ? '' : 'none';
+
+  const canVote = votingOpen();
+  $('#grid').innerHTML = show.map((p,i)=>{
+    const already = hasVoted(p.id);
+    const voteCls = already ? 'voted' : (!canVote ? 'disabled' : '');
+    const voteTxt = already ? 'โหวตแล้ว' : (!canVote ? 'ยังไม่ถึงวันโหวต' : 'โหวต');
+    return `
+    <article class="card" style="--c:${p.color};animation-delay:${(i%PER_PAGE)*.05}s">
+      <div class="card-media" data-open="${p.id}">
+        <span class="badge-no">#${String(p.id).padStart(3,'0')}</span>
+        <span class="badge-type">${p.type==='female'?'นพมาศหญิง':'นพมาศชาย'}</span>
+        ${p.ok ? '<span class="badge-ok">✓ ครบเงื่อนไข</span>' : ''}
+        <img src="${p.img}" alt="${p.name}" loading="lazy"
+             onerror="this.style.visibility='hidden'">
+        <div class="zoom-hint">${ICON_ZOOM}</div>
+      </div>
+      <div class="card-body">
+        <h3>${p.name}</h3>
+        <p class="branch">${p.branch}</p>
+        ${p.bio ? `<p class="concept">“${String(p.bio).replace(/[<>&]/g,"")}”</p>` : ""}
+        ${SV ? `<div class="bar"><i data-w="${(p.votes/max*100).toFixed(1)}"></i></div>
+        <p class="votes"><b>${fmt(p.votes)}</b> คะแนน</p>` : `<p class="votes" style="opacity:.75">🔒 คะแนนเปิดเผยหลังปิดโหวต</p>`}
+        <div class="card-actions">
+          <button class="btn-vote ${voteCls}" data-vote="${p.id}">
+            ${ICON_HEART}<span>${voteTxt}</span>
+          </button>
+          <button class="btn-share" data-share="${p.id}" aria-label="แชร์">${ICON_SHARE}</button>
+        </div>
+      </div>
+    </article>`;
+  }).join('');
+
+  requestAnimationFrame(()=> $$('.bar i').forEach(b=> b.style.width = b.dataset.w + '%'));
+  renderPodium();
+}
+
+/* ============================================================
+   6) RENDER PODIUM
+   ============================================================ */
+function renderPodium(){
+  const _ph = $('#podium') && $('#podium').previousElementSibling;
+  if(!scoresVisible() || !DATA.length){
+    $('#podium').innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:22px;border:1px solid rgba(231,197,106,.3);border-radius:18px;opacity:.85">🏆 ประกาศ Top 3 วันที่ 24 พ.ย. 2569 — ระหว่างเปิดโหวตจะไม่แสดงคะแนนเพื่อความยุติธรรม</div>`;
+    return;
+  }
+  const top = [...DATA].sort((a,b)=>b.votes-a.votes).slice(0,3);
+  $('#podium').innerHTML = top.map((p,i)=>`
+    <div class="pod" data-open="${p.id}">
+      <span class="pod-rank">${i+1}</span>
+      <img class="pod-ava" src="${p.img}" alt="" onerror="this.style.visibility='hidden'">
+      <div class="pod-info"><b>${p.name}</b><span>${fmt(p.votes)} คะแนน</span></div>
+    </div>`).join('');
+}
+
+/* ============================================================
+   7) VOTE + เอฟเฟกต์หัวใจ
+   ============================================================ */
+function hearts(x,y){
+  for(let i=0;i<7;i++){
+    const h = document.createElement('div');
+    h.className = 'heart';
+    h.textContent = ['💗','💖','✨','💛'][i%4];
+    h.style.left = x + 'px';
+    h.style.top  = y + 'px';
+    h.style.setProperty('--dx', (Math.random()*90-45).toFixed(0)+'px');
+    h.style.animationDelay = (i*0.07).toFixed(2)+'s';
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(), 1400);
+  }
+}
+function toast(msg){
+  $('#toastMsg').textContent = msg;
+  $('#toast').classList.add('show');
+  clearTimeout(window._tt);
+  window._tt = setTimeout(()=> $('#toast').classList.remove('show'), 2600);
+}
+function doVote(id, btn, ev){
+  if(!votingOpen()){ toast('ยังไม่ถึงวันโหวต ระบบจะเปิดให้โหวตวันที่ 18–23 พ.ย. 2569 ค่ะ'); return; }
+  // ★ v4.1: โหวตจริงทำที่หน้าประกวด (กรอกรหัสพนักงาน/ชื่อ · เลือกหญิง 3 + ชาย 3 · แก้ผลเดิมได้)
+  if(ev) hearts(ev.clientX, ev.clientY);
+  toast('กำลังพาไปหน้าโหวต…');
+  setTimeout(function(){ location.href = 'contest.html#vote'; }, 450);
+}
+
+/* ============================================================
+   8) SHARE
+   ============================================================ */
+async function share(id){
+  const p = DATA.find(x=>x.id===id); if(!p) return;
+  const url  = location.origin + location.pathname + '?c=' + encodeURIComponent(id);
+  const text = `ช่วยโหวตให้ ${p.name} (#${p.id}) ในกิจกรรมประกวดนพมาศ AI หน่อยนะ 💛 โหวตได้ 18–23 พ.ย. #COM7สานสายใจ`;
+  /* ★ 5 พ.ย.: บนมือถือแนบรูปการ์ดชวนโหวตไปด้วย */
+  try{
+    if(window.VoteCard && navigator.canShare){
+      const cv=document.createElement('canvas'); await VoteCard.draw(cv,p); const b=await VoteCard.toBlob(cv);
+      const f=new File([b],'com7-vote-'+p.id+'.png',{type:'image/png'});
+      if(navigator.canShare({files:[f]})){ await navigator.share({files:[f],title:'ประกวดนพมาศ AI',text:text+'\n'+url}); return; }
+    }
+  }catch(e){ if(e && e.name==='AbortError') return; }
+  if(navigator.share){
+    try{ await navigator.share({title:'ประกวดนพมาศ AI', text, url}); }catch(e){}
+  }else{
+    try{ await navigator.clipboard.writeText(text + '\n' + url); toast('คัดลอกลิงก์แชร์แล้ว'); }
+    catch(e){ toast('ไม่สามารถคัดลอกลิงก์ได้'); }
+  }
+}
+/* ★ 5 พ.ย.: ดาวน์โหลดการ์ดชวนโหวต (ไม่มีรหัสพนักงาน/เบอร์/บริษัท) */
+async function downloadCard(id){
+  const p = DATA.find(x=>x.id===id); if(!p||!window.VoteCard){ toast('ยังโหลดการ์ดไม่ได้ ลองใหม่อีกครั้ง'); return; }
+  const btn=$('#mCard'); if(btn){ btn.disabled=true; }
+  try{
+    if(document.fonts){ try{ await Promise.all(['600 46px Prompt','400 30px "IBM Plex Sans Thai"'].map(f=>document.fonts.load(f,'กขอ'))); }catch(_){} }
+    const cv=document.createElement('canvas'); await VoteCard.draw(cv,p);
+    let b=null; try{ b=await VoteCard.toBlob(cv); }catch(_){ b=null; }
+    if(!b){ toast('ดาวน์โหลดรูปไม่ได้ (รูปจาก Drive ถูกจำกัด) — ลองกดแชร์แทน'); return; }
+    const a=document.createElement('a'),u=URL.createObjectURL(b);a.href=u;a.download='com7-vote-'+p.id+'.png';document.body.appendChild(a);a.click();a.remove();
+    setTimeout(()=>URL.revokeObjectURL(u),3000); toast('บันทึกการ์ดชวนโหวตแล้ว 🎴');
+  }finally{ if(btn) btn.disabled=false; }
+}
+
+/* ============================================================
+   9) MODAL
+   ============================================================ */
+let modalId = null;
+function syncModal(id){
+  const p = DATA.find(x=>x.id===id);
+  const rank = [...DATA].sort((a,b)=>b.votes-a.votes).findIndex(x=>x.id===id)+1;
+  /* ★ 5 พ.ย.: หน้าต่างขยายใช้รูปต้นฉบับเต็มขนาด (คมเท่าที่อัปโหลด) · ถ้าโหลดไม่ได้กลับไปใช้รูปเล็ก */
+  { const im=$('#mImg'), m=String(p.img||'').match(/[?&]id=([\w-]+)/); im.src = p.img;
+    if(m){ const hi='https://lh3.googleusercontent.com/d/'+m[1]+'=s0', pre=new Image(); pre.referrerPolicy='no-referrer';
+      pre.onload=function(){ if(im.dataset.for===String(p.id)) im.src=hi; }; im.dataset.for=String(p.id); pre.src=hi; } } $('#mImg').alt = p.name;
+  $('#mNo').textContent = '#'+String(p.id).padStart(3,'0');
+  $('#mName').textContent = p.name;
+  $('#mBranch').textContent = p.branch + ' · ' + (p.type==='female'?'นพมาศหญิง':'นพมาศชาย');
+  $('#mBio').textContent = p.bio;
+  /* ★ 5 พ.ย.: เตือนส่งลิงก์เฉพาะการ์ดที่ยังไม่ครบเงื่อนไข และก่อนหมดเขต 17 พ.ย. */
+  { const n=$('#mNote'); if(n) n.style.display = (!p.ok && new Date() <= new Date('2026-11-17T23:59:59+07:00')) ? '' : 'none'; }
+  $('#mVotes').textContent = scoresVisible() ? fmt(p.votes) : '🔒';
+  $('#mRank').textContent = scoresVisible() ? ('อันดับ ' + rank) : 'ประกาศ 24 พ.ย.';
+  const v = hasVoted(id);
+  const canVote = votingOpen();
+  $('#mVote').classList.toggle('voted', v);
+  $('#mVote').classList.toggle('disabled', !v && !canVote);
+  const _mvs=$('#mVote').querySelector('span'); if(_mvs) _mvs.textContent = v ? 'โหวตแล้ววันนี้' : (!canVote ? 'ยังไม่ถึงวันโหวต' : 'โหวต');
+}
+function openModal(id){ modalId = id; syncModal(id); $('#modal').classList.add('open');
+                        document.body.style.overflow='hidden'; }
+function closeModal(){ $('#modal').classList.remove('open'); document.body.style.overflow=''; }
+
+/* ============================================================
+   10) EVENT BINDING
+   ============================================================ */
+document.addEventListener('click', e=>{
+  const v = e.target.closest('[data-vote]');
+  if(v){ doVote(v.dataset.vote, v, e); return; }
+  const s = e.target.closest('[data-share]');
+  if(s){ share(s.dataset.share); return; }
+  const o = e.target.closest('[data-open]');
+  if(o){ openModal(o.dataset.open); return; }
+});
+$('#mVote')?.addEventListener('click', e=> doVote(modalId, e.currentTarget, e));
+$('#mShare')?.addEventListener('click', ()=> share(modalId));
+$('#mCard')?.addEventListener('click', ()=> downloadCard(modalId));
+$('#mClose')?.addEventListener('click', closeModal);
+$('#modal')?.addEventListener('click', e=>{ if(e.target.id==='modal') closeModal(); });
+document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeModal(); });
+
+let typing;
+$('#q')?.addEventListener('input', e=>{
+  clearTimeout(typing);
+  typing = setTimeout(()=>{ state.q = e.target.value; state.page = 1; render(); }, 220);
+});
+$('#typeChips')?.addEventListener('click', e=>{
+  const c = e.target.closest('.chip'); if(!c) return;
+  $$('.chip').forEach(x=>x.classList.remove('on'));
+  c.classList.add('on'); state.type = c.dataset.type; state.page = 1; render();
+});
+$('#more')?.addEventListener('click', ()=>{ state.page++; render(); });
+$('#burger')?.addEventListener('click', ()=> $('#navLinks').classList.toggle('open'));
+
+/* เปิด modal อัตโนมัติถ้ามาจากลิงก์แชร์ ?c=3 */
+try{
+  loadGallery();
+  const qc = new URLSearchParams(location.search).get('c');
+  /* ★ 5 พ.ย.: id เป็นข้อความ (C0003) และต้องรอข้อมูลโหลดเสร็จ */
+  if(qc){ let tries=0; const t=setInterval(()=>{ tries++; const p=DATA.find(x=>String(x.id)===qc); if(p){ clearInterval(t); openModal(p.id); } else if(tries>40) clearInterval(t); },250); }
+}catch(err){ console.error('init error:', err); }
+
+}catch(_e){ console.error('[contestants fatal]', _e && _e.message, _e && _e.stack); }
+})();
+</script>
+
+
+<!-- ===== ฟอร์มลงทะเบียนประกวด (popup) — เพิ่มโดยแจ็ค 1 ต.ค. 2569 ===== -->
+<style>
+#regOv{position:fixed;inset:0;z-index:9999;display:none;align-items:flex-start;justify-content:center;
+  background:rgba(6,9,30,.72);backdrop-filter:blur(4px);overflow:auto;padding:24px 14px}
+#regOv.on{display:flex}
+#regOv .pn{position:relative;width:min(96vw,440px);margin:auto;background:#121642;color:#f4f1e6;
+  border:1px solid rgba(246,226,166,.4);border-radius:18px;padding:22px 20px 20px;
+  box-shadow:0 20px 60px rgba(0,0,0,.6);font-family:'Prompt',sans-serif}
+#regOv h2{margin:0 0 4px;color:#f6e2a6;font-size:1.3rem}
+#regOv .sub{margin:0 0 14px;font-size:.86rem;color:#d9d2e8}
+#regOv .x{position:absolute;top:12px;right:14px;background:none;border:0;color:#f6e2a6;font-size:1.6rem;cursor:pointer;line-height:1}
+#regOv .f{margin-bottom:11px}
+#regOv .f label{display:block;font-size:.82rem;margin-bottom:4px;color:#f6e2a6}
+#regOv .f input,#regOv .f select{width:100%;box-sizing:border-box;padding:10px 12px;border-radius:10px;
+  border:1px solid rgba(246,226,166,.35);background:#0d1030;color:#f4f1e6;font-size:.95rem;font-family:inherit}
+#regOv .f.bad input,#regOv .f.bad select{border-color:#ff6b6b;background:#2a0f16}
+#regOv .pv{margin-top:8px;width:100%;max-height:220px;object-fit:contain;border-radius:10px;display:block}
+#regOv .ck2{display:flex;gap:8px;align-items:flex-start;font-size:.8rem;color:#d9d2e8;margin:6px 0 14px;line-height:1.4}
+#regOv .ck2 input{margin-top:3px}
+#regOv .rgo{width:100%;padding:13px;border:0;border-radius:12px;font-weight:700;font-size:1rem;cursor:pointer;
+  color:#3a2606;background:linear-gradient(145deg,#f8ecc4,#e8c874 55%,#c8973f);font-family:inherit}
+#regOv .rgo:disabled{opacity:.6}
+#regToast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%);z-index:10000;
+  background:#1a1f52;color:#f6e2a6;padding:12px 20px;border-radius:999px;border:1px solid rgba(246,226,166,.4);
+  font-family:'Prompt',sans-serif;font-size:.9rem;opacity:0;transition:opacity .3s;pointer-events:none;max-width:88vw;text-align:center}
+#regToast.on{opacity:1}
+</style>
+
+<div id="regOv"><div class="pn">
+  <button class="x" onclick="closeRegForm()" aria-label="ปิด">&times;</button>
+  <h2>ลงทะเบียนเข้าประกวด</h2>
+  <p class="sub">กรอกข้อมูลให้ครบ แล้วอัปโหลดรูปนพมาศ AI ของคุณ</p>
+  <div class="f" id="gCo"><label>บริษัท *</label><select id="gco"></select></div>
+  <div class="f" id="gId"><label>รหัสพนักงาน *</label><input id="gid" inputmode="numeric" autocomplete="off"></div>
+  <div class="f" id="gNm"><label>ชื่อ-สกุล *</label><input id="gnm" autocomplete="name"></div>
+  <div class="f" id="gPh"><label>เบอร์ติดต่อ *</label><input id="gph" type="tel" inputmode="tel" autocomplete="tel" placeholder="08x-xxx-xxxx"></div>
+  <div class="f" id="gG"><label>หมวดที่ประกวด *</label><select id="gg"><option value="">— เลือก —</option><option value="F">นางนพมาศ (หญิง)</option><option value="M">นพมาศ (ชาย)</option></select></div>
+  <div class="f" id="gIm"><label>รูปนพมาศ AI * (JPG/PNG)</label><input id="gim" type="file" accept="image/jpeg,image/png"><img id="gpv" class="pv" alt="ตัวอย่างรูป" hidden></div>
+  <div class="f" id="gLink"><label>ลิงก์โพสต์โซเชียล *</label><input id="glink" type="url" inputmode="url" autocomplete="off" placeholder="วางลิงก์โพสต์สาธารณะที่ติด #COM7สานสายใจ (FB/IG/TikTok)"></div>
+  <label class="ck2"><input type="checkbox" id="gck"><span>ข้าพเจ้ายินยอมให้ COM7 จัดเก็บและแสดงรูปภาพ ชื่อ และข้อมูลที่กรอกต่อสาธารณะในกิจกรรมนี้ และยินยอมเผยแพร่ภาพของตนเองต่อสาธารณะบนโซเชียลมีเดียเพื่อร่วมกิจกรรม (PDPA) <a href="#" onclick="openPdpaC();return false" style="color:#f6e2a6;text-decoration:underline">อ่านนโยบายข้อมูลส่วนบุคคล</a></span></label>
+  <button class="rgo" id="ggo" onclick="submitRegForm()">ส่งเข้าประกวด</button>
+</div></div>
+<div id="regToast" role="status"></div>
+
+<script>
+/* ===== Registration popup module (self-contained, namespaced) ===== */
+(function(){
+  var REG_URL   = "https://script.google.com/macros/s/AKfycbxxfSz7t00UR9g4H78boZm4RJRLN3O0uqsRnDVEnTK_sEFkZlHiweCdOnEeL0slpuAZuQ/exec";
+  var REG_TOKEN = "COM7LKER2569";
+  var REG_MAXPX = 1200;
+  var G = function(id){return document.getElementById(id);};
+  var COMPANIES = ["บริษัท คอมเซเว่น จำกัด (มหาชน)","บริษัท ดับเบิ้ล เซเว่น จำกัด","บริษัท ซี โนว์ ฮาว จำกัด","บริษัท เอเดพท์ จำกัด","บริษัท ธันเดอร์ ฟิน ฟิน จำกัด","บริษัท ไอแคร์ประกันภัย จำกัด (มหาชน)","บริษัท ไอเทค ซอฟต์แวร์ จำกัด","บริษัท โฟร์พอส์ จำกัด","บริษัท อินเตอร์วิชั่น บิสิเนสกรุ๊ป จำกัด","บริษัท แบรกซ์3853 จำกัด","บริษัท แบรกซ์แอนด์เบน จำกัด","บริษัท โกลด์อินทิเกรท จำกัด","EV7 Company Limited"];
+  var tt;
+  function regToast(m){var t=G("regToast");t.textContent=m;t.classList.add("on");clearTimeout(tt);tt=setTimeout(function(){t.classList.remove("on");},2800);}
+  function regLive(){return REG_URL && REG_URL.indexOf("PASTE")!==0 && REG_URL.indexOf("script.google.com")>=0;}
+  function shrinkImg(f){return new Promise(function(ok,no){var i=new Image();i.onload=function(){var s=Math.min(1,REG_MAXPX/Math.max(i.width,i.height)),c=document.createElement("canvas");c.width=Math.round(i.width*s);c.height=Math.round(i.height*s);c.getContext("2d").drawImage(i,0,0,c.width,c.height);ok(c.toDataURL("image/jpeg",0.82));};i.onerror=no;i.src=URL.createObjectURL(f);});}
+
+  // fill companies + image preview on first open
+  var inited=false;
+  var REG_DEADLINE=new Date('2026-11-17T23:59:59+07:00');
+  window.openRegForm=function(){
+    if(new Date() > REG_DEADLINE){ regToast("ปิดรับลงทะเบียนแล้ว (หมดเขต 17 พ.ย. 2569)"); return; }
+    if(!inited){
+      G("gco").innerHTML='<option value="">— เลือกบริษัท —</option>'+COMPANIES.map(function(c){return '<option>'+c+'</option>';}).join("");
+      G("gim").addEventListener("change",function(e){var f=e.target.files[0];var pv=G("gpv");if(f){pv.src=URL.createObjectURL(f);pv.hidden=false;}else{pv.hidden=true;}});
+      inited=true;
+    }
+    G("regOv").classList.add("on");document.body.style.overflow="hidden";
+  };
+  window.closeRegForm=function(){G("regOv").classList.remove("on");document.body.style.overflow="";};
+  // click backdrop to close
+  document.addEventListener("click",function(e){if(e.target&&e.target.id==="regOv")window.closeRegForm();});
+
+  window.submitRegForm=async function(){
+    var v={co:G("gco").value,id:G("gid").value.trim(),nm:G("gnm").value.trim(),ph:G("gph").value.trim(),g:G("gg").value,f:G("gim").files[0],link:G("glink").value.trim()};
+    ["gCo","gId","gNm","gPh","gG","gIm","gLink"].forEach(function(x){G(x).classList.remove("bad");});
+    var bad=!v.co?"gCo":!v.id?"gId":!v.nm?"gNm":!v.ph?"gPh":!v.g?"gG":!v.f?"gIm":!v.link?"gLink":"";
+    if(bad){G(bad).classList.add("bad");return regToast("กรุณากรอกข้อมูลให้ครบ");}
+    if(!G("gck").checked)return regToast("กรุณายินยอมเงื่อนไข PDPA ก่อนส่ง");
+    if(!regLive())return regToast("โหมดตัวอย่าง: ยังไม่ได้เชื่อมระบบ");
+    var b=G("ggo");b.disabled=true;b.textContent="กำลังส่ง...";
+    try{
+      var img=await shrinkImg(v.f);
+      var r=await fetch(REG_URL,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({token:REG_TOKEN,action:"register","บริษัท":v.co,empId:v.id,"ชื่อ":v.nm,phone:v.ph,"เพศ":v.g==="F"?"ญ":"ช","ลิงก์โพสต์":v.link,socialLink:v.link,consent:true,imageBase64:img,imageMime:"image/jpeg"})});
+      var d=await r.json();
+      if(d.ok){window.closeRegForm();regToast("ส่งเข้าประกวดแล้ว รอทีมงานอนุมัติ 🎉");}
+      else regToast(d.error||"ส่งไม่สำเร็จ");
+    }catch(e){regToast("ส่งไม่สำเร็จ ตรวจอินเทอร์เน็ตแล้วลองใหม่");}
+    b.disabled=false;b.textContent="ส่งเข้าประกวด";
+  };
+})();
+</script>
+<!-- ===== /ฟอร์มลงทะเบียนประกวด ===== -->
+
+<!-- PDPA Policy Modal (contestants · เพิ่ม 5 ต.ค. 2569) -->
+<style>
+#pdpaCOv{position:fixed;inset:0;z-index:10001;display:none;align-items:flex-start;justify-content:center;background:rgba(6,9,30,.75);backdrop-filter:blur(4px);overflow:auto;padding:24px 14px}
+#pdpaCOv.on{display:flex}
+#pdpaCOv .pnl{position:relative;width:min(96vw,520px);margin:auto;background:#121642;color:#f4f1e6;border:1px solid rgba(246,226,166,.4);border-radius:16px;padding:24px 22px;box-shadow:0 20px 60px rgba(0,0,0,.6);font-family:'IBM Plex Sans Thai','Prompt',sans-serif;text-align:left;line-height:1.7;font-size:.9rem}
+#pdpaCOv h2{color:#f6e2a6;font-size:1.2rem;margin-bottom:10px;font-family:'Noto Serif Thai',serif}
+#pdpaCOv .x{position:absolute;top:12px;right:16px;background:none;border:0;color:#f6e2a6;font-size:1.6rem;cursor:pointer}
+#pdpaCOv b{color:#f6e2a6}
+#pdpaCOv .ok{width:100%;margin-top:16px;padding:12px;border:0;border-radius:12px;font-weight:700;cursor:pointer;color:#3a2606;background:linear-gradient(145deg,#f8ecc4,#e8c874 55%,#c8973f);font-family:inherit}
+</style>
+<div id="pdpaCOv"><div class="pnl">
+  <button class="x" onclick="closePdpaC()" aria-label="ปิด">&times;</button>
+  <h2>นโยบายข้อมูลส่วนบุคคล (PDPA)</h2>
+  <p><b>1. ข้อมูลที่เก็บ</b><br>ชื่อ-สกุล · รหัสพนักงาน · บริษัทในเครือ · เบอร์ติดต่อ · รูปภาพนพมาศ AI · ลิงก์โพสต์โซเชียล</p>
+  <p style="margin-top:10px"><b>2. วัตถุประสงค์</b><br>ใช้เพื่อดำเนินกิจกรรมประกวดนพมาศ AI / ลอยกระทงออนไลน์ COM7 สานสายใจ 2569 เท่านั้น</p>
+  <p style="margin-top:10px"><b>3. การเปิดเผย</b><br>รูปภาพ ชื่อ และหมายเลขผู้เข้าประกวดที่อนุมัติจะแสดงต่อสาธารณะในกิจกรรม · ข้อมูลติดต่อจะไม่เปิดเผยต่อสาธารณะ</p>
+  <p style="margin-top:10px"><b>4. ระยะเวลาจัดเก็บ</b><br>ลบภายใน 90 วันหลังประกาศผล (24 พ.ย. 2569) เว้นแต่กฎหมายกำหนด</p>
+  <p style="margin-top:10px"><b>5. สิทธิของเจ้าของข้อมูล</b><br>ขอเข้าถึง แก้ไข หรือลบข้อมูลได้ โดยติดต่อฝ่าย HR/ผู้จัดกิจกรรม COM7</p>
+  <p style="margin-top:10px"><b>6. ความยินยอม</b><br>การติ๊กยอมรับและส่งแบบฟอร์มถือว่ายินยอมตามเงื่อนไข ถอนได้ก่อนประกาศผล</p>
+  <button class="ok" onclick="closePdpaC()">รับทราบ</button>
+</div></div>
+<script>
+function openPdpaC(){ document.getElementById("pdpaCOv").classList.add("on"); document.body.style.overflow="hidden"; }
+function closePdpaC(){ document.getElementById("pdpaCOv").classList.remove("on"); document.body.style.overflow=""; }
+document.addEventListener("click",function(e){ if(e.target&&e.target.id==="pdpaCOv") closePdpaC(); });
+</script>
+<script src="com7-extras.js" defer></script>
+<script src="qrcode.min.js" defer></script>
+<script src="vote-card.js" defer></script>
+</body>
+</html>

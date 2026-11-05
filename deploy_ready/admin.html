@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8" />
+<meta name="robots" content="noindex,nofollow" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Admin — COM7 ลอยกระทง 2569 (Director)</title>
+<link rel="icon" href="assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@400;500;600;700&family=IBM+Plex+Sans+Thai:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@1,500;1,600&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   Admin Panel — COM7 ลอยกระทง สานสายใจ 2569
+   ผู้พัฒนา: แจ็ค (IT & Systems)
+   เชื่อม backend v4 (Google Apps Script) ผ่าน JSONP (GET) + fetch (POST)
+   ★ แยก config ออกจาก logic — แก้ ENDPOINT/PASS ที่เดียว
+   ============================================================ */
+:root{
+  --navy:#0f1440; --navy-2:#080b24; --gold:#e8c874; --gold-2:#f6e2a6;
+  --ink:#f4f1e6; --ok:#3fbf7f; --no:#e06a6a; --warn:#e8b04a;
+  --card:#161a45; --brd:rgba(255,255,255,.12);
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:'Kanit',system-ui,sans-serif;background:linear-gradient(180deg,var(--navy) 0%,var(--navy-2) 100%);
+  color:var(--ink);min-height:100vh;padding:0 0 60px}
+header{position:sticky;top:0;z-index:10;background:rgba(8,11,36,.9);backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--brd);padding:14px 20px;display:flex;align-items:center;justify-content:space-between}
+header h1{font-size:1.15rem;font-weight:600;color:var(--gold-2)}
+header .ver{font-size:.72rem;opacity:.5}
+.wrap{max-width:1100px;margin:0 auto;padding:20px}
+
+/* login */
+.login{max-width:380px;margin:12vh auto;background:var(--card);border:1px solid var(--brd);
+  border-radius:18px;padding:34px 28px;text-align:center}
+.login h2{color:var(--gold-2);margin-bottom:6px}
+.login p{font-size:.9rem;opacity:.7;margin-bottom:20px}
+input,select{width:100%;padding:12px 14px;border-radius:10px;border:1px solid var(--brd);
+  background:#0d1030;color:var(--ink);font-family:inherit;font-size:1rem;margin-bottom:12px}
+.btn{border:0;border-radius:10px;padding:12px 20px;font-family:inherit;font-size:1rem;font-weight:600;
+  cursor:pointer;transition:.2s;background:linear-gradient(135deg,var(--gold),var(--gold-2));color:#3a2d05}
+.btn:hover{transform:translateY(-2px);filter:brightness(1.05)}
+.btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.btn-sm{padding:7px 14px;font-size:.85rem;border-radius:8px}
+.btn-ok{background:var(--ok);color:#04331d}
+.btn-no{background:var(--no);color:#3a0808}
+.btn-ghost{background:transparent;border:1px solid var(--brd);color:var(--ink)}
+
+/* tabs */
+.tabs{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap}
+.tab{padding:9px 18px;border-radius:999px;border:1px solid var(--brd);background:transparent;
+  color:var(--ink);cursor:pointer;font-family:inherit;font-size:.92rem;transition:.2s}
+.tab.active{background:linear-gradient(135deg,var(--gold),var(--gold-2));color:#3a2d05;font-weight:600;border-color:transparent}
+
+/* vote switch bar */
+.votebar{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;
+  background:var(--card);border:1px solid var(--brd);border-radius:14px;padding:16px 20px;margin-bottom:18px}
+.vote-status{font-size:1.05rem;font-weight:600}
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:7px}
+.dot.on{background:var(--ok);box-shadow:0 0 10px var(--ok)}
+.dot.off{background:var(--no)}
+
+/* grid cards */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px}
+.pcard{background:var(--card);border:1px solid var(--brd);border-radius:16px;overflow:hidden;
+  display:flex;flex-direction:column}
+.pcard .ph{width:100%;aspect-ratio:3/4;object-fit:cover;background:#0d1030}
+.pcard .body{padding:12px 14px;flex:1;display:flex;flex-direction:column;gap:5px}
+.pcard .nm{font-weight:600}
+.pcard .meta{font-size:.82rem;opacity:.7}
+.badge{display:inline-block;font-size:.74rem;padding:3px 10px;border-radius:999px;font-weight:500}
+.badge.pending{background:rgba(232,176,74,.2);color:var(--warn)}
+.badge.approved{background:rgba(63,191,127,.2);color:var(--ok)}
+.badge.rejected{background:rgba(224,106,106,.2);color:var(--no)}
+.pcard .acts{display:flex;gap:8px;margin-top:8px}
+.pcard .acts .btn{flex:1}
+
+/* results table */
+table{width:100%;border-collapse:collapse;background:var(--card);border-radius:14px;overflow:hidden}
+th,td{padding:11px 14px;text-align:left;border-bottom:1px solid var(--brd);font-size:.92rem}
+th{background:#0d1030;color:var(--gold-2);font-weight:600}
+tr:last-child td{border-bottom:0}
+.rank{font-weight:700;color:var(--gold-2)}
+.score{font-weight:700}
+
+.muted{opacity:.6;text-align:center;padding:40px}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#222a5c;
+  border:1px solid var(--brd);padding:12px 22px;border-radius:12px;z-index:50;opacity:0;transition:.3s;pointer-events:none}
+.toast.show{opacity:1}
+.section-title{font-size:1rem;font-weight:600;color:var(--gold-2);margin:24px 0 12px}
+.count-pill{font-size:.8rem;background:rgba(255,255,255,.1);padding:2px 10px;border-radius:999px;margin-left:8px}
+
+/* ★ ฟีเจอร์เพิ่ม 5 ต.ค.: สรุปตัวเลข + ช่วงวันโหวต */
+.statbar{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
+.stat{background:var(--card);border:1px solid rgba(226,191,107,.3);border-radius:14px;padding:14px;text-align:center}
+.stat-n{font-size:1.6rem;font-weight:700;color:var(--gold-2);font-family:'Noto Serif Thai',serif}
+.stat-l{font-size:.8rem;opacity:.75;margin-top:2px}
+.votewin{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;
+  background:rgba(232,176,74,.1);border:1px solid rgba(246,226,166,.4);border-radius:12px;padding:11px 16px;margin-bottom:16px;font-size:.95rem}
+.votewin .cd{font-weight:600;color:var(--gold-2)}
+@media(max-width:560px){.statbar{grid-template-columns:repeat(2,1fr)}}
+
+/* v4.1 จัดการกระทง */
+.kt-bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.kt-in{flex:1 1 200px;min-width:0;padding:9px 12px;border-radius:10px;border:1px solid rgba(226,191,107,.35);background:rgba(255,255,255,.05);color:inherit;font:inherit}
+.kt-in option{color:#111}
+.kt-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+.kt-card{border:1px solid rgba(226,191,107,.3);border-radius:14px;padding:12px 14px;background:rgba(255,255,255,.03)}
+.kt-card.is-hidden{opacity:.55;border-style:dashed}
+.kt-top{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-bottom:4px}
+.kt-wish{margin:8px 0 10px;line-height:1.55;word-break:break-word}
+
+/* v4.2 เมนูทุกหน้าในหัว admin (เปิดแท็บใหม่ ไม่หลุดจากหลังบ้าน) */
+header{flex-wrap:wrap;gap:10px}
+.adm-nav{display:flex;flex-wrap:wrap;gap:6px}
+.adm-nav a{padding:6px 12px;border-radius:999px;border:1px solid rgba(226,191,107,.35);color:inherit;text-decoration:none;font-size:13px;white-space:nowrap}
+.adm-nav a:hover{background:rgba(226,191,107,.15)}
+.adm-nav a.on{background:rgba(226,191,107,.22);border-color:rgba(226,191,107,.7)}
+</style>
+
+<style id="premium-admin">
+:root{--pf-gold:linear-gradient(100deg,#b8862d 0%,#f9e7b0 28%,#d9ad52 52%,#fff3cf 72%,#b8862d 100%)}
+body{font-family:'IBM Plex Sans Thai','Kanit',sans-serif!important;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;letter-spacing:.01em}
+header h1{font-family:'Noto Serif Thai',serif!important;font-weight:700!important;
+  background:var(--pf-gold);-webkit-background-clip:text;background-clip:text;color:transparent!important;-webkit-text-fill-color:transparent}
+.login h2,.section-title{font-family:'Noto Serif Thai',serif!important;font-weight:600!important}
+.login,.votebar,.pcard,table{border:1px solid rgba(226,191,107,.3)!important;
+  box-shadow:0 0 0 1px rgba(226,191,107,.12),0 16px 40px -18px #000c!important}
+.btn{font-family:'IBM Plex Sans Thai',sans-serif!important;font-weight:600!important;letter-spacing:.03em}
+.btn:not(.btn-ok):not(.btn-no):not(.btn-ghost){background:linear-gradient(180deg,#fff8e0,#f3d882 46%,#dcab46)!important;
+  box-shadow:0 8px 20px -6px #000a,0 0 0 1.5px #f7e3a8!important}
+.tab.active{background:linear-gradient(135deg,#e8c874,#f6e2a6)!important}
+th{font-family:'Noto Serif Thai',serif!important}
+.rank{font-family:'Noto Serif Thai',serif!important}
+</style>
+<style id="c7-concept">.concept-box{margin:6px 0 8px;padding:8px 10px;border-radius:10px;background:rgba(255,255,255,.05);border:1px dashed rgba(231,197,106,.35);font-size:13px;line-height:1.5;display:flex;gap:8px;align-items:flex-start;justify-content:space-between}.concept-box .cn-t{font-style:italic;color:#f3e7c4;flex:1}.concept-box .btn{flex:0 0 auto}</style>
+<style id="c7-linklater">.link-box{margin:6px 0;display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:13px}.link-box .badge.none{background:rgba(255,255,255,.12);color:#ddd}.lk-open{color:#F7E3A8;text-decoration:underline}</style>
+<style id="c7-photochange">.ph-new{margin:8px 0;padding:8px;border-radius:10px;border:1px solid rgba(255,200,90,.5);background:rgba(255,200,90,.08)}.ph-new-h{font-weight:600;font-size:13px;margin-bottom:6px}.ph-cmp{display:grid;grid-template-columns:1fr 1fr;gap:6px}.ph-cmp figure{margin:0}.ph-cmp img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:8px;background:#222}.ph-cmp figcaption{font-size:11.5px;text-align:center;opacity:.75;margin-top:2px}</style>
+</head>
+<body>
+
+<header>
+  <h1>⚙️ Admin — ลอยกระทง สานสายใจ 2569</h1>
+  <div style="display:flex;align-items:center;gap:10px">
+    <nav class="adm-nav" aria-label="เมนูเว็บ">
+      <a href="index.html" target="_blank">หน้าหลัก</a>
+      <a href="float.html" target="_blank">ลอยกระทง</a> <a  target="_blank" href="wish.html">ขอพร</a>
+      <a href="river.html" target="_blank">สายน้ำ COM7</a>
+      <a href="contest.html" target="_blank">ประกวดนพมาศ AI</a>
+      <a href="contestants.html" target="_blank">ผู้เข้าประกวด</a>
+      <a href="rules.html" target="_blank">กติกา</a>
+      <a href="admin.html" class="on" aria-current="page">แอดมิน</a>
+    </nav>
+    <button id="logoutBtn" class="btn btn-sm btn-ghost" onclick="logout()" style="display:none">ออกจากระบบ</button>
+    <span class="ver">v4.5 · Director</span>
+  </div>
+</header>
+
+<!-- Login -->
+<div id="loginView" class="login">
+  <h2>🔐 เข้าสู่ระบบผู้ดูแล</h2>
+  <p>สำหรับ Director เท่านั้น</p>
+  <input type="password" id="passInput" placeholder="รหัสผู้ดูแล" onkeydown="if(event.key==='Enter')login()" />
+  <button class="btn" style="width:100%" onclick="login()">เข้าสู่ระบบ</button>
+  <p id="loginErr" style="color:var(--no);margin-top:10px;display:none">รหัสไม่ถูกต้อง</p>
+</div>
+
+<!-- Main -->
+<div id="mainView" class="wrap" style="display:none">
+  <!-- สรุปตัวเลขรวม -->
+  <div class="statbar" id="statbar">
+    <div class="stat"><div class="stat-n" id="stAll">–</div><div class="stat-l">ผู้สมัครทั้งหมด</div></div>
+    <div class="stat"><div class="stat-n" id="stApproved">–</div><div class="stat-l">อนุมัติแล้ว</div></div>
+    <div class="stat"><div class="stat-n" id="stPending">–</div><div class="stat-l">รออนุมัติ</div></div>
+    <div class="stat"><div class="stat-n" id="stVotes">–</div><div class="stat-l">คะแนนโหวตรวม</div></div>
+  </div>
+  <!-- ช่วงวันโหวต + countdown -->
+  <div class="votewin" id="votewin">
+    <span>🗳️ ช่วงโหวต: <b>18–23 พ.ย. 2569</b></span>
+    <span id="voteCountdown" class="cd">กำลังคำนวณ…</span>
+  </div>
+  <!-- แถบเปิด/ปิดโหวต -->
+  <div class="votebar">
+    <div class="vote-status"><span id="voteDot" class="dot off"></span><span id="voteText">กำลังโหลด…</span></div>
+    <div style="display:flex;gap:10px">
+      <button class="btn btn-sm btn-ok" onclick="setVote(true)">เปิดโหวต</button>
+      <button class="btn btn-sm btn-no" onclick="setVote(false)">ปิดโหวต</button>
+    </div>
+  </div>
+  <!-- v4.2 ประกาศผล -->
+  <div class="votebar">
+    <div class="vote-status"><span id="annDot" class="dot off"></span><span id="annText">ประกาศผล: กำลังโหลด…</span></div>
+    <div style="display:flex;gap:10px">
+      <button class="btn btn-sm btn-ok" onclick="setAnnounce(true)">🏆 ประกาศผล</button>
+      <button class="btn btn-sm btn-ghost" onclick="setAnnounce(false)">ยกเลิกประกาศ</button>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" data-tab="approve" onclick="switchTab('approve')">🖼️ อนุมัติรูป</button>
+    <button class="tab" data-tab="results" onclick="switchTab('results')">📊 ผลโหวต</button>
+    <button class="tab" data-tab="krathong" onclick="switchTab('krathong')">🪷 จัดการกระทง</button><button class="tab" data-tab="wish" onclick="switchTab('wish')">🌳 จัดการคำขอพร</button>
+    <button class="tab btn-ghost" onclick="loadAll()" style="margin-left:auto">🔄 รีเฟรช</button>
+  </div>
+
+  <!-- Tab: อนุมัติรูป -->
+  <div id="tab-approve">
+    <div id="pendingWrap"></div>
+    <div id="approvedWrap"></div>
+  </div>
+
+  <!-- Tab: ผลโหวต -->
+  <div id="tab-results" style="display:none">
+    <div style="text-align:right;margin-bottom:10px"><button class="btn btn-sm" onclick="exportCSV()">📥 ดาวน์โหลดผลโหวต (CSV)</button></div>
+    <div class="section-title">👑 หญิง</div>
+    <div id="resFemale"></div>
+    <div class="section-title">👑 ชาย</div>
+    <div id="resMale"></div>
+  </div>
+
+  <!-- Tab: จัดการกระทง (v4.1) -->
+  <div id="tab-krathong" style="display:none">
+    <div class="kt-bar">
+      <input id="ktSearch" class="kt-in" placeholder="🔍 ค้นชื่อ / บริษัท / คำอวยพร" oninput="renderKrathongs()">
+      <select id="ktFilter" class="kt-in" onchange="renderKrathongs()">
+        <option value="all">ทั้งหมด</option><option value="shown">แสดงอยู่</option>
+        <option value="hidden">ซ่อนอยู่</option><option value="private">ไม่เผยแพร่ (นิรนาม)</option>
+      </select>
+      <button class="btn btn-sm" onclick="loadKrathongs(true)">🔄 โหลดกระทง</button>
+    </div>
+    <div class="muted" id="ktSummary" style="margin:8px 0 12px">กดแท็บนี้เพื่อโหลดรายการ</div>
+    <div id="ktList"></div>
+  </div>
+</div>
+
+<div id="tab-wish" style="display:none;max-width:1200px;margin:0 auto;padding:0 16px 40px">
+    <div class="kt-bar">
+      <input id="wsSearch" class="kt-in" placeholder="🔍 ค้นคำขอพร / รหัสพนักงาน" oninput="renderWishes()">
+      <select id="wsFilter" class="kt-in" onchange="renderWishes()">
+        <option value="all">ทั้งหมด</option><option value="public">🌕 เปิดเผย (คนอื่นอ่านได้)</option>
+        <option value="sealed">🔒 ปิดผนึก</option><option value="hidden">ซ่อนอยู่</option>
+      </select>
+      <button class="btn btn-sm" onclick="loadWishes(true)">🔄 โหลดคำขอพร</button>
+    </div>
+    <div class="muted" style="margin:6px 0">💡 ควรตรวจใบ "เปิดเผย" ก่อน — ถ้าข้อความไม่เหมาะสม กด "ปิดผนึก" หรือ "ซ่อนจากต้นไม้"</div>
+    <div class="muted" id="wsSummary" style="margin:8px 0 12px">กดแท็บนี้เพื่อโหลดรายการ</div>
+    <div id="wsList"></div>
+  </div>
+<div id="toast" class="toast"></div>
+
+<script>
+/* ============ CONFIG (แก้ที่เดียว) ============ */
+const ENDPOINT = "https://script.google.com/macros/s/AKfycbxxfSz7t00UR9g4H78boZm4RJRLN3O0uqsRnDVEnTK_sEFkZlHiweCdOnEeL0slpuAZuQ/exec";  // ★ ใส่ Web App URL หลัง deploy (ลงท้าย /exec)
+let ADMIN_PASS = "";                         // เก็บชั่วคราวหลัง login (ไม่ hardcode)
+
+/* ============ JSONP helper (GET ข้าม CORS) ============ */
+// SEC#4: ส่ง admin request แบบ POST (pass อยู่ใน body ไม่โผล่ใน URL/log)
+async function apiPost(params){
+  try{
+    const r = await fetch(ENDPOINT, {
+      method:'POST',
+      headers:{ 'Content-Type':'text/plain;charset=utf-8' },
+      body: JSON.stringify(params)
+    });
+    return await r.json();
+  }catch(err){ return { ok:false, error:String(err && err.message || err) }; }
+}
+
+function jsonp(params){
+  return new Promise((resolve,reject)=>{
+    const cb = 'cb_' + Date.now() + Math.floor(Math.random()*1000);
+    const timer = setTimeout(()=>{ cleanup(); reject(new Error('timeout')); }, 15000);
+    function cleanup(){ clearTimeout(timer); delete window[cb]; if(s.parentNode) s.parentNode.removeChild(s); }
+    window[cb] = (data)=>{ cleanup(); resolve(data); };
+    const qs = Object.keys(params).map(k=>encodeURIComponent(k)+'='+encodeURIComponent(params[k])).join('&');
+    const s = document.createElement('script');
+    s.src = ENDPOINT + '?' + qs + '&callback=' + cb;
+    s.onerror = ()=>{ cleanup(); reject(new Error('network')); };
+    document.body.appendChild(s);
+  });
+}
+
+/* ============ Login ============ */
+async function login(){
+  const pass = document.getElementById('passInput').value.trim();
+  if(!pass) return;
+  if(ENDPOINT.indexOf('PASTE')>-1){
+    toast('⚠️ ยังไม่ได้ใส่ Web App URL ในโค้ด (ENDPOINT)'); return;
+  }
+  try{
+    const r = await apiPost({ action:'admin_list', pass:pass });
+    if(r && r.ok){
+      ADMIN_PASS = pass;
+      document.getElementById('loginView').style.display='none';
+      document.getElementById('mainView').style.display='block';
+      document.getElementById('logoutBtn').style.display='';
+      renderContestants(r.data); renderVoteState(r.voteOpen); renderAnnounce(r.announced);
+      loadResults();
+    }else{
+      document.getElementById('loginErr').style.display='block';
+    }
+  }catch(e){ toast('เชื่อมต่อ backend ไม่ได้: '+e.message); }
+}
+
+/* ============ โหลดข้อมูล ============ */
+async function loadAll(){
+  try{
+    const r = await apiPost({ action:'admin_list', pass:ADMIN_PASS });
+    if(r.ok){ renderContestants(r.data); renderVoteState(r.voteOpen); renderAnnounce(r.announced); }
+    loadResults();
+    toast('รีเฟรชแล้ว');
+  }catch(e){ toast('โหลดไม่สำเร็จ: '+e.message); }
+}
+
+async function loadResults(){
+  try{
+    const r = await jsonp({ action:'results' });
+    if(r.ok){ LAST_RESULTS={female:r.female||[],male:r.male||[]}; renderResults('resFemale', r.female); renderResults('resMale', r.male); updateVoteTotal(); }
+  }catch(e){}
+}
+
+/* ============ Render: ผู้สมัคร ============ */
+function renderContestants(data){
+  ALL_C = data || [];   // ★ v4.5 เก็บไว้ให้ปุ่มแก้แนวคิดชุด
+  const pending  = data.filter(d=>d.สถานะ==='รออนุมัติ' || d.รูปใหม่);   // ★ v4.5 คำขอเปลี่ยนรูปขึ้นในกลุ่มรออนุมัติ
+  const others   = data.filter(d=>!(d.สถานะ==='รออนุมัติ' || d.รูปใหม่));
+  updateStats(data);
+
+  document.getElementById('pendingWrap').innerHTML =
+    '<div class="section-title">⏳ รออนุมัติ <span class="count-pill">'+pending.length+'</span></div>' +
+    (pending.length ? '<div class="grid">'+pending.map(card).join('')+'</div>'
+                    : '<div class="muted">ไม่มีรายการรออนุมัติ</div>');
+
+  document.getElementById('approvedWrap').innerHTML =
+    '<div class="section-title">📋 รายการอื่น <span class="count-pill">'+others.length+'</span></div>' +
+    (others.length ? '<div class="grid">'+others.map(card).join('')+'</div>' : '');
+}
+
+function card(d){
+  const badge = d.สถานะ==='อนุมัติ' ? 'approved' : d.สถานะ==='ปฏิเสธ' ? 'rejected' : 'pending';
+  const img = d.รูป ? '<img class="ph" src="'+d.รูป+'" alt="" loading="lazy" />' : '<div class="ph"></div>';
+  const acts = d.สถานะ==='รออนุมัติ'
+    ? '<div class="acts"><button class="btn btn-sm btn-ok" onclick="decide(\''+d.id+'\',\'approve\')">✅ อนุมัติ</button>'
+     +'<button class="btn btn-sm btn-no" onclick="decide(\''+d.id+'\',\'reject\')">❌ ปฏิเสธ</button></div>'
+    : '<div class="acts"><button class="btn btn-sm btn-ghost" onclick="decide(\''+d.id+'\',\''
+      +(d.สถานะ==='อนุมัติ'?'reject':'approve')+'\')">'+(d.สถานะ==='อนุมัติ'?'ซ่อน':'อนุมัติ')+'</button></div>';
+  return '<div class="pcard">'+img+'<div class="body">'
+    +'<span class="badge '+badge+'">'+d.สถานะ+'</span>'
+    +'<div class="nm">'+esc(d.ชื่อ)+' <small style="opacity:.5">('+d.เพศ+')</small></div>'
+    +'<div class="meta">'+esc(d.บริษัท)+'</div>'
+    +'<div class="meta">คะแนน: '+(d.คะแนน||0)+' · '+d.id+'</div>'
+    +photoBox(d)
+    +linkBox(d)
+    +'<div class="concept-box">'+(d.แนวคิด?'<span class="cn-t">“'+esc(d.แนวคิด)+'”</span>':'<span class="muted">(ยังไม่มีแนวคิดชุด)</span>')
+    +' <button class="btn btn-sm btn-ghost" onclick="editConcept(\''+d.id+'\')">✏️ แก้</button></div>'
+    +acts+'</div></div>';
+}
+
+/* ============ เปลี่ยนรูป (v4.5) ============ */
+function photoBox(d){
+  if(!d.รูปใหม่) return '';
+  return '<div class="ph-new"><div class="ph-new-h">🔄 ขอเปลี่ยนรูป <small>(ครั้งที่ '+(d.เปลี่ยนรูป||1)+')</small></div>'
+    +'<div class="ph-cmp"><figure><img src="'+d.รูป+'" alt=""><figcaption>รูปเดิม</figcaption></figure><figure><img src="'+d.รูปใหม่+'" alt=""><figcaption>รูปใหม่</figcaption></figure></div>'
+    +'<div class="acts"><button class="btn btn-sm btn-ok" onclick="decidePhoto(\''+d.id+'\',\'approve\')">✅ ใช้รูปใหม่</button><button class="btn btn-sm btn-no" onclick="decidePhoto(\''+d.id+'\',\'reject\')">❌ ใช้รูปเดิม</button></div></div>';
+}
+async function decidePhoto(id,decision){
+  if(!confirm((decision==='approve'?'เปลี่ยนเป็นรูปใหม่บนเว็บ':'ไม่ใช้รูปใหม่ (คงรูปเดิม)')+' — '+id+' ?'))return;
+  const r=await apiPost({action:'admin_photo',pass:ADMIN_PASS,id:id,decision:decision});
+  if(r&&r.ok){toast(r.message||'อัปเดตแล้ว');loadAll();}else toast('ไม่สำเร็จ: '+((r&&r.error)||'')+' (ต้องใช้ระบบหลังบ้าน v4.5)');
+}
+/* ============ ลิงก์โพสต์ (v4.5) ============ */
+function linkBox(d){
+  const ls=d.สถานะลิงก์||(d.ลิงก์โพสต์?'รอตรวจ':'ยังไม่ส่ง');
+  const cls={'ผ่าน':'approved','ไม่ผ่าน':'rejected','รอตรวจ':'pending','ยังไม่ส่ง':'none'}[ls]||'pending';
+  const lk=d.ลิงก์โพสต์?'<a href="'+esc(d.ลิงก์โพสต์)+'" target="_blank" rel="noopener" class="lk-open">🔗 เปิดดูโพสต์</a>':'';
+  const acts=d.ลิงก์โพสต์?' <button class="btn btn-sm btn-ok" onclick="setLink(\''+d.id+'\',\'pass\')">✅ ผ่าน</button><button class="btn btn-sm btn-no" onclick="setLink(\''+d.id+'\',\'fail\')">❌ ไม่ผ่าน</button>':'';
+  return '<div class="link-box"><span class="badge '+cls+'">ลิงก์: '+ls+'</span> '+lk+acts+'</div>';
+}
+async function setLink(id,decision){
+  if(!confirm((decision==='pass'?'ยืนยันลิงก์ผ่าน':'ยืนยันลิงก์ไม่ผ่าน (ผู้สมัครส่งใหม่ได้)')+' — '+id+' ?'))return;
+  const r=await apiPost({action:'admin_link',pass:ADMIN_PASS,id:id,decision:decision});
+  if(r&&r.ok){toast(r.message||'อัปเดตแล้ว');loadAll();}else toast('ไม่สำเร็จ: '+((r&&r.error)||'')+' (ต้องใช้ระบบหลังบ้าน v4.5)');
+}
+/* ============ แนวคิดชุด (v4.5) ============ */
+let ALL_C = [];
+async function editConcept(id){
+  const cur = (ALL_C.find(x=>x.id===id)||{}).แนวคิด || '';
+  const v = prompt('แนวคิดชุดของ '+id+' (ไม่เกิน 100 ตัวอักษร · ว่าง = ลบ)', cur);
+  if(v===null) return;
+  if(/\d[\d\s-]{7,}\d|[\w.+-]+@[\w-]+\.\w+/.test(v)){ toast('ห้ามมีเบอร์โทร/อีเมลในข้อความ'); return; }
+  const r = await apiPost({ action:'admin_concept', pass:ADMIN_PASS, id:id, concept:v.slice(0,100) });
+  if(r && r.ok){ toast('บันทึกแนวคิดชุดแล้ว'); loadAll(); } else toast('ไม่สำเร็จ: '+((r&&r.error)||'')+' (ต้องใช้ระบบหลังบ้าน v4.5)');
+}
+/* ============ อนุมัติ/ปฏิเสธ ============ */
+async function decide(id, decision){
+  const label = decision==='approve'?'อนุมัติ':'ปฏิเสธ/ซ่อน';
+  if(!confirm('ยืนยัน'+label+'ผู้สมัคร '+id+' ?')) return;
+  try{
+    const r = await apiPost({ action:'admin_approve', pass:ADMIN_PASS, id:id, decision:decision });
+    if(r.ok){ toast(r.message||'อัปเดตแล้ว'); loadAll(); }
+    else toast('ไม่สำเร็จ: '+(r.error||''));
+  }catch(e){ toast('ผิดพลาด: '+e.message); }
+}
+
+/* ============ เปิด/ปิดโหวต ============ */
+function renderVoteState(open){
+  document.getElementById('voteDot').className = 'dot ' + (open?'on':'off');
+  document.getElementById('voteText').textContent = open ? 'โหวตเปิดอยู่ 🟢' : 'โหวตปิดอยู่ 🔴';
+}
+async function setVote(open){
+  if(!confirm((open?'เปิด':'ปิด')+'โหวต ยืนยัน?')) return;
+  try{
+    const r = await apiPost({ action:'admin_votectl', pass:ADMIN_PASS, open:open });
+    if(r.ok){ renderVoteState(r.voteOpen); toast(r.message); }
+    else toast('ไม่สำเร็จ: '+(r.error||''));
+  }catch(e){ toast('ผิดพลาด: '+e.message); }
+}
+
+/* ============ Render: ผลโหวต ============ */
+function renderResults(elId, list){
+  const el = document.getElementById(elId);
+  if(!list || !list.length){ el.innerHTML='<div class="muted">ยังไม่มีข้อมูล</div>'; return; }
+  el.innerHTML = '<table><thead><tr><th>อันดับ</th><th>ชื่อ</th><th>บริษัท</th><th style="text-align:right">คะแนน</th></tr></thead><tbody>'
+    + list.map((d,i)=>'<tr><td class="rank">'+(i+1)+'</td><td>'+esc(d.ชื่อ)+'</td><td>'+esc(d.บริษัท)
+      +'</td><td class="score" style="text-align:right">'+d.คะแนน+'</td></tr>').join('')
+    + '</tbody></table>';
+}
+
+
+
+/* ============ ประกาศผล (v4.2) ============ */
+function renderAnnounce(on){
+  document.getElementById('annDot').className = 'dot ' + (on?'on':'off');
+  document.getElementById('annText').textContent = on ? 'ประกาศผลแล้ว 🏆 (หน้าเว็บแสดง Top 3)'
+    : 'ยังไม่ประกาศ — ระบบจะแสดงผู้ชนะเองหลัง 23 พ.ย. 23:59 (ถ้าปิดโหวตแล้ว)';
+}
+async function setAnnounce(on){
+  if(!confirm(on?'ประกาศผล Top 3 บนหน้าเว็บตอนนี้ ยืนยัน?':'ยกเลิกประกาศผล ยืนยัน?')) return;
+  const r = await apiPost({ action:'admin_announce', pass:ADMIN_PASS, on:on });
+  if(r && r.ok){ renderAnnounce(r.announced); toast(r.message); }
+  else toast('ไม่สำเร็จ: '+((r&&r.error)||''));
+}
+
+/* ============ จัดการกระทง (v4.1) ============ */
+let KT = [], KT_LOADED = false;
+async function loadKrathongs(force){
+  document.getElementById('ktSummary').textContent = 'กำลังโหลด…';
+  const r = await apiPost({ action:'admin_krathongs', pass:ADMIN_PASS });
+  if(!r || !r.ok){ document.getElementById('ktSummary').textContent = 'โหลดไม่สำเร็จ: '+((r&&r.error)||''); return; }
+  KT = r.data || []; KT_LOADED = true; renderKrathongs();
+  if(force) toast('โหลดกระทงแล้ว '+KT.length+' ใบ');
+}
+function fmtTime(t){ try{ const d=new Date(t); return isNaN(d)?'':d.toLocaleString('th-TH',{dateStyle:'short',timeStyle:'short'}); }catch(_){ return ''; } }
+function renderKrathongs(){
+  const q = (document.getElementById('ktSearch').value||'').trim().toLowerCase();
+  const f = document.getElementById('ktFilter').value;
+  let list = KT.filter(k=>{
+    if(f==='shown'   && k.ซ่อน) return false;
+    if(f==='hidden'  && !k.ซ่อน) return false;
+    if(f==='private' && k.เผยแพร่) return false;
+    if(!q) return true;
+    return [k.ชื่อ,k.บริษัท,k.คำอวยพร].join(' ').toLowerCase().indexOf(q) > -1;
+  });
+  const hidden = KT.filter(k=>k.ซ่อน).length;
+  document.getElementById('ktSummary').textContent =
+    'ทั้งหมด '+KT.length+' ใบ · ซ่อนอยู่ '+hidden+' ใบ · แสดงผล '+list.length+' ใบ (ล่าสุดขึ้นก่อน)';
+  const box = document.getElementById('ktList');
+  if(!list.length){ box.innerHTML = '<div class="muted">ไม่พบรายการ</div>'; return; }
+  box.innerHTML = '<div class="kt-grid">' + list.slice(0,300).map(k=>
+    '<div class="kt-card'+(k.ซ่อน?' is-hidden':'')+'">'
+    + '<div class="kt-top"><b>'+esc(k.ชื่อ||'—')+'</b>'
+    + (k.ซ่อน?'<span class="badge rejected">ซ่อนอยู่</span>':'<span class="badge approved">แสดงอยู่</span>')
+    + (k.เผยแพร่?'':'<span class="badge pending">นิรนาม</span>') + '</div>'
+    + '<div class="meta">'+esc(k.บริษัท||'')+' · '+esc(k.แบบกระทง||'')+' · '+fmtTime(k.เวลา)+'</div>'
+    + '<div class="kt-wish">'+(k.คำอวยพร?esc(k.คำอวยพร):'<span class="muted">(ไม่มีคำอวยพร)</span>')+'</div>'
+    + '<div class="acts"><button class="btn btn-sm '+(k.ซ่อน?'btn-ok':'btn-no')+'" onclick="hideKrathong(\''+esc(k.krathongId)+'\','+(!k.ซ่อน)+')">'
+    + (k.ซ่อน?'👁️ เลิกซ่อน':'🙈 ซ่อนจากสายน้ำ') + '</button></div>'
+    + '</div>').join('') + '</div>'
+    + (list.length>300?'<div class="muted" style="margin-top:10px">แสดง 300 ใบแรก — ใช้ช่องค้นหาเพื่อหาใบอื่น</div>':'');
+}
+async function hideKrathong(id, hide){
+  if(!id){ toast('กระทงนี้ไม่มี id (ข้อมูลเก่า) — ซ่อนในชีตโดยตรง'); return; }
+  if(!confirm((hide?'ซ่อน':'เลิกซ่อน')+'กระทงนี้จากสายน้ำ ยืนยัน?')) return;
+  const r = await apiPost({ action:'admin_hide', pass:ADMIN_PASS, krathongId:id, hide:hide });
+  if(r && r.ok){ const k=KT.find(x=>x.krathongId===id); if(k) k.ซ่อน=hide; renderKrathongs(); toast(r.message||'อัปเดตแล้ว'); }
+  else toast('ไม่สำเร็จ: '+((r&&r.error)||''));
+}
+
+/* ============ UI helpers ============ */
+function switchTab(t){
+  document.querySelectorAll('.tab[data-tab]').forEach(b=>b.classList.toggle('active', b.dataset.tab===t));
+  document.getElementById('tab-approve').style.display = t==='approve'?'block':'none';
+  document.getElementById('tab-results').style.display = t==='results'?'block':'none';
+  document.getElementById('tab-krathong').style.display = t==='krathong'?'block':'none';
+  if(t==='krathong' && !KT_LOADED) loadKrathongs();
+  document.getElementById('tab-wish').style.display = t==='wish'?'block':'none';
+  if(t==='wish' && !WS_LOADED) loadWishes();
+}
+/* ============ จัดการคำขอพร (v4.5) ============ */
+let WS = [], WS_LOADED = false;
+const WCAT = {love:'💖 ความรัก',work:'💼 การงาน',study:'📖 การเรียน',health:'✨ สุขภาพ',family:'👨‍👩‍👧 ครอบครัว',money:'💰 การเงิน',other:'🙂 อื่นๆ'};
+async function loadWishes(force){
+  document.getElementById('wsSummary').textContent='กำลังโหลด…';
+  const r = await apiPost({ action:'admin_wishes', pass:ADMIN_PASS });
+  if(!r||!r.ok){ document.getElementById('wsSummary').textContent='โหลดไม่สำเร็จ: '+((r&&r.error)||'')+' (ต้องใช้ระบบหลังบ้าน v4.5)'; return; }
+  WS = r.data||[]; WS_LOADED = true; renderWishes(); if(force) toast('โหลดคำขอพรแล้ว '+WS.length+' ใบ');
+}
+function renderWishes(){
+  const q=(document.getElementById('wsSearch').value||'').trim().toLowerCase(), f=document.getElementById('wsFilter').value;
+  const list=WS.filter(w=>{ if(f==='public'&&(!w.เปิดเผย||w.ซ่อน))return false; if(f==='sealed'&&w.เปิดเผย)return false; if(f==='hidden'&&!w.ซ่อน)return false;
+    return !q || [w.คำอธิษฐาน,w.รหัสพนักงาน].join(' ').toLowerCase().indexOf(q)>-1; });
+  document.getElementById('wsSummary').textContent='ทั้งหมด '+WS.length+' ใบ · เปิดเผย '+WS.filter(w=>w.เปิดเผย&&!w.ซ่อน).length+' · ซ่อน '+WS.filter(w=>w.ซ่อน).length+' · แสดงผล '+list.length;
+  const box=document.getElementById('wsList'); if(!list.length){ box.innerHTML='<div class="muted">ไม่พบรายการ</div>'; return; }
+  box.innerHTML='<div class="kt-grid">'+list.slice(0,300).map(w=>'<div class="kt-card'+(w.ซ่อน?' is-hidden':'')+'">'
+    +'<div class="kt-top"><b>'+(WCAT[w.หมวด]||w.หมวด)+'</b>'
+    +(w.ซ่อน?'<span class="badge rejected">ซ่อนอยู่</span>':(w.เปิดเผย?'<span class="badge approved">🌕 เปิดเผย</span>':'<span class="badge pending">🔒 ปิดผนึก</span>'))+'</div>'
+    +'<div class="meta">รหัส '+esc(w.รหัสพนักงาน||'')+' · 💛 '+(w.พลังใจ||0)+' · '+fmtTime(w.เวลา)+'</div>'
+    +'<div class="kt-wish">'+esc(w.คำอธิษฐาน||'')+'</div><div class="acts">'
+    +(w.เปิดเผย?'<button class="btn btn-sm" onclick="setWish(\''+esc(w.wishId)+'\',{public:false})">🔒 ปิดผนึก</button>':'')
+    +'<button class="btn btn-sm '+(w.ซ่อน?'btn-ok':'btn-no')+'" onclick="setWish(\''+esc(w.wishId)+'\',{hide:'+(!w.ซ่อน)+'})">'+(w.ซ่อน?'👁️ เลิกซ่อน':'🙈 ซ่อนจากต้นไม้')+'</button>'
+    +'</div></div>').join('')+'</div>';
+}
+async function setWish(id,o){
+  if(!confirm('ยืนยันการเปลี่ยนแปลงคำขอพรนี้?'))return;
+  const r=await apiPost(Object.assign({action:'admin_wish_set',pass:ADMIN_PASS,wishId:id},o));
+  if(r&&r.ok){ const w=WS.find(x=>x.wishId===id); if(w){ if(o.hide!=null)w.ซ่อน=o.hide; if(o.public!=null)w.เปิดเผย=o.public; } renderWishes(); toast('อัปเดตแล้ว'); }
+  else toast('ไม่สำเร็จ: '+((r&&r.error)||''));
+}
+function esc(s){ return String(s==null?'':s).replace(/[<>&]/g, c=>({'<':'&lt;','>':'&gt;','&':'&amp;'}[c])); }
+let toastTimer;
+function toast(msg){
+  const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show');
+  clearTimeout(toastTimer); toastTimer=setTimeout(()=>t.classList.remove('show'),2800);
+}
+
+/* ====== ฟีเจอร์เพิ่ม 5 ต.ค. 2569 (แจ็ค) ====== */
+var LAST_RESULTS={female:[],male:[]};
+var LAST_DATA=[];
+function logout(){ ADMIN_PASS=""; location.reload(); }
+
+function updateStats(data){
+  LAST_DATA=data||[];
+  var all=LAST_DATA.length;
+  var ap=LAST_DATA.filter(function(d){return d.สถานะ==='อนุมัติ';}).length;
+  var pd=LAST_DATA.filter(function(d){return d.สถานะ==='รออนุมัติ';}).length;
+  document.getElementById('stAll').textContent=all;
+  document.getElementById('stApproved').textContent=ap;
+  document.getElementById('stPending').textContent=pd;
+  updateVoteTotal();
+}
+function updateVoteTotal(){
+  var tot=0;
+  (LAST_RESULTS.female||[]).forEach(function(d){tot+=(+d.คะแนน||0);});
+  (LAST_RESULTS.male||[]).forEach(function(d){tot+=(+d.คะแนน||0);});
+  var el=document.getElementById('stVotes'); if(el) el.textContent=tot;
+}
+
+/* countdown ช่วงโหวต 18–23 พ.ย. 2569 (ค.ศ. 2026) เวลาไทย */
+var VOTE_START=new Date('2026-11-18T00:00:00+07:00');
+var VOTE_END  =new Date('2026-11-23T23:59:59+07:00');
+function fmtDur(ms){
+  var s=Math.floor(ms/1000), d=Math.floor(s/86400); s-=d*86400;
+  var h=Math.floor(s/3600); s-=h*3600; var m=Math.floor(s/60);
+  return d+' วัน '+h+' ชม. '+m+' นาที';
+}
+function tickCountdown(){
+  var el=document.getElementById('voteCountdown'); if(!el) return;
+  var now=new Date();
+  if(now<VOTE_START) el.textContent='⏳ เปิดโหวตในอีก '+fmtDur(VOTE_START-now);
+  else if(now<=VOTE_END) el.textContent='🟢 กำลังเปิดโหวต · ปิดในอีก '+fmtDur(VOTE_END-now);
+  else el.textContent='🔴 ปิดโหวตแล้ว';
+}
+setInterval(tickCountdown, 30000); tickCountdown();
+
+/* Export ผลโหวตเป็น CSV (UTF-8 BOM เปิดใน Excel ภาษาไทยได้) */
+function exportCSV(){
+  var rows=[['หมวด','อันดับ','ชื่อ','บริษัท','คะแนน']];
+  (LAST_RESULTS.female||[]).forEach(function(d,i){rows.push(['หญิง',i+1,d.ชื่อ,d.บริษัท,d.คะแนน]);});
+  (LAST_RESULTS.male||[]).forEach(function(d,i){rows.push(['ชาย',i+1,d.ชื่อ,d.บริษัท,d.คะแนน]);});
+  if(rows.length===1){ toast('ยังไม่มีข้อมูลผลโหวต'); return; }
+  var csv=rows.map(function(r){return r.map(function(c){
+    c=String(c==null?'':c); return /[",\n]/.test(c)?'"'+c.replace(/"/g,'""')+'"':c;
+  }).join(',');}).join('\r\n');
+  var blob=new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'});
+  var a=document.createElement('a'); a.href=URL.createObjectURL(blob);
+  a.download='ผลโหวตนพมาศ_'+new Date().toISOString().slice(0,10)+'.csv';
+  document.body.appendChild(a); a.click(); a.remove();
+  toast('ดาวน์โหลด CSV แล้ว');
+}
+
+</script>
+</body>
+</html>
