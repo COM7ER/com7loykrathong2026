@@ -3,6 +3,13 @@
 <head>
 <meta charset="utf-8">
 <title>ลอยกระทงออนไลน์ — COM7 สานสายใจ 2569</title>
+<!-- c7-og -->
+<meta name="description" content="เลือกกระทง ตกแต่ง เขียนคำอธิษฐาน แล้วปล่อยลงสายน้ำ COM7 🪷">
+<meta property="og:type" content="website"><meta property="og:url" content="https://com7er.github.io/com7loykrathong2026/float.html">
+<meta property="og:title" content="ลอยกระทงออนไลน์ — COM7 สานสายใจ 2569"><meta property="og:description" content="เลือกกระทง ตกแต่ง เขียนคำอธิษฐาน แล้วปล่อยลงสายน้ำ COM7 🪷">
+<meta property="og:image" content="https://com7er.github.io/com7loykrathong2026/assets/og_image.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<!-- /c7-og -->
 <link rel="icon" href="assets/favicon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#060a2c">
@@ -353,6 +360,14 @@ h1{font-size:clamp(30px,5.2vw,58px)!important;line-height:1.3!important}
   .nav a.link.on::after{display:none}
 }
 </style>
+<style id="c7-wishlink">
+.ttree{margin:10px 0 4px;padding:10px 12px;border-radius:14px;border:1px dashed rgba(245,201,92,.45);background:rgba(245,201,92,.06)}
+.ttree .pd{font-size:12.5px;margin:6px 0}.ttree .pd a{color:#ffe28f}
+.wcat{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 8px}.wcat label{cursor:pointer}.wcat input{position:absolute;opacity:0;pointer-events:none}
+.wcat span{display:inline-block;padding:5px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.25);font-size:12.5px;transition:.2s}
+.wcat input:checked+span{background:rgba(245,201,92,.25);border-color:#f5c95c;color:#ffe9a8}.wcat input:focus-visible+span{outline:2px solid #ffe28f}
+#fs4 .brow{flex-wrap:wrap}
+</style>
 </head>
 <body>
 
@@ -515,6 +530,15 @@ h1{font-size:clamp(30px,5.2vw,58px)!important;line-height:1.3!important}
         <div class="cc"><span id="charLeft">200</span> ตัวอักษรคงเหลือ</div></div>
       <label class="pub"><input type="checkbox" id="publishToggle" checked> <span>เผยแพร่ชื่อและคำอธิษฐานในสายน้ำ COM7</span></label>
       <p class="pd" id="privacyDesc"></p>
+<div class="ttree">
+ <label class="pub"><input type="checkbox" id="toTree"> <span>🌳 แขวนพรนี้บนต้นไม้แห่งคำอธิษฐานด้วย</span></label>
+ <div id="treeOpts" hidden>
+  <p class="pd">น้องผึ้งจะนำพรเดียวกันไปแขวนที่ <a href="wish.html" target="_blank">ต้นไม้แห่งคำอธิษฐาน</a> · <b>ไม่แสดงชื่อ</b> · ต้องใส่รหัสพนักงาน (ไว้เปิดอ่านพรของตัวเอง) · คนละไม่เกิน 5 พร · ยาวไม่เกิน 120 ตัวอักษร</p>
+  <div class="wcat"><label><input type="radio" name="wcat" value="love" checked><span>💖 ความรัก</span></label><label><input type="radio" name="wcat" value="work"><span>💼 การงาน</span></label><label><input type="radio" name="wcat" value="study"><span>📖 การเรียน</span></label><label><input type="radio" name="wcat" value="health"><span>✨ สุขภาพ</span></label><label><input type="radio" name="wcat" value="family"><span>👨‍👩‍👧 ครอบครัว</span></label><label><input type="radio" name="wcat" value="money"><span>💰 การเงิน</span></label><label><input type="radio" name="wcat" value="other"><span>🙂 อื่นๆ</span></label></div>
+  <label class="pub"><input type="checkbox" id="treePub"> <span>เปิดเผยข้อความพรบนต้นไม้ (ไม่ติ๊ก = 🔒 ปิดผนึก เห็นแค่หมวด)</span></label>
+ </div>
+</div>
+
       <div class="brow"><button class="gbtn" type="button" onclick="fGo(1)">← ย้อนกลับ</button><button class="next" type="button" onclick="fPreview()"><span>ดูตัวอย่าง</span><span class="arr">→</span></button></div>
     </section>
     <section class="card fs" id="fs3" hidden>
@@ -527,7 +551,7 @@ h1{font-size:clamp(30px,5.2vw,58px)!important;line-height:1.3!important}
       <div class="stage fstage fdone"><svg class="kr" id="krDone" viewBox="0 0 520 400" preserveAspectRatio="xMidYMid meet"></svg></div>
       <h2 class="fh">ลอยกระทงสำเร็จ 🪷</h2>
       <p class="pd" id="doneMsg" style="text-align:center">กำลังบันทึก…</p>
-      <div class="brow"><button class="next" type="button" onclick="fViewMine()"><span>ดูกระทงของฉันในสายน้ำ</span><span class="arr">→</span></button><button class="gbtn" type="button" onclick="location.reload()">ลอยอีกครั้ง</button></div>
+      <div class="brow"><button class="next" type="button" onclick="fViewMine()"><span>ดูกระทงของฉันในสายน้ำ</span><span class="arr">→</span></button><button class="gbtn" type="button" id="treeBtn" hidden onclick="fGoTree()"><span>🌳 ต้นไม้แห่งคำอธิษฐาน</span></button><button class="gbtn" type="button" onclick="location.reload()">ลอยอีกครั้ง</button></div>
     </section>
   </main>
 </div>
@@ -1008,7 +1032,10 @@ sync(false);
 /* ★ เชื่อมขั้น 1→4 กับระบบจริง (backend v4.2) · แจ็ค 3 พ.ย. 2569 */
 var LK_ENDPOINT="https://script.google.com/macros/s/AKfycbxxfSz7t00UR9g4H78boZm4RJRLN3O0uqsRnDVEnTK_sEFkZlHiweCdOnEeL0slpuAZuQ/exec";
 var LK_TOKEN="COM7LKER2569";
-var F={kr:null,decor:[],name:'',wish:'',empId:'',publish:true,myId:null,busy:false};
+var F={kr:null,decor:[],name:'',wish:'',empId:'',publish:true,myId:null,busy:false,toTree:false,wishCat:'love',treePub:false,wishId:null};
+/* ★ 5 พ.ย.: เชื่อมกับต้นไม้แห่งคำอธิษฐาน — ผู้ใช้เลือกเองเท่านั้น */
+document.getElementById('toTree').addEventListener('change',function(){document.getElementById('treeOpts').hidden=!this.checked;});
+(function(){try{var q=new URLSearchParams(location.search).get('wish');if(q){document.getElementById('wishInput').value=q.slice(0,200);document.getElementById('charLeft').textContent=200-Math.min(200,q.length);}}catch(e){}})();
 function fToast(m){var t=document.getElementById('toast');t.textContent=m;t.classList.add('show');clearTimeout(fToast._t);fToast._t=setTimeout(function(){t.classList.remove('show')},2800);}
 function fGo(n){
   for(var i=1;i<=4;i++){document.getElementById('fs'+i).hidden=(i!==n);}
@@ -1029,10 +1056,17 @@ function fPreview(){
   ni.classList.remove('err');
   F.name=name;F.wish=document.getElementById('wishInput').value.trim();
   F.empId=document.getElementById('empIdInput').value.trim();F.publish=document.getElementById('publishToggle').checked;
+  F.toTree=document.getElementById('toTree').checked;F.treePub=document.getElementById('treePub').checked;
+  var wc=document.querySelector('input[name=wcat]:checked');F.wishCat=wc?wc.value:'other';
+  if(F.toTree){
+    if(F.wish.length<3){fToast('เขียนคำอธิษฐานก่อน ถึงจะแขวนบนต้นไม้ได้');document.getElementById('wishInput').focus();return;}
+    if(F.wish.length>120){fToast('พรที่จะแขวนบนต้นไม้ยาวได้ไม่เกิน 120 ตัวอักษร (ตอนนี้ '+F.wish.length+')');document.getElementById('wishInput').focus();return;}
+    if(!/^[A-Za-z0-9-]{3,30}$/.test(F.empId)){var ei=document.getElementById('empIdInput');ei.classList.add('err');fToast('แขวนพรบนต้นไม้ ต้องใส่รหัสพนักงาน');ei.focus();return;}
+  }
   copyKr('krPrev');
   document.getElementById('previewName').textContent=F.publish?name:'กระทงนิรนาม';
   document.getElementById('previewWish').textContent=(F.publish&&F.wish)?'“'+F.wish+'”':'';
-  document.getElementById('previewAnon').textContent=F.publish?'':'🔒 ผู้อื่นจะเห็นเป็นกระทงนิรนาม';
+  document.getElementById('previewAnon').textContent=(F.publish?'':'🔒 ผู้อื่นจะเห็นเป็นกระทงนิรนาม')+(F.toTree?(F.publish?'':' · ')+'🌳 แขวนพรบนต้นไม้ด้วย ('+(F.treePub?'เปิดเผย':'ปิดผนึก')+')':'');
   fGo(3);
 }
 function fRelease(){
@@ -1041,12 +1075,16 @@ function fRelease(){
   var msg=document.getElementById('doneMsg');msg.textContent='กำลังบันทึก…';
   var p={token:LK_TOKEN,action:'krathong',consent:true,'เผยแพร่':F.publish,'ชื่อพนักงาน':F.name,'รหัสพนักงาน':F.empId,
     'คำอวยพร':F.wish,'แบบกระทง':(window.KrathongArt?KrathongArt.encode(F.kr,F.decor):F.kr),'ของตกแต่ง':F.decor.join(',')};
+  if(F.toTree){p.toTree=true;p.wishCat=F.wishCat;p.wishPublic=F.treePub;p.wishTag=Math.floor(Math.random()*6);}
   fJsonp(p,function(res){F.busy=false;document.getElementById('releaseBtn').disabled=false;
-    if(res&&res.ok){F.myId=res.krathongId||null;msg.textContent='ขอให้คำอธิษฐานของคุณเป็นจริง ✨';
+    if(res&&res.ok){F.myId=res.krathongId||null;F.wishId=res.wishId||null;msg.textContent='ขอให้คำอธิษฐานของคุณเป็นจริง ✨'+(F.wishId?' · น้องผึ้งแขวนพรบนต้นไม้แล้ว 🐝':'');
+      if(F.toTree&&F.treePub&&res.wishPublic===false)setTimeout(function(){fToast('มีเบอร์โทร/อีเมลในพร ระบบจึงปิดผนึกบนต้นไม้ให้อัตโนมัติ 🔒')},1200);
+      var tb=document.getElementById('treeBtn');tb.hidden=false;tb.querySelector('span').textContent=F.wishId?'🌳 ไปดูพรของฉันบนต้นไม้':'🌳 อยากขอพรเพิ่มที่ต้นไม้ไหม?';
       try{var k='com7_my_krathongs',m=JSON.parse(localStorage.getItem(k)||'[]');if(F.myId){m.push({id:F.myId,name:F.name,at:Date.now()});localStorage.setItem(k,JSON.stringify(m));}}catch(e){}
     }else{msg.textContent='บันทึกไม่สำเร็จ: '+((res&&res.error)||'ลองใหม่อีกครั้ง');}
   });
 }
+function fGoTree(){if(F.wishId){try{sessionStorage.setItem('c7_wish_emp',F.empId)}catch(e){}location.href='wish.html#mine';}else location.href='wish.html';}
 function fViewMine(){location.href='river.html'+(F.myId?'?my='+encodeURIComponent(F.myId):'');}
 function fJsonp(params,cb){
   var name='__cb_'+Date.now()+Math.floor(Math.random()*9999),s=document.createElement('script');

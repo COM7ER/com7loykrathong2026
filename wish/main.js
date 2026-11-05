@@ -20,7 +20,13 @@
      PDPA: ป้ายบนต้นไม้ "ปิดผนึก" — สาธารณะเห็นแค่หมวด/สี/พลังใจ · เจ้าของเปิดอ่านได้ด้วยชื่อ+รหัสพนักงาน */
   const API = 'https://script.google.com/macros/s/AKfycbxxfSz7t00UR9g4H78boZm4RJRLN3O0uqsRnDVEnTK_sEFkZlHiweCdOnEeL0slpuAZuQ/exec';
   const TOKEN = 'COM7LKER2569';
-  function api(params) {
+  /* ★ 5 พ.ย.: ถ้าระบบหลังบ้านยังเป็นเวอร์ชันเก่า (ไม่รู้จักคำสั่งขอพร) → แจ้งข้อความที่เข้าใจได้ แทน "unknown action" */
+  function friendly(r) {
+    if (r && !r.ok && /unknown action/i.test(String(r.error || ''))) r.error = 'ระบบขอพรกำลังอัปเดต ขออภัยในความไม่สะดวก ลองใหม่อีกครั้งภายหลังนะ 🙏';
+    return r;
+  }
+  function api(params) { return _api(params).then(friendly); }
+  function _api(params) {
     return new Promise((res) => {
       const cb = '__wt' + Date.now() + Math.floor(Math.random() * 1e4), s = document.createElement('script');
       const tm = setTimeout(() => done({ ok: false, error: 'เชื่อมต่อช้า ลองใหม่อีกครั้ง' }), 15000);
@@ -550,7 +556,8 @@ function renderStats(stats, tot) {
     openModal('<div class="modal__body"><div class="modal__mascot" data-mascot aria-hidden="true"></div><h3>แขวนเรียบร้อย! ✨</h3>' +
       '<p class="sub">อยากเก็บคำขอพรเป็นการ์ดสวย ๆ ไว้แชร์ไหม?</p>' +
       '<div class="modal__actions"><button type="button" class="btn btn--ghost" data-close>ไว้ก่อน</button>' +
-      '<button type="button" class="btn btn--gold" data-action="mk">🎴 สร้างการ์ด</button></div></div>',
+      '<button type="button" class="btn btn--gold" data-action="mk">🎴 สร้างการ์ด</button></div>' +
+      '<p class="sub" style="margin-top:12px"><a href="float.html?wish=' + encodeURIComponent(w.text || '') + '" style="color:#ffe9a8">🪷 ลอยกระทงพร้อมพรนี้ →</a></p></div>',   /* ★ 5 พ.ย. เชื่อมหน้าลอยกระทง */
       (body) => { $('[data-action="mk"]', body).addEventListener('click', () => openCard({ text: w.text, cat: w.cat, tag: w.tag })); });
   }
   function rr(c, x, y, w, h, r) { c.beginPath(); c.moveTo(x + r, y); c.arcTo(x + w, y, x + w, y + h, r); c.arcTo(x + w, y + h, x, y + h, r); c.arcTo(x, y + h, x, y, r); c.arcTo(x, y, x + w, y, r); c.closePath(); }
@@ -635,6 +642,11 @@ function renderStats(stats, tot) {
   window.__openCard = openCard;
 
   loadTree();
+  /* ★ 5 พ.ย.: มาจากหน้าลอยกระทง (แขวนพรพร้อมลอย) → เปิดพรของฉันให้อัตโนมัติ · รหัสอยู่ในแท็บนี้เท่านั้น ไม่อยู่ใน URL */
+  try {
+    const em = sessionStorage.getItem('c7_wish_emp');
+    if (em && location.hash === '#mine') { sessionStorage.removeItem('c7_wish_emp'); currentUser = { id: em }; setTimeout(showMine, 1800); }
+  } catch (e) {}
 
   // Entrance
   requestAnimationFrame(() => document.body.classList.add('is-ready'));

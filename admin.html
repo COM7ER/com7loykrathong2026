@@ -5,6 +5,7 @@
 <meta name="robots" content="noindex,nofollow" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Admin — COM7 ลอยกระทง 2569 (Director)</title>
+<link rel="icon" href="assets/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@400;500;600;700&family=IBM+Plex+Sans+Thai:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@1,500;1,600&display=swap" rel="stylesheet">
@@ -132,6 +133,9 @@ header h1{font-family:'Noto Serif Thai',serif!important;font-weight:700!importan
 th{font-family:'Noto Serif Thai',serif!important}
 .rank{font-family:'Noto Serif Thai',serif!important}
 </style>
+<style id="c7-concept">.concept-box{margin:6px 0 8px;padding:8px 10px;border-radius:10px;background:rgba(255,255,255,.05);border:1px dashed rgba(231,197,106,.35);font-size:13px;line-height:1.5;display:flex;gap:8px;align-items:flex-start;justify-content:space-between}.concept-box .cn-t{font-style:italic;color:#f3e7c4;flex:1}.concept-box .btn{flex:0 0 auto}</style>
+<style id="c7-linklater">.link-box{margin:6px 0;display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:13px}.link-box .badge.none{background:rgba(255,255,255,.12);color:#ddd}.lk-open{color:#F7E3A8;text-decoration:underline}</style>
+<style id="c7-photochange">.ph-new{margin:8px 0;padding:8px;border-radius:10px;border:1px solid rgba(255,200,90,.5);background:rgba(255,200,90,.08)}.ph-new-h{font-weight:600;font-size:13px;margin-bottom:6px}.ph-cmp{display:grid;grid-template-columns:1fr 1fr;gap:6px}.ph-cmp figure{margin:0}.ph-cmp img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:8px;background:#222}.ph-cmp figcaption{font-size:11.5px;text-align:center;opacity:.75;margin-top:2px}</style>
 </head>
 <body>
 
@@ -317,8 +321,9 @@ async function loadResults(){
 
 /* ============ Render: ผู้สมัคร ============ */
 function renderContestants(data){
-  const pending  = data.filter(d=>d.สถานะ==='รออนุมัติ');
-  const others   = data.filter(d=>d.สถานะ!=='รออนุมัติ');
+  ALL_C = data || [];   // ★ v4.5 เก็บไว้ให้ปุ่มแก้แนวคิดชุด
+  const pending  = data.filter(d=>d.สถานะ==='รออนุมัติ' || d.รูปใหม่);   // ★ v4.5 คำขอเปลี่ยนรูปขึ้นในกลุ่มรออนุมัติ
+  const others   = data.filter(d=>!(d.สถานะ==='รออนุมัติ' || d.รูปใหม่));
   updateStats(data);
 
   document.getElementById('pendingWrap').innerHTML =
@@ -344,9 +349,48 @@ function card(d){
     +'<div class="nm">'+esc(d.ชื่อ)+' <small style="opacity:.5">('+d.เพศ+')</small></div>'
     +'<div class="meta">'+esc(d.บริษัท)+'</div>'
     +'<div class="meta">คะแนน: '+(d.คะแนน||0)+' · '+d.id+'</div>'
+    +photoBox(d)
+    +linkBox(d)
+    +'<div class="concept-box">'+(d.แนวคิด?'<span class="cn-t">“'+esc(d.แนวคิด)+'”</span>':'<span class="muted">(ยังไม่มีแนวคิดชุด)</span>')
+    +' <button class="btn btn-sm btn-ghost" onclick="editConcept(\''+d.id+'\')">✏️ แก้</button></div>'
     +acts+'</div></div>';
 }
 
+/* ============ เปลี่ยนรูป (v4.5) ============ */
+function photoBox(d){
+  if(!d.รูปใหม่) return '';
+  return '<div class="ph-new"><div class="ph-new-h">🔄 ขอเปลี่ยนรูป <small>(ครั้งที่ '+(d.เปลี่ยนรูป||1)+')</small></div>'
+    +'<div class="ph-cmp"><figure><img src="'+d.รูป+'" alt=""><figcaption>รูปเดิม</figcaption></figure><figure><img src="'+d.รูปใหม่+'" alt=""><figcaption>รูปใหม่</figcaption></figure></div>'
+    +'<div class="acts"><button class="btn btn-sm btn-ok" onclick="decidePhoto(\''+d.id+'\',\'approve\')">✅ ใช้รูปใหม่</button><button class="btn btn-sm btn-no" onclick="decidePhoto(\''+d.id+'\',\'reject\')">❌ ใช้รูปเดิม</button></div></div>';
+}
+async function decidePhoto(id,decision){
+  if(!confirm((decision==='approve'?'เปลี่ยนเป็นรูปใหม่บนเว็บ':'ไม่ใช้รูปใหม่ (คงรูปเดิม)')+' — '+id+' ?'))return;
+  const r=await apiPost({action:'admin_photo',pass:ADMIN_PASS,id:id,decision:decision});
+  if(r&&r.ok){toast(r.message||'อัปเดตแล้ว');loadAll();}else toast('ไม่สำเร็จ: '+((r&&r.error)||'')+' (ต้องใช้ระบบหลังบ้าน v4.5)');
+}
+/* ============ ลิงก์โพสต์ (v4.5) ============ */
+function linkBox(d){
+  const ls=d.สถานะลิงก์||(d.ลิงก์โพสต์?'รอตรวจ':'ยังไม่ส่ง');
+  const cls={'ผ่าน':'approved','ไม่ผ่าน':'rejected','รอตรวจ':'pending','ยังไม่ส่ง':'none'}[ls]||'pending';
+  const lk=d.ลิงก์โพสต์?'<a href="'+esc(d.ลิงก์โพสต์)+'" target="_blank" rel="noopener" class="lk-open">🔗 เปิดดูโพสต์</a>':'';
+  const acts=d.ลิงก์โพสต์?' <button class="btn btn-sm btn-ok" onclick="setLink(\''+d.id+'\',\'pass\')">✅ ผ่าน</button><button class="btn btn-sm btn-no" onclick="setLink(\''+d.id+'\',\'fail\')">❌ ไม่ผ่าน</button>':'';
+  return '<div class="link-box"><span class="badge '+cls+'">ลิงก์: '+ls+'</span> '+lk+acts+'</div>';
+}
+async function setLink(id,decision){
+  if(!confirm((decision==='pass'?'ยืนยันลิงก์ผ่าน':'ยืนยันลิงก์ไม่ผ่าน (ผู้สมัครส่งใหม่ได้)')+' — '+id+' ?'))return;
+  const r=await apiPost({action:'admin_link',pass:ADMIN_PASS,id:id,decision:decision});
+  if(r&&r.ok){toast(r.message||'อัปเดตแล้ว');loadAll();}else toast('ไม่สำเร็จ: '+((r&&r.error)||'')+' (ต้องใช้ระบบหลังบ้าน v4.5)');
+}
+/* ============ แนวคิดชุด (v4.5) ============ */
+let ALL_C = [];
+async function editConcept(id){
+  const cur = (ALL_C.find(x=>x.id===id)||{}).แนวคิด || '';
+  const v = prompt('แนวคิดชุดของ '+id+' (ไม่เกิน 100 ตัวอักษร · ว่าง = ลบ)', cur);
+  if(v===null) return;
+  if(/\d[\d\s-]{7,}\d|[\w.+-]+@[\w-]+\.\w+/.test(v)){ toast('ห้ามมีเบอร์โทร/อีเมลในข้อความ'); return; }
+  const r = await apiPost({ action:'admin_concept', pass:ADMIN_PASS, id:id, concept:v.slice(0,100) });
+  if(r && r.ok){ toast('บันทึกแนวคิดชุดแล้ว'); loadAll(); } else toast('ไม่สำเร็จ: '+((r&&r.error)||'')+' (ต้องใช้ระบบหลังบ้าน v4.5)');
+}
 /* ============ อนุมัติ/ปฏิเสธ ============ */
 async function decide(id, decision){
   const label = decision==='approve'?'อนุมัติ':'ปฏิเสธ/ซ่อน';

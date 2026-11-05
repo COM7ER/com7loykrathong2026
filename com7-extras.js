@@ -64,7 +64,8 @@
     + '.c7x-wc:nth-child(3) .c7x-rk{background:linear-gradient(135deg,#f0c3a0,#b2714a)}'
     + '.c7x-wc .c7x-bd{padding:12px 12px 14px}.c7x-wc b{display:block;font-size:15.5px}.c7x-wc span{font-size:13px;opacity:.75}'
     + '.c7x-wait{text-align:center;padding:26px 16px;border:1px dashed rgba(231,197,106,.45);border-radius:20px;color:#f3e2b3;background:rgba(255,255,255,.03)}';
-  var st = document.createElement('style'); st.id = 'c7x-style'; st.textContent = css; document.head.appendChild(st);
+  css += '.c7x-warn{margin-top:10px;padding:8px 10px;border-radius:10px;background:rgba(255,200,120,.1);border:1px solid rgba(255,200,120,.35);font-size:13px;color:#ffd9a0}.c7x-link input{width:100%;box-sizing:border-box}';
+    var st = document.createElement('style'); st.id = 'c7x-style'; st.textContent = css; document.head.appendChild(st);
 
   /* ==================== 2) ตรวจสอบสถานะการสมัคร ==================== */
   function buildStatusModal() {
@@ -108,8 +109,42 @@
         + '<div><b>' + esc(r['ชื่อ']) + '</b></div>'
         + '<div class="c7x-muted">' + esc(r.id) + ' · ' + (r['เพศ'] === 'ญ' ? 'นางนพมาศ (หญิง)' : 'นพมาศ (ชาย)') + '</div>'
         + '<div style="margin:10px 0 6px"><span class="c7x-tag ' + cls + '">' + esc(s || 'รออนุมัติ') + '</span></div>'
-        + '<div style="font-size:14px;clear:both">' + note + '</div>';
+        + '<div style="font-size:14px;clear:both">' + note + '</div>'
+        + (r['รูปใหม่รออนุมัติ'] ? '<div class="c7x-warn" style="margin-top:8px">🔄 รูปใหม่ของคุณรอแอดมินอนุมัติ — ระหว่างนี้หน้าเว็บยังแสดงรูปเดิม</div>' : '')
+        + linkBlock(r, emp, ph4);
+      bindLink(emp, ph4);
     });
+  }
+  /* ★ v4.5 (5 พ.ย.): สถานะลิงก์โพสต์ + ส่งลิงก์ทีหลัง (ถึง 17 พ.ย.) */
+  function linkBlock(r, emp, ph4) {
+    var ls = r['สถานะลิงก์'];
+    if (!ls) return '';   // backend เก่ายังไม่รองรับ
+    var map = { 'ยังไม่ส่ง': ['wait','⏳ ยังไม่ได้ส่งลิงก์'], 'รอตรวจ': ['wait','🔍 รอทีมงานตรวจลิงก์'], 'ผ่าน': ['ok','✅ ครบเงื่อนไขรับรางวัล'], 'ไม่ผ่าน': ['no','❌ ลิงก์ไม่ผ่าน — ส่งใหม่ได้'] };
+    var m = map[ls] || ['wait', ls];
+    var h = '<div class="c7x-link"><div style="margin:12px 0 4px;font-weight:600">ลิงก์โพสต์</div><span class="c7x-tag ' + m[0] + '">' + m[1] + '</span>';
+    if (r['ลิงก์']) h += '<div class="c7x-muted" style="margin-top:6px;word-break:break-all">' + esc(r['ลิงก์']) + '</div>';
+    var canSend = r.linkOpen && ls !== 'ผ่าน';
+    if (canSend) {
+      h += '<label for="c7x-lk" style="margin-top:10px">' + (r['ลิงก์'] ? 'ส่งลิงก์ใหม่' : 'วางลิงก์โพสต์สาธารณะ (ติด #COM7สานสายใจ)') + '</label>'
+        + '<input id="c7x-lk" type="url" inputmode="url" autocomplete="off" placeholder="https://www.facebook.com/… หรือ IG / TikTok">'
+        + '<button class="c7x-btn" type="button" id="c7x-lk-go">ส่งลิงก์</button><div id="c7x-lk-res" class="c7x-muted" style="margin-top:6px"></div>';
+    }
+    if (ls !== 'ผ่าน') h += '<div class="c7x-warn">' + (r.linkOpen ? '⚠️ ส่งลิงก์ภายใน <b>17 พ.ย. 2569</b> เพื่อมีสิทธิ์รับรางวัล' : '⛔ หมดเขตส่งลิงก์แล้ว (17 พ.ย.) · ยังโหวตได้ แต่ไม่มีสิทธิ์รับรางวัล') + '</div>';
+    return h + '</div>';
+  }
+  function bindLink(emp, ph4) {
+    var go = document.getElementById('c7x-lk-go'); if (!go) return;
+    go.onclick = function () {
+      var v = (document.getElementById('c7x-lk').value || '').trim(), out = document.getElementById('c7x-lk-res');
+      if (!/^https?:\/\//i.test(v)) { out.textContent = '⚠️ วางลิงก์ที่ขึ้นต้นด้วย https://'; return; }
+      go.disabled = true; go.textContent = 'กำลังส่ง…';
+      jsonp({ action: 'submit_link', token: 'COM7LKER2569', empId: emp, phone4: ph4, link: v }, function (r) {
+        go.disabled = false; go.textContent = 'ส่งลิงก์';
+        if (!r) { out.textContent = '⚠️ เชื่อมต่อระบบไม่ได้ ลองใหม่'; return; }
+        if (!r.ok) { out.textContent = '⚠️ ' + (r.error || 'ส่งไม่สำเร็จ'); return; }
+        out.innerHTML = '✅ ส่งลิงก์แล้ว รอทีมงานตรวจสอบ'; var t = document.querySelector('.c7x-link .c7x-tag'); if (t) { t.className = 'c7x-tag wait'; t.textContent = '🔍 รอทีมงานตรวจลิงก์'; }
+      });
+    };
   }
   window.COM7_openStatus = openStatus;
 
