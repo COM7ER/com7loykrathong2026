@@ -590,6 +590,43 @@ body{font-family:'IBM Plex Sans Thai','Prompt',sans-serif!important;-webkit-font
 @media (max-width:480px){.card-media .badge-no{top:8px;left:8px;padding:3px 8px;font-size:11px}.card-media .badge-type{top:8px;right:8px;padding:3px 8px;font-size:11px!important}.badge-ok{left:8px;top:38px;bottom:auto;padding:3px 8px;font-size:11px}}
 .m-note{margin:10px 0 0;font-size:12px;line-height:1.5;opacity:.6}.m-note a{color:#F7E3A8}
 </style>
+<style id="c7-profile">
+.m-pro{margin-top:14px;display:grid;gap:10px}.m-pro[hidden]{display:none}
+.pro-blk{padding:10px 12px;border-radius:12px;background:rgba(255,255,255,.05);border:1px solid rgba(231,197,106,.18)}
+.pro-h{font-size:12.5px;color:var(--gold-light,#F7E3A8);opacity:.9;margin-bottom:3px;line-height:1.45}
+.pro-blk p{margin:0;font-size:14px;line-height:1.65;color:rgba(255,255,255,.9);word-break:break-word}.pro-q p{font-style:italic}
+.pro-soc{display:flex;align-items:center;gap:8px;font-size:12.5px;color:rgba(255,255,255,.7)}
+.pro-soc a{display:grid;place-items:center;width:40px;height:40px;border-radius:50%;border:1.5px solid rgba(231,197,106,.55);color:#F7E3A8;transition:.2s}
+.pro-soc a:hover,.pro-soc a:focus-visible{background:rgba(231,197,106,.15)}.pro-soc svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.modal-info{overflow-y:auto}
+</style>
+<style id="c7-stage-embed">
+/* ★ 6 พ.ย. ช่วงรอผล/ประกาศผล: หน้าเวทีแสดงแทนรายชื่อในหน้านี้ (แจ็ค) */
+#c7Stage{position:fixed;left:0;right:0;bottom:0;top:var(--c7navH,64px);z-index:55;background:#0a0a24;display:none}
+#c7Stage.on{display:block}#c7Stage iframe{width:100%;height:100%;border:0;display:block}
+body.c7-stage-on{overflow:hidden}
+#c7StageBack{position:absolute;right:14px;bottom:14px;z-index:2;font:500 13px Prompt,sans-serif;color:#f3d58a;background:rgba(11,7,32,.8);border:1px solid rgba(231,197,106,.4);border-radius:22px;padding:9px 16px;cursor:pointer}
+</style>
+<style id="c7-trend">
+/* ★ 6 พ.ย. 🔥 ใครมาแรง — เฉพาะช่วงโหวต · ไม่มีตัวเลข/อันดับ */
+#c7Trend{display:none;max-width:860px;margin:18px auto 0;padding:10px 14px;border-radius:999px;border:1px solid rgba(255,170,90,.55);
+  background:linear-gradient(90deg,rgba(90,30,40,.55),rgba(42,27,77,.6));backdrop-filter:blur(8px);align-items:center;gap:12px;box-shadow:0 0 26px rgba(255,150,70,.25)}
+#c7Trend.on{display:flex}
+#c7Trend .tl{flex:none;font-weight:600;font-size:14px;color:#ffd08a;white-space:nowrap}
+#c7Trend .tl i{font-style:normal;display:inline-block;animation:c7fire 1.2s ease-in-out infinite}
+@keyframes c7fire{50%{transform:scale(1.18) translateY(-1px)}}
+#c7Trend .tv{position:relative;flex:1;min-width:0;height:42px;overflow:hidden}
+#c7Trend .ti{position:absolute;inset:0;display:flex;align-items:center;gap:10px;cursor:pointer;opacity:0;transform:translateY(100%);transition:opacity .5s,transform .5s}
+#c7Trend .ti.in{opacity:1;transform:none}#c7Trend .ti.out{opacity:0;transform:translateY(-100%)}
+#c7Trend .ti img,#c7Trend .ti .av{width:38px;height:38px;flex:none;border-radius:50%;object-fit:cover;border:2px solid #ffc27a;background:#2A1B4D}
+#c7Trend .ti b{font-size:14.5px;font-weight:500;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#c7Trend .ti span{flex:none;font-size:12px;color:#ffd9a8;opacity:.9}
+#c7Trend .tx{flex:none;font-size:12px;color:rgba(255,255,255,.6)}
+.card.c7hot{border-color:#ffb36b!important;box-shadow:0 0 0 1px rgba(255,170,90,.5),0 0 30px rgba(255,150,70,.45)!important}
+.card.c7hot .card-media::before{content:"🔥 มาแรง";position:absolute;left:10px;bottom:10px;z-index:3;padding:3px 10px;border-radius:999px;font-size:12px;font-weight:500;color:#3a1505;background:linear-gradient(180deg,#ffd9a0,#ff9a4a)}
+@media(max-width:600px){#c7Trend{border-radius:16px;margin:14px 12px 0}#c7Trend .tx{display:none}#c7Trend .ti span{display:none}}
+@media(prefers-reduced-motion:reduce){#c7Trend .tl i{animation:none}#c7Trend .ti{transition:none}}
+</style>
 </head>
 <body>
 
@@ -635,6 +672,7 @@ body{font-family:'IBM Plex Sans Thai','Prompt',sans-serif!important;-webkit-font
     </div>
   </header>
 
+<div id="c7Trend" role="status" aria-live="polite"><span class="tl"><i>🔥</i> มาแรงตอนนี้</span><div class="tv" id="c7TrendV"></div><span class="tx">อัปเดตทุก 30 วิ</span></div>
   <!-- ===================== LEADERBOARD ===================== -->
   <div id="com7-winners" style="margin:0 auto 28px;padding:0 16px"></div>
   <h2 class="section-head">
@@ -677,7 +715,7 @@ body{font-family:'IBM Plex Sans Thai','Prompt',sans-serif!important;-webkit-font
       <span class="arrow"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></span>
     </button>
     <div class="cta-note">
-      <span>ปิดรับลงทะเบียน 17 พ.ย. 2569</span>
+      <span>ปิดรับลงทะเบียน 23 พ.ย. 2569</span>
       <span>สร้างสรรค์นางนพมาศในแบบของคุณ</span>
     </div>
   </section>
@@ -694,7 +732,7 @@ body{font-family:'IBM Plex Sans Thai','Prompt',sans-serif!important;-webkit-font
     </div>
     <div class="feat">
       <svg viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-9.2A4.1 4.1 0 0 1 12 8a4.1 4.1 0 0 1 7 2.8C19 15.6 12 20 12 20z"/></svg>
-      <div><b>เปิดให้โหวต</b><span>18–23 พ.ย. (โหวตได้สูงสุด 6 คน)</span></div>
+      <div><b>เปิดให้โหวต</b><span>24 พ.ย. 06:00–15:00 (โหวตได้สูงสุด 6 คน)</span></div>
     </div>
     <div class="feat">
       <svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9.5" r="2.3"/><path d="M3 19c.5-3.2 3-5 6-5s5.5 1.8 6 5"/><path d="M15.5 14.4c2.3.3 3.9 1.9 4.3 4.6"/></svg>
@@ -708,8 +746,8 @@ body{font-family:'IBM Plex Sans Thai','Prompt',sans-serif!important;-webkit-font
     <ul>
       <li>กิจกรรมนี้<b>เฉพาะพนักงานบริษัท คอมเซเว่น (COM7)</b> เท่านั้น</li>
       <li>ระบบตรวจจับการโหวตผิดปกติ หากพบการใช้บอทหรือบัญชีปลอม จะถูกตัดสิทธิ์ทันที</li>
-      <li>ปิดรับลงทะเบียนผู้เข้าประกวด วันที่ 17 พ.ย. 2569 เวลา 23:59 น.</li>
-      <li>เปิดให้โหวตวันที่ <b>18–23 พ.ย. 2569</b> โหวตได้สูงสุด <b>6 คน</b></li>
+      <li>ปิดรับลงทะเบียนผู้เข้าประกวด วันที่ 23 พ.ย. 2569 เวลา 23:59 น.</li>
+      <li>เปิดให้โหวตวันที่ <b>24 พ.ย. 2569 เวลา 06:00–15:00 น.</b> โหวตได้สูงสุด <b>6 คน</b></li>
       <li><b>เงื่อนไขรับรางวัล:</b> ผู้เข้าร่วมต้องทำครบทุกข้อ (1) ส่งภาพนพมาศ AI ผ่านเว็บ (2) โพสต์ภาพลงโซเชียลแบบ<b>สาธารณะ</b> พร้อมติดแฮชแท็ก #COM7สานสายใจ (3) ส่งลิงก์โพสต์ผ่านการลงทะเบียน</li><li>วันประกาศผล เจ้าหน้าที่จะ<b>ตรวจสอบว่าโพสต์จริงและเป็นสาธารณะ</b> ก่อนมอบรางวัล</li><li>ผลการตัดสินของคณะกรรมการถือเป็นที่สิ้นสุด</li>
     </ul>
   </section>
@@ -740,6 +778,7 @@ body{font-family:'IBM Plex Sans Thai','Prompt',sans-serif!important;-webkit-font
       <h2 id="mName">—</h2>
       <p class="branch" id="mBranch">—</p>
       <p class="bio" id="mBio">—</p>
+      <div class="m-pro" id="mPro"></div>
       <div class="modal-stats">
         <div class="mstat"><b id="mVotes">0</b><span>คะแนนโหวต</span></div>
         <div class="mstat"><b id="mRank">-</b><span>อันดับปัจจุบัน</span></div>
@@ -754,7 +793,7 @@ body{font-family:'IBM Plex Sans Thai','Prompt',sans-serif!important;-webkit-font
           <svg viewBox="0 0 24 24"><circle cx="18" cy="5.5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="18.5" r="2.5"/><path d="M8.2 10.8l7.6-4M8.2 13.2l7.6 4"/></svg>
         </button>
       </div>
-        <p class="m-note" id="mNote">💡 เป็นผู้เข้าประกวด? ส่งลิงก์โพสต์ภายใน <b>17 พ.ย.</b> ผ่าน <a href="#" data-c7x-status>🔎 ตรวจสอบสถานะ</a> เพื่อสิทธิ์รับรางวัล</p>
+        <p class="m-note" id="mNote">💡 เป็นผู้เข้าประกวด? ส่งลิงก์โพสต์ภายใน <b>23 พ.ย.</b> ผ่าน <a href="#" data-c7x-status>🔎 ตรวจสอบสถานะ</a> เพื่อสิทธิ์รับรางวัล</p>
     </div>
   </div>
 </div>
@@ -805,6 +844,8 @@ function mapContestant(r, i){
     votes: Number(r['คะแนน']||0),
     color: '#E7C56A',
     bio: r['แนวคิด'] || '',
+    intro: r['แนะนำตัว'] || '', q: r['คำถาม'] || '', ans: r['คำตอบ'] || '',
+    soc: { IG: r.IG || '', FB: r.FB || '', TikTok: r.TikTok || '' },   // ★ 5 พ.ย. โปรไฟล์ + โซเชียล (แสดงเฉพาะที่ยินยอม)
     ok: r['ครบเงื่อนไข'] === true   // ★ 5 พ.ย. ส่งลิงก์ผ่านการตรวจแล้ว   // ★ 5 พ.ย. แนวคิดชุด (ผ่านอนุมัติแล้ว)
   };
 }
@@ -820,20 +861,23 @@ function loadGallery(){
 }
 
 const PER_PAGE   = 12;                          /* จำนวนต่อหน้า */
-const REGISTER_END = new Date('2026-11-17T23:59:59+07:00');  /* ปิดรับลงทะเบียนผู้เข้าประกวด */
-const VOTE_START   = new Date('2026-11-18T00:00:00+07:00');  /* ช่วงที่อนุญาตให้เปิดโหวต (เริ่ม) */
-const VOTE_END     = new Date('2026-11-23T23:59:59+07:00');  /* ช่วงที่อนุญาตให้เปิดโหวต (สิ้นสุด) */
+const REGISTER_END = new Date('2026-11-23T23:59:59+07:00');  /* ปิดรับลงทะเบียนผู้เข้าประกวด */
+const VOTE_START   = new Date('2026-11-24T06:00:00+07:00');  /* ช่วงที่อนุญาตให้เปิดโหวต (เริ่ม) */
+const VOTE_END     = new Date('2026-11-24T15:00:00+07:00');  /* ช่วงที่อนุญาตให้เปิดโหวต (สิ้นสุด) */
 const STORE_KEY  = 'np_votes_v1';
 
 /* สถานะเปิด/ปิดโหวตจริง ควรดึงมาจาก API ที่แอดมินกดเปิด-ปิดหลังบ้าน
    ตอนนี้ใช้ค่าคงที่ไปก่อนเป็นตัวจำลอง — แอดมินจะสลับเป็น true ช่วงวันที่เปิดโหวตจริง */
 let LOAD_FAILED = false;
-function scoresVisible(){ return !ADMIN_VOTING_OPEN && new Date() > VOTE_END; }  /* ★ ซ่อนคะแนนจนกว่าปิดโหวต (ตรงกับหลังบ้าน) */
+function scoresVisible(){ return ANNOUNCED; }   /* ★ 6 พ.ย. คะแนนแสดงหลังแอดมินกดประกาศผลเท่านั้น */
+let ANNOUNCED = false;  /* ★ ซ่อนคะแนนจนกว่าปิดโหวต (ตรงกับหลังบ้าน) */
 let ADMIN_VOTING_OPEN = false;   /* ★ v4.1: อ่านสถานะจริงจากหลังบ้าน (แอดมินกดเปิด/ปิดใน admin.html) */
-window.addEventListener('load', function(){ try{ if(beReady()) jsonp({action:'health'}, function(r){ if(r && r.ok){ ADMIN_VOTING_OPEN = !!r.voteOpen; try{ render(); tick(); }catch(_){} } }); }catch(_){} });
+window.addEventListener('load', function(){ try{ if(beReady()) jsonp({action:'health'}, function(r){ if(r && r.ok){ try{ window.c7StageApply && window.c7StageApply(r); }catch(_){} try{ window.c7TrendStart && window.c7TrendStart(!!r.voteOpen); }catch(_){} ADMIN_VOTING_OPEN = !!r.voteOpen; ANNOUNCED = !!r.announced; try{ render(); tick(); }catch(_){} } }); }catch(_){} });
+/* ★ 6 พ.ย.: ข้อความปุ่มโหวตตอนปิด — ก่อน 24 พ.ย. 06:00 = ยังไม่ถึงวันโหวต · หลัง 15:00 = ปิดโหวตแล้ว */
+function closedTxt(){ return ANNOUNCED ? 'ประกาศผลแล้ว' : (new Date() > VOTE_END ? 'ปิดโหวตแล้ว' : 'ยังไม่ถึงวันโหวต'); }
 function votingOpen(){
   const now = new Date();
-  return ADMIN_VOTING_OPEN && now >= VOTE_START && now <= VOTE_END;
+  return ADMIN_VOTING_OPEN;   /* ★ 6 พ.ย. หลังบ้านคุมเวลาเปิด-ปิดเอง (24 พ.ย. 06:00–15:00) · ปุ่มฉุกเฉินแอดมินก็ใช้ได้ */
 }
 
 /* ============================================================
@@ -935,7 +979,7 @@ function render(){
   $('#grid').innerHTML = show.map((p,i)=>{
     const already = hasVoted(p.id);
     const voteCls = already ? 'voted' : (!canVote ? 'disabled' : '');
-    const voteTxt = already ? 'โหวตแล้ว' : (!canVote ? 'ยังไม่ถึงวันโหวต' : 'โหวต');
+    const voteTxt = already ? 'โหวตแล้ว' : (!canVote ? closedTxt() : 'โหวต');
     return `
     <article class="card" style="--c:${p.color};animation-delay:${(i%PER_PAGE)*.05}s">
       <div class="card-media" data-open="${p.id}">
@@ -1007,7 +1051,7 @@ function toast(msg){
   window._tt = setTimeout(()=> $('#toast').classList.remove('show'), 2600);
 }
 function doVote(id, btn, ev){
-  if(!votingOpen()){ toast('ยังไม่ถึงวันโหวต ระบบจะเปิดให้โหวตวันที่ 18–23 พ.ย. 2569 ค่ะ'); return; }
+  if(!votingOpen()){ toast(new Date() > VOTE_END ? 'ปิดโหวตแล้ว · รอคณะกรรมการตัดสิน ประกาศผลเร็ว ๆ นี้ค่ะ' : 'ยังไม่ถึงวันโหวต ระบบจะเปิดให้โหวตวันที่ 24 พ.ย. 2569 เวลา 06:00–15:00 น. ค่ะ'); return; }
   // ★ v4.1: โหวตจริงทำที่หน้าประกวด (กรอกรหัสพนักงาน/ชื่อ · เลือกหญิง 3 + ชาย 3 · แก้ผลเดิมได้)
   if(ev) hearts(ev.clientX, ev.clientY);
   toast('กำลังพาไปหน้าโหวต…');
@@ -1020,7 +1064,7 @@ function doVote(id, btn, ev){
 async function share(id){
   const p = DATA.find(x=>x.id===id); if(!p) return;
   const url  = location.origin + location.pathname + '?c=' + encodeURIComponent(id);
-  const text = `ช่วยโหวตให้ ${p.name} (#${p.id}) ในกิจกรรมประกวดนพมาศ AI หน่อยนะ 💛 โหวตได้ 18–23 พ.ย. #COM7สานสายใจ`;
+  const text = `ช่วยโหวตให้ ${p.name} (#${p.id}) ในกิจกรรมประกวดนพมาศ AI หน่อยนะ 💛 โหวตได้ 24 พ.ย. 06:00–15:00 #COM7สานสายใจ`;
   /* ★ 5 พ.ย.: บนมือถือแนบรูปการ์ดชวนโหวตไปด้วย */
   try{
     if(window.VoteCard && navigator.canShare){
@@ -1054,6 +1098,19 @@ async function downloadCard(id){
    9) MODAL
    ============================================================ */
 let modalId = null;
+/* ★ 5 พ.ย.: กรอบโปรไฟล์ — แนะนำตัว / คำถามสุ่ม+คำตอบ / ปุ่มโซเชียล · ว่างทั้งหมด = ไม่แสดงกรอบ */
+const SOC_ICON = {"IG": "<svg viewBox=\"0 0 24 24\"><rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"5\"/><circle cx=\"12\" cy=\"12\" r=\"4\"/><circle cx=\"17.3\" cy=\"6.7\" r=\"1\" fill=\"currentColor\"/></svg>", "FB": "<svg viewBox=\"0 0 24 24\"><path d=\"M14 8h3V4h-3a4 4 0 0 0-4 4v3H7v4h3v6h4v-6h3l1-4h-4V8z\"/></svg>", "TikTok": "<svg viewBox=\"0 0 24 24\"><path d=\"M14 3v11.5a3.5 3.5 0 1 1-3.5-3.5M14 3c.5 2.6 2.4 4.4 5 4.6\"/></svg>"};
+const SOC_NAME = {IG:'Instagram', FB:'Facebook', TikTok:'TikTok'};
+function renderPro(p){
+  const el = document.getElementById('mPro'); if(!el) return;
+  const e = s => String(s||'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  let h = '';
+  if (p.intro) h += '<div class="pro-blk"><div class="pro-h">💬 แนะนำตัว</div><p>' + e(p.intro) + '</p></div>';
+  if (p.ans)   h += '<div class="pro-blk pro-q"><div class="pro-h">🎲 ' + e(p.q || 'คำถามนพมาศ AI') + '</div><p>“' + e(p.ans) + '”</p></div>';
+  const soc = Object.keys(SOC_NAME).filter(k => p.soc && /^https:\/\//.test(p.soc[k] || ''));
+  if (soc.length) h += '<div class="pro-soc"><span>ติดตาม</span>' + soc.map(k => '<a href="' + e(p.soc[k]) + '" target="_blank" rel="noopener nofollow" aria-label="' + SOC_NAME[k] + '" title="' + SOC_NAME[k] + '">' + SOC_ICON[k] + '</a>').join('') + '</div>';
+  el.innerHTML = h; el.hidden = !h;
+}
 function syncModal(id){
   const p = DATA.find(x=>x.id===id);
   const rank = [...DATA].sort((a,b)=>b.votes-a.votes).findIndex(x=>x.id===id)+1;
@@ -1065,15 +1122,16 @@ function syncModal(id){
   $('#mName').textContent = p.name;
   $('#mBranch').textContent = p.branch + ' · ' + (p.type==='female'?'นพมาศหญิง':'นพมาศชาย');
   $('#mBio').textContent = p.bio;
-  /* ★ 5 พ.ย.: เตือนส่งลิงก์เฉพาะการ์ดที่ยังไม่ครบเงื่อนไข และก่อนหมดเขต 17 พ.ย. */
-  { const n=$('#mNote'); if(n) n.style.display = (!p.ok && new Date() <= new Date('2026-11-17T23:59:59+07:00')) ? '' : 'none'; }
+  renderPro(p);
+  /* ★ 5 พ.ย.: เตือนส่งลิงก์เฉพาะการ์ดที่ยังไม่ครบเงื่อนไข และก่อนหมดเขต 23 พ.ย. */
+  { const n=$('#mNote'); if(n) n.style.display = (!p.ok && new Date() <= new Date('2026-11-23T23:59:59+07:00')) ? '' : 'none'; }
   $('#mVotes').textContent = scoresVisible() ? fmt(p.votes) : '🔒';
   $('#mRank').textContent = scoresVisible() ? ('อันดับ ' + rank) : 'ประกาศ 24 พ.ย.';
   const v = hasVoted(id);
   const canVote = votingOpen();
   $('#mVote').classList.toggle('voted', v);
   $('#mVote').classList.toggle('disabled', !v && !canVote);
-  const _mvs=$('#mVote').querySelector('span'); if(_mvs) _mvs.textContent = v ? 'โหวตแล้ววันนี้' : (!canVote ? 'ยังไม่ถึงวันโหวต' : 'โหวต');
+  const _mvs=$('#mVote').querySelector('span'); if(_mvs) _mvs.textContent = v ? 'โหวตแล้ววันนี้' : (!canVote ? closedTxt() : 'โหวต');
 }
 function openModal(id){ modalId = id; syncModal(id); $('#modal').classList.add('open');
                         document.body.style.overflow='hidden'; }
@@ -1182,9 +1240,9 @@ try{
 
   // fill companies + image preview on first open
   var inited=false;
-  var REG_DEADLINE=new Date('2026-11-17T23:59:59+07:00');
+  var REG_DEADLINE=new Date('2026-11-23T23:59:59+07:00');
   window.openRegForm=function(){
-    if(new Date() > REG_DEADLINE){ regToast("ปิดรับลงทะเบียนแล้ว (หมดเขต 17 พ.ย. 2569)"); return; }
+    if(new Date() > REG_DEADLINE){ regToast("ปิดรับลงทะเบียนแล้ว (หมดเขต 23 พ.ย. 2569)"); return; }
     if(!inited){
       G("gco").innerHTML='<option value="">— เลือกบริษัท —</option>'+COMPANIES.map(function(c){return '<option>'+c+'</option>';}).join("");
       G("gim").addEventListener("change",function(e){var f=e.target.files[0];var pv=G("gpv");if(f){pv.src=URL.createObjectURL(f);pv.hidden=false;}else{pv.hidden=true;}});
@@ -1242,6 +1300,51 @@ try{
 function openPdpaC(){ document.getElementById("pdpaCOv").classList.add("on"); document.body.style.overflow="hidden"; }
 function closePdpaC(){ document.getElementById("pdpaCOv").classList.remove("on"); document.body.style.overflow=""; }
 document.addEventListener("click",function(e){ if(e.target&&e.target.id==="pdpaCOv") closePdpaC(); });
+</script>
+<script>
+/* ★ 6 พ.ย. ใครมาแรง: ดึงจากหลังบ้านทุก 30 วิ เฉพาะช่วงเปิดโหวต · ไม่แสดงคะแนน/อันดับ */
+(function(){
+  var API=(document.documentElement.outerHTML.match(/https:\/\/script\.google\.com\/macros\/s\/[\w-]+\/exec/)||[])[0];
+  var box=document.getElementById('c7Trend'),view=document.getElementById('c7TrendV'),list=[],idx=0,rot=0,poll=0;
+  function esc(s){return String(s==null?'':s).replace(/[<>&"']/g,function(c){return{'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;',"'":'&#39;'}[c]})}
+  function mark(){var hot={};list.forEach(function(x){hot[String(x.id)]=1});
+    document.querySelectorAll('#grid .card').forEach(function(c){var m=c.querySelector('[data-open]');c.classList.toggle('c7hot',!!(m&&hot[m.getAttribute('data-open')]))})}
+  function showNext(){ if(!list.length) return; var x=list[idx%list.length];idx++;
+    var old=view.querySelector('.ti.in'); if(old){old.classList.remove('in');old.classList.add('out');setTimeout(function(){old.remove()},600)}
+    var el=document.createElement('div');el.className='ti';el.setAttribute('data-open',x.id);
+    el.innerHTML=(x['รูป']?'<img src="'+esc(x['รูป'])+'" alt="" referrerpolicy="no-referrer" onerror="this.style.visibility=\'hidden\'">':'<div class="av"></div>')
+      +'<b>'+esc(x['ชื่อ'])+'</b><span>'+(x['เพศ']==='ญ'?'นพมาศหญิง':'นพมาศชาย')+' · กำลังได้รับความนิยม</span>';
+    view.appendChild(el);requestAnimationFrame(function(){requestAnimationFrame(function(){el.classList.add('in')})}) }
+  function apply(r){ list=(r&&r.ok&&r.open&&r.data)||[]; box.classList.toggle('on',list.length>0); mark();
+    clearInterval(rot); if(list.length){ idx=0; view.innerHTML=''; showNext(); if(list.length>1) rot=setInterval(showNext,3500);} }
+  window.c7TrendApply=apply;
+  function load(){ if(!API||document.hidden) return; var cb='c7tr'+Date.now(),s=document.createElement('script');
+    window[cb]=function(r){try{apply(r)}finally{delete window[cb];s.remove()}}; s.onerror=function(){delete window[cb];s.remove()};
+    s.src=API+'?action=trending&callback='+cb+'&_='+Date.now(); document.body.appendChild(s); }
+  window.c7TrendStart=function(open){ clearInterval(poll); if(open){ load(); poll=setInterval(load,30000);} else apply(null); };
+  new MutationObserver(function(){ if(list.length) mark() }).observe(document.getElementById('grid'),{childList:true});
+})();
+</script>
+<div id="c7Stage" aria-live="polite"><iframe id="c7StageFrame" title="เวทีประกวดนพมาศ AI"></iframe><button id="c7StageBack" type="button" onclick="c7StageHide()">ดูรายชื่อผู้เข้าประกวด</button></div>
+<script>
+/* ★ 6 พ.ย. เปลี่ยนหน้าเองตามช่วงงาน: judging = หน้ารอผล · announced = ประกาศผล (โพเดียม) */
+(function(){
+  var cur='',hidden=false,box=document.getElementById('c7Stage'),fr=document.getElementById('c7StageFrame');
+  function navH(){var n=document.querySelector('nav.nav');document.documentElement.style.setProperty('--c7navH',(n?n.getBoundingClientRect().height:64)+'px')}
+  function phaseOf(r){ if(r.phase) return r.phase; if(r.announced) return 'announced'; if(r.voteOpen) return 'vote'; return new Date()>new Date('2026-11-24T15:00:00+07:00')?'judging':'reg'; }
+  window.c7StageHide=function(){hidden=true;box.classList.remove('on');document.body.classList.remove('c7-stage-on')};
+  window.c7StageApply=function(r){
+    if(!r||!r.ok) return; var ph=phaseOf(r), show=(ph==='judging'||ph==='announced');
+    if(ph!==cur){ hidden=false; cur=ph; }
+    if(show&&!hidden){ navH(); if(!fr.getAttribute('src')) fr.setAttribute('src','stage.html?embed=1'); box.classList.add('on'); document.body.classList.add('c7-stage-on'); }
+    else if(!show){ box.classList.remove('on'); document.body.classList.remove('c7-stage-on'); }
+  };
+  /* สถานะมาจาก health ของหน้านี้ (เรียก c7StageApply) + ตรวจซ้ำทุก 30 วิ ด้วย JSONP ของตัวเอง */
+  var API=(document.documentElement.outerHTML.match(/https:\/\/script\.google\.com\/macros\/s\/[\w-]+\/exec/)||[])[0];
+  function poll(){ if(!API) return; var cb='c7st'+Date.now(), s=document.createElement('script'); window[cb]=function(r){ try{ window.c7StageApply(r); }finally{ delete window[cb]; s.remove(); } }; s.src=API+'?action=health&callback='+cb+'&_='+Date.now(); document.body.appendChild(s); }
+  window.addEventListener('load',function(){ setInterval(poll,30000); });
+  window.addEventListener('resize',navH);
+})();
 </script>
 <script src="com7-extras.js" defer></script>
 <script src="qrcode.min.js" defer></script>

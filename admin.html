@@ -136,6 +136,17 @@ th{font-family:'Noto Serif Thai',serif!important}
 <style id="c7-concept">.concept-box{margin:6px 0 8px;padding:8px 10px;border-radius:10px;background:rgba(255,255,255,.05);border:1px dashed rgba(231,197,106,.35);font-size:13px;line-height:1.5;display:flex;gap:8px;align-items:flex-start;justify-content:space-between}.concept-box .cn-t{font-style:italic;color:#f3e7c4;flex:1}.concept-box .btn{flex:0 0 auto}</style>
 <style id="c7-linklater">.link-box{margin:6px 0;display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:13px}.link-box .badge.none{background:rgba(255,255,255,.12);color:#ddd}.lk-open{color:#F7E3A8;text-decoration:underline}</style>
 <style id="c7-photochange">.ph-new{margin:8px 0;padding:8px;border-radius:10px;border:1px solid rgba(255,200,90,.5);background:rgba(255,200,90,.08)}.ph-new-h{font-weight:600;font-size:13px;margin-bottom:6px}.ph-cmp{display:grid;grid-template-columns:1fr 1fr;gap:6px}.ph-cmp figure{margin:0}.ph-cmp img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:8px;background:#222}.ph-cmp figcaption{font-size:11.5px;text-align:center;opacity:.75;margin-top:2px}</style>
+<style id="c7-profile">.pro-box{margin:6px 0;padding:8px;border-radius:10px;background:rgba(255,255,255,.04);font-size:12.5px;line-height:1.55;display:grid;gap:4px;word-break:break-word}</style>
+<style id="c7-judge">
+.jd-steps{display:grid;gap:6px;margin:4px 0 12px;font-size:13.5px;line-height:1.6}.jd-steps b{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:#e7c56a;color:#2a1805;margin-right:6px;font-size:12px}
+.jd-bar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:12px}.jd-bar span{margin-right:auto}
+.jd-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}@media(max-width:760px){.jd-grid{grid-template-columns:1fr}}
+.jd-row{display:flex;gap:10px;align-items:center;padding:8px;border-radius:12px;background:rgba(255,255,255,.05);margin-bottom:8px}.jd-row img{width:44px;height:58px;object-fit:cover;border-radius:8px}.jd-row div{flex:1;min-width:0;font-size:14px}
+.jd-rk{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;font-weight:700;color:#2a1805;background:#e7c56a;flex:none}.jd-rk.r2{background:#c9ccd8}.jd-rk.r3{background:#d39a6a}
+.jd-sc{font-weight:600;color:#ffe2a0;white-space:nowrap}.jd-warn{margin:6px 0 10px;padding:8px 10px;border-radius:10px;background:rgba(255,180,90,.12);border:1px solid rgba(255,180,90,.4);font-size:13px;line-height:1.55}
+.jd-go{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:16px 0 30px;padding:12px;border-radius:14px;background:rgba(231,197,106,.08);border:1px solid rgba(231,197,106,.4)}.jd-go label{flex:1;min-width:220px;font-size:14px}
+.jd-go button[disabled]{opacity:.5;cursor:not-allowed}
+</style>
 </head>
 <body>
 
@@ -176,22 +187,32 @@ th{font-family:'Noto Serif Thai',serif!important}
   </div>
   <!-- ช่วงวันโหวต + countdown -->
   <div class="votewin" id="votewin">
-    <span>🗳️ ช่วงโหวต: <b>18–23 พ.ย. 2569</b></span>
+    <span>🗳️ ช่วงโหวต: <b>24 พ.ย. 2569 เวลา 06:00–15:00 น.</b></span>
     <span id="voteCountdown" class="cd">กำลังคำนวณ…</span>
   </div>
   <!-- แถบเปิด/ปิดโหวต -->
   <div class="votebar">
     <div class="vote-status"><span id="voteDot" class="dot off"></span><span id="voteText">กำลังโหลด…</span></div>
     <div style="display:flex;gap:10px">
-      <button class="btn btn-sm btn-ok" onclick="setVote(true)">เปิดโหวต</button>
+      <button class="btn btn-sm btn-ghost" onclick="setVoteMode('auto')" title="เปิด-ปิดเองตามเวลา 24 พ.ย. 06:00–15:00">⏱️ อัตโนมัติ</button> <button class="btn btn-sm btn-ok" onclick="setVote(true)" title="ฉุกเฉิน: บังคับเปิด">เปิดโหวต</button>
       <button class="btn btn-sm btn-no" onclick="setVote(false)">ปิดโหวต</button>
+    </div>
+  </div>
+  <!-- ★ 6 พ.ย. หน้าเวที (ทดสอบในทีม) -->
+  <div class="votebar">
+    <div class="vote-status"><span id="stgDot" class="dot off"></span><span id="stgText">หน้าเวที: กำลังโหลด…</span></div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <button class="btn btn-sm btn-ghost" onclick="setStage('auto')" title="ก่อน 24 พ.ย. 15:00 = ก่อนโหวต · หลังจากนั้น = รอคณะกรรมการ">⏱️ ตามเวลาจริง</button>
+      <button class="btn btn-sm btn-ghost" onclick="setStage('before')">🎪 ก่อนโหวต</button>
+      <button class="btn btn-sm btn-ok" onclick="setStage('judging')">⏳ รอคณะกรรมการ</button>
+      <a class="btn btn-sm btn-ghost" href="stage.html" target="_blank" rel="noopener">👀 เปิดหน้าเวที</a>
     </div>
   </div>
   <!-- v4.2 ประกาศผล -->
   <div class="votebar">
     <div class="vote-status"><span id="annDot" class="dot off"></span><span id="annText">ประกาศผล: กำลังโหลด…</span></div>
     <div style="display:flex;gap:10px">
-      <button class="btn btn-sm btn-ok" onclick="setAnnounce(true)">🏆 ประกาศผล</button>
+      <button class="btn btn-sm btn-ok" onclick="switchTab('judge')">🏆 ตรวจผล &amp; ประกาศ</button>
       <button class="btn btn-sm btn-ghost" onclick="setAnnounce(false)">ยกเลิกประกาศ</button>
     </div>
   </div>
@@ -199,6 +220,7 @@ th{font-family:'Noto Serif Thai',serif!important}
   <div class="tabs">
     <button class="tab active" data-tab="approve" onclick="switchTab('approve')">🖼️ อนุมัติรูป</button>
     <button class="tab" data-tab="results" onclick="switchTab('results')">📊 ผลโหวต</button>
+  <button class="tab" data-tab="judge" onclick="switchTab('judge')">🏆 ตรวจผลก่อนประกาศ</button>
     <button class="tab" data-tab="krathong" onclick="switchTab('krathong')">🪷 จัดการกระทง</button><button class="tab" data-tab="wish" onclick="switchTab('wish')">🌳 จัดการคำขอพร</button>
     <button class="tab btn-ghost" onclick="loadAll()" style="margin-left:auto">🔄 รีเฟรช</button>
   </div>
@@ -218,7 +240,21 @@ th{font-family:'Noto Serif Thai',serif!important}
     <div id="resMale"></div>
   </div>
 
-  <!-- Tab: จัดการกระทง (v4.1) -->
+  <!-- ★ 6 พ.ย. Tab: ตรวจผลก่อนประกาศ -->
+<div id="tab-judge" style="display:none">
+  <div class="jd-steps">
+    <div><b>1</b> ปิดโหวต (24 พ.ย. 15:00 ระบบปิดเอง) → หน้าเวทีขึ้น “รอคณะกรรมการตัดสิน”</div>
+    <div><b>2</b> ตรวจ Top 3 ด้านล่าง + ตรวจลิงก์โพสต์ของคนที่ถูกข้าม (แท็บ อนุมัติรูป)</div>
+    <div><b>3</b> ติ๊กยืนยัน แล้วกด <b>อนุมัติและประกาศผล</b> → หน้าเวทีเปลี่ยนเป็นประกาศผลภายใน 1 นาที</div>
+  </div>
+  <div class="jd-bar"><span id="jdState" class="muted">กดแท็บนี้เพื่อโหลดผล</span><button class="btn btn-sm btn-ghost" onclick="loadJudge()">🔄 โหลดผลล่าสุด</button>
+   <a class="btn btn-sm btn-ghost" href="stage.html" target="_blank" rel="noopener">👀 เปิดหน้าเวที</a></div>
+  <div class="jd-grid"><section><div class="section-title">👑 นางนพมาศ</div><div id="jdF"></div></section><section><div class="section-title">👑 นพมาศชาย</div><div id="jdM"></div></section></div>
+  <div class="jd-go"><label><input type="checkbox" id="jdOk"> ฉันตรวจผลและเงื่อนไขของผู้ได้รับรางวัลแล้ว ถูกต้อง</label>
+   <button class="btn btn-ok" id="jdBtn" onclick="approveAnnounce()">✅ อนุมัติและประกาศผล</button></div>
+</div>
+
+<!-- Tab: จัดการกระทง (v4.1) -->
   <div id="tab-krathong" style="display:none">
     <div class="kt-bar">
       <input id="ktSearch" class="kt-in" placeholder="🔍 ค้นชื่อ / บริษัท / คำอวยพร" oninput="renderKrathongs()">
@@ -294,7 +330,7 @@ async function login(){
       document.getElementById('loginView').style.display='none';
       document.getElementById('mainView').style.display='block';
       document.getElementById('logoutBtn').style.display='';
-      renderContestants(r.data); renderVoteState(r.voteOpen); renderAnnounce(r.announced);
+      renderContestants(r.data); renderVoteState(r.voteOpen, r.voteMode); renderAnnounce(r.announced); renderStage(r.stageMode,r.phase);
       loadResults();
     }else{
       document.getElementById('loginErr').style.display='block';
@@ -306,7 +342,7 @@ async function login(){
 async function loadAll(){
   try{
     const r = await apiPost({ action:'admin_list', pass:ADMIN_PASS });
-    if(r.ok){ renderContestants(r.data); renderVoteState(r.voteOpen); renderAnnounce(r.announced); }
+    if(r.ok){ renderContestants(r.data); renderVoteState(r.voteOpen, r.voteMode); renderAnnounce(r.announced); renderStage(r.stageMode,r.phase); }
     loadResults();
     toast('รีเฟรชแล้ว');
   }catch(e){ toast('โหลดไม่สำเร็จ: '+e.message); }
@@ -314,7 +350,7 @@ async function loadAll(){
 
 async function loadResults(){
   try{
-    const r = await jsonp({ action:'results' });
+    const r = await jsonp({ action:'results', pass:ADMIN_PASS });   /* ★ 6 พ.ย. แอดมินเห็นคะแนนเสมอ */
     if(r.ok){ LAST_RESULTS={female:r.female||[],male:r.male||[]}; renderResults('resFemale', r.female); renderResults('resMale', r.male); updateVoteTotal(); }
   }catch(e){}
 }
@@ -350,12 +386,35 @@ function card(d){
     +'<div class="meta">'+esc(d.บริษัท)+'</div>'
     +'<div class="meta">คะแนน: '+(d.คะแนน||0)+' · '+d.id+'</div>'
     +photoBox(d)
+    +proBox(d)
     +linkBox(d)
     +'<div class="concept-box">'+(d.แนวคิด?'<span class="cn-t">“'+esc(d.แนวคิด)+'”</span>':'<span class="muted">(ยังไม่มีแนวคิดชุด)</span>')
     +' <button class="btn btn-sm btn-ghost" onclick="editConcept(\''+d.id+'\')">✏️ แก้</button></div>'
     +acts+'</div></div>';
 }
 
+/* ============ โปรไฟล์ + โซเชียล (v4.5) ============ */
+function proBox(d){
+  const soc=['IG','FB','TikTok'].filter(k=>d[k]).map(k=>'<a href="'+esc(d[k])+'" target="_blank" rel="noopener" class="lk-open">'+k+'</a>').join(' · ');
+  const has=d.แนะนำตัว||d.คำตอบ||soc;
+  return '<div class="pro-box">'
+    +(d.แนะนำตัว?'<div><b>💬</b> '+esc(d.แนะนำตัว)+'</div>':'')
+    +(d.คำตอบ?'<div><b>🎲</b> <span class="muted">'+esc(d.คำถาม)+'</span><br>“'+esc(d.คำตอบ)+'”</div>':'')
+    +(soc?'<div><b>📱</b> '+soc+(d.ยินยอมโซเชียล?'':' <span class="badge rejected">ไม่ยินยอมแสดง</span>')+'</div>':'')
+    +(has?'':'<span class="muted">(ไม่มีแนะนำตัว/คำตอบ/โซเชียล)</span>')
+    +' <button class="btn btn-sm btn-ghost" onclick="editPro(\''+d.id+'\')">✏️ แก้</button></div>';
+}
+async function editPro(id){
+  const d=(ALL_C||[]).find(x=>x.id===id);if(!d)return;
+  const intro=prompt('แนะนำตัว (ว่าง = ลบ)',d.แนะนำตัว||'');if(intro===null)return;
+  const ans=prompt('คำตอบ: '+(d.คำถาม||'')+' (ว่าง = ลบ)',d.คำตอบ||'');if(ans===null)return;
+  const clearSoc=(d.IG||d.FB||d.TikTok)&&confirm('ลบลิงก์โซเชียลทั้งหมดของ '+id+' ด้วยไหม?\n(ตกลง = ลบ · ยกเลิก = เก็บไว้)');
+  if(/\d{9,}|@|line/i.test(intro+ans)&&!confirm('ข้อความมีเบอร์/อีเมล/LINE — ระบบจะไม่แสดงบนเว็บ ยืนยันบันทึก?'))return;
+  const body={action:'admin_profile',pass:ADMIN_PASS,id:id,intro:intro.trim(),answer:ans.trim(),question:d.คำถาม||'คำถามนพมาศ AI'};
+  if(clearSoc){body.IG='';body.FB='';body.TikTok='';body.socialConsent=false;}
+  const r=await apiPost(body);
+  if(r&&r.ok){toast(r.message||'บันทึกแล้ว');loadAll();}else toast('ไม่สำเร็จ: '+((r&&r.error)||'')+' (ต้องใช้ระบบหลังบ้าน v4.5)');
+}
 /* ============ เปลี่ยนรูป (v4.5) ============ */
 function photoBox(d){
   if(!d.รูปใหม่) return '';
@@ -403,15 +462,22 @@ async function decide(id, decision){
 }
 
 /* ============ เปิด/ปิดโหวต ============ */
-function renderVoteState(open){
+function renderVoteState(open, mode){
   document.getElementById('voteDot').className = 'dot ' + (open?'on':'off');
-  document.getElementById('voteText').textContent = open ? 'โหวตเปิดอยู่ 🟢' : 'โหวตปิดอยู่ 🔴';
+  const m = mode==='open' ? ' · บังคับเปิด (ฉุกเฉิน)' : mode==='close' ? ' · บังคับปิด (กด ⏱️ อัตโนมัติ เพื่อให้เปิดเองตามเวลา)' : mode==='auto' ? ' · อัตโนมัติ (24 พ.ย. 06:00–15:00)' : '';
+  document.getElementById('voteText').textContent = (open ? 'โหวตเปิดอยู่ 🟢' : 'โหวตปิดอยู่ 🔴') + m;
+}
+/* ★ 6 พ.ย.: อัตโนมัติ = ระบบเปิด 24 พ.ย. 06:00 ปิด 15:00 เอง · ปุ่มเปิด/ปิด = บังคับ (ฉุกเฉิน) */
+async function setVoteMode(mode){
+  if(!confirm('ตั้งเป็นอัตโนมัติ (เปิด 24 พ.ย. 06:00 · ปิด 15:00) ยืนยัน?')) return;
+  const r = await apiPost({ action:'admin_votectl', pass:ADMIN_PASS, mode:mode });
+  if(r && r.ok){ renderVoteState(r.voteOpen, r.voteMode); toast(r.message); } else toast('ไม่สำเร็จ: '+((r&&r.error)||'')+' (ต้องใช้ระบบหลังบ้านเวอร์ชันใหม่)');
 }
 async function setVote(open){
   if(!confirm((open?'เปิด':'ปิด')+'โหวต ยืนยัน?')) return;
   try{
     const r = await apiPost({ action:'admin_votectl', pass:ADMIN_PASS, open:open });
-    if(r.ok){ renderVoteState(r.voteOpen); toast(r.message); }
+    if(r.ok){ renderVoteState(r.voteOpen, r.voteMode); toast(r.message); }
     else toast('ไม่สำเร็จ: '+(r.error||''));
   }catch(e){ toast('ผิดพลาด: '+e.message); }
 }
@@ -432,12 +498,12 @@ function renderResults(elId, list){
 function renderAnnounce(on){
   document.getElementById('annDot').className = 'dot ' + (on?'on':'off');
   document.getElementById('annText').textContent = on ? 'ประกาศผลแล้ว 🏆 (หน้าเว็บแสดง Top 3)'
-    : 'ยังไม่ประกาศ — ระบบจะแสดงผู้ชนะเองหลัง 23 พ.ย. 23:59 (ถ้าปิดโหวตแล้ว)';
+    : 'ยังไม่ประกาศ — หน้าเว็บจะแสดงผู้ชนะเมื่อแอดมินกด “ประกาศผล” เท่านั้น';
 }
 async function setAnnounce(on){
   if(!confirm(on?'ประกาศผล Top 3 บนหน้าเว็บตอนนี้ ยืนยัน?':'ยกเลิกประกาศผล ยืนยัน?')) return;
   const r = await apiPost({ action:'admin_announce', pass:ADMIN_PASS, on:on });
-  if(r && r.ok){ renderAnnounce(r.announced); toast(r.message); }
+  if(r && r.ok){ renderAnnounce(r.announced); renderStage(r.stageMode,r.phase); toast(r.message); }
   else toast('ไม่สำเร็จ: '+((r&&r.error)||''));
 }
 
@@ -486,6 +552,38 @@ async function hideKrathong(id, hide){
   else toast('ไม่สำเร็จ: '+((r&&r.error)||''));
 }
 
+/* ============ ★ 6 พ.ย. สลับหน้าเวที (ทดสอบในทีม) ============ */
+const STG={auto:'⏱️ ตามเวลาจริง',before:'🎪 บังคับ “ก่อนโหวต” (ทดสอบ)',judging:'⏳ บังคับ “รอคณะกรรมการ” (ทดสอบ)'};
+const PHN={reg:'ก่อนโหวต',vote:'กำลังโหวต',judging:'รอคณะกรรมการตัดสิน',announced:'ประกาศผลแล้ว'};
+function renderStage(mode,phase){const t=document.getElementById('stgText');if(!t)return;
+  document.getElementById('stgDot').className='dot '+(mode&&mode!=='auto'?'on':'off');
+  t.textContent='หน้าเวที: '+(STG[mode]||STG.auto)+(phase?' · ตอนนี้แสดง “'+(PHN[phase]||phase)+'”':'')+(mode&&mode!=='auto'?' — อย่าลืมกด ⏱️ ตามเวลาจริง หลังทดสอบ':'');}
+async function setStage(mode){
+  if(mode!=='auto'&&!confirm('สลับหน้าเวทีเป็น “'+(mode==='judging'?'รอคณะกรรมการตัดสิน':'ก่อนโหวต')+'” เพื่อทดสอบ?\nทุกคนที่เปิดหน้าเวทีจะเห็นหน้านี้ภายใน 1 นาที'))return;
+  const r=await apiPost({action:'admin_stagectl',pass:ADMIN_PASS,mode:mode});
+  if(r&&r.ok){renderStage(r.stageMode,r.phase);toast(r.message)}else toast('ไม่สำเร็จ: '+((r&&r.error)||'')+' (ต้องใช้ระบบหลังบ้านเวอร์ชันใหม่)');
+}
+/* ============ ★ 6 พ.ย. ตรวจผลก่อนประกาศ ============ */
+const PH={reg:'⏳ ยังไม่ถึงวันโหวต',vote:'🟢 กำลังเปิดโหวต',judging:'🔴 ปิดโหวตแล้ว · รอตรวจผล',announced:'🏆 ประกาศผลแล้ว'};
+async function loadJudge(){
+  document.getElementById('jdState').textContent='กำลังโหลด…';
+  const r=await apiPost({action:'admin_preview',pass:ADMIN_PASS});
+  if(!r||!r.ok){document.getElementById('jdState').textContent='โหลดไม่สำเร็จ: '+((r&&r.error)||'')+' (ต้องใช้ระบบหลังบ้านเวอร์ชันใหม่)';return}
+  document.getElementById('jdState').innerHTML='<b>'+(PH[r.phase]||r.phase)+'</b> · ผู้โหวต '+(r.voters||0)+' คน'+(r.voteOpen?' · <span style="color:#ffb37a">⚠️ ยังเปิดโหวตอยู่ คะแนนอาจเปลี่ยน</span>':'');
+  const box=(list,skip,tie)=>{let h=(list&&list.length)?list.map(w=>'<div class="jd-row"><span class="jd-rk r'+w.อันดับ+'">'+w.อันดับ+'</span>'+(w.รูป?'<img src="'+esc(w.รูป)+'" alt="">':'')+'<div><b>'+esc(w.ชื่อ)+'</b><br><small>#'+esc(w.id)+' · '+esc(w.บริษัท||'')+'</small></div><span class="jd-sc">'+w.คะแนน+' คะแนน</span></div>').join(''):'<div class="muted">ยังไม่มีผู้ที่ครบเงื่อนไข</div>';
+    if(tie)h+='<div class="jd-warn">⚠️ มีคนคะแนนเท่ากับอันดับ 3 — ระบบเรียงตามหมายเลขผู้สมัคร (สมัครก่อนอยู่ก่อน) ตรวจและตัดสินก่อนประกาศ</div>';
+    if(skip&&skip.length)h+='<div class="jd-warn">ถูกข้ามเพราะลิงก์โพสต์ยังไม่ผ่าน: '+skip.map(s=>esc(s.ชื่อ)+' (#'+esc(s.id)+' · '+s.คะแนน+' คะแนน · ลิงก์: '+esc(s.สถานะลิงก์)+')').join(', ')+' — ถ้าลิงก์ใช้ได้จริง ไปกด ✅ ผ่าน ที่แท็บอนุมัติรูป แล้วโหลดผลใหม่</div>';
+    return h};
+  document.getElementById('jdF').innerHTML=box(r.female,r.skippedF,r.tieF);
+  document.getElementById('jdM').innerHTML=box(r.male,r.skippedM,r.tieM);
+  const b=document.getElementById('jdBtn');b.disabled=r.announced||r.voteOpen;b.textContent=r.announced?'🏆 ประกาศผลแล้ว':'✅ อนุมัติและประกาศผล';
+}
+async function approveAnnounce(){
+  if(!document.getElementById('jdOk').checked){toast('ติ๊กยืนยันว่าตรวจผลแล้วก่อน');return}
+  if(!confirm('ยืนยันประกาศผล Top 3 บนหน้าเว็บ?\nทุกคนจะเห็นผลทันที (ยกเลิกได้ที่ปุ่ม “ยกเลิกประกาศ”)'))return;
+  const r=await apiPost({action:'admin_announce',pass:ADMIN_PASS,on:true});
+  if(r&&r.ok){toast('ประกาศผลแล้ว 🏆');renderAnnounce(true);loadJudge()}else toast('ไม่สำเร็จ: '+((r&&r.error)||''));
+}
 /* ============ UI helpers ============ */
 function switchTab(t){
   document.querySelectorAll('.tab[data-tab]').forEach(b=>b.classList.toggle('active', b.dataset.tab===t));
@@ -495,6 +593,7 @@ function switchTab(t){
   if(t==='krathong' && !KT_LOADED) loadKrathongs();
   document.getElementById('tab-wish').style.display = t==='wish'?'block':'none';
   if(t==='wish' && !WS_LOADED) loadWishes();
+  { const jd=document.getElementById('tab-judge'); if(jd) jd.style.display = t==='judge'?'block':'none'; if(t==='judge') loadJudge(); }
 }
 /* ============ จัดการคำขอพร (v4.5) ============ */
 let WS = [], WS_LOADED = false;
@@ -555,9 +654,9 @@ function updateVoteTotal(){
   var el=document.getElementById('stVotes'); if(el) el.textContent=tot;
 }
 
-/* countdown ช่วงโหวต 18–23 พ.ย. 2569 (ค.ศ. 2026) เวลาไทย */
-var VOTE_START=new Date('2026-11-18T00:00:00+07:00');
-var VOTE_END  =new Date('2026-11-23T23:59:59+07:00');
+/* countdown ช่วงโหวต 24 พ.ย. 2569 06:00–15:00 (ค.ศ. 2026) เวลาไทย */
+var VOTE_START=new Date('2026-11-24T06:00:00+07:00');
+var VOTE_END  =new Date('2026-11-24T15:00:00+07:00');
 function fmtDur(ms){
   var s=Math.floor(ms/1000), d=Math.floor(s/86400); s-=d*86400;
   var h=Math.floor(s/3600); s-=h*3600; var m=Math.floor(s/60);

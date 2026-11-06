@@ -65,6 +65,7 @@
     + '.c7x-wc .c7x-bd{padding:12px 12px 14px}.c7x-wc b{display:block;font-size:15.5px}.c7x-wc span{font-size:13px;opacity:.75}'
     + '.c7x-wait{text-align:center;padding:26px 16px;border:1px dashed rgba(231,197,106,.45);border-radius:20px;color:#f3e2b3;background:rgba(255,255,255,.03)}';
   css += '.c7x-warn{margin-top:10px;padding:8px 10px;border-radius:10px;background:rgba(255,200,120,.1);border:1px solid rgba(255,200,120,.35);font-size:13px;color:#ffd9a0}.c7x-link input{width:100%;box-sizing:border-box}';
+    css += '.c7x-pro{margin-top:14px;padding:10px 12px;border-radius:12px;background:rgba(255,255,255,.04);clear:both}.c7x-pro summary{cursor:pointer;font-weight:600;min-height:30px}.c7x-pro textarea,.c7x-pro input[type=url]{width:100%;box-sizing:border-box;font:inherit;font-size:16px}';
     var st = document.createElement('style'); st.id = 'c7x-style'; st.textContent = css; document.head.appendChild(st);
 
   /* ==================== 2) ตรวจสอบสถานะการสมัคร ==================== */
@@ -102,7 +103,7 @@
       if (!r.ok) { res.innerHTML = '⚠️ ' + esc(r.error || 'ตรวจสอบไม่สำเร็จ'); return; }
       if (!r.found) { res.innerHTML = '🔍 ' + esc(r.message || 'ไม่พบใบสมัคร') + '<div class="c7x-muted" style="margin-top:6px">ตรวจรหัสพนักงาน/เบอร์อีกครั้ง หรือยังไม่ได้ลงทะเบียน → <a href="contest.html" style="color:#f7e3a8">ลงทะเบียนประกวด</a></div>'; return; }
       var s = String(r['สถานะ'] || ''), cls = s === 'อนุมัติ' ? 'ok' : s === 'ปฏิเสธ' ? 'no' : 'wait';
-      var note = s === 'อนุมัติ' ? 'ผลงานของคุณแสดงในหน้าผู้เข้าประกวดแล้ว ชวนเพื่อนมาโหวตช่วง 18–23 พ.ย. ได้เลย 🎉'
+      var note = s === 'อนุมัติ' ? 'ผลงานของคุณแสดงในหน้าผู้เข้าประกวดแล้ว ชวนเพื่อนมาโหวตช่วง 24 พ.ย. 06:00–15:00 ได้เลย 🎉'
                : s === 'ปฏิเสธ' ? 'ผลงานยังไม่ผ่านเกณฑ์ หากมีข้อสงสัย ติดต่อทีมจัดงานด้านล่าง'
                : 'ทีมงานกำลังตรวจสอบผลงาน โปรดรอการอนุมัติ';
       res.innerHTML = (r['รูป'] ? '<img src="' + esc(r['รูป']) + '" alt="" onerror="this.remove()">' : '')
@@ -113,9 +114,10 @@
         + (r['รูปใหม่รออนุมัติ'] ? '<div class="c7x-warn" style="margin-top:8px">🔄 รูปใหม่ของคุณรอแอดมินอนุมัติ — ระหว่างนี้หน้าเว็บยังแสดงรูปเดิม</div>' : '')
         + linkBlock(r, emp, ph4);
       bindLink(emp, ph4);
+      proBlock(r, emp, ph4);
     });
   }
-  /* ★ v4.5 (5 พ.ย.): สถานะลิงก์โพสต์ + ส่งลิงก์ทีหลัง (ถึง 17 พ.ย.) */
+  /* ★ v4.5 (5 พ.ย.): สถานะลิงก์โพสต์ + ส่งลิงก์ทีหลัง (ถึง 23 พ.ย.) */
   function linkBlock(r, emp, ph4) {
     var ls = r['สถานะลิงก์'];
     if (!ls) return '';   // backend เก่ายังไม่รองรับ
@@ -129,7 +131,7 @@
         + '<input id="c7x-lk" type="url" inputmode="url" autocomplete="off" placeholder="https://www.facebook.com/… หรือ IG / TikTok">'
         + '<button class="c7x-btn" type="button" id="c7x-lk-go">ส่งลิงก์</button><div id="c7x-lk-res" class="c7x-muted" style="margin-top:6px"></div>';
     }
-    if (ls !== 'ผ่าน') h += '<div class="c7x-warn">' + (r.linkOpen ? '⚠️ ส่งลิงก์ภายใน <b>17 พ.ย. 2569</b> เพื่อมีสิทธิ์รับรางวัล' : '⛔ หมดเขตส่งลิงก์แล้ว (17 พ.ย.) · ยังโหวตได้ แต่ไม่มีสิทธิ์รับรางวัล') + '</div>';
+    if (ls !== 'ผ่าน') h += '<div class="c7x-warn">' + (r.linkOpen ? '⚠️ ส่งลิงก์ภายใน <b>23 พ.ย. 2569</b> เพื่อมีสิทธิ์รับรางวัล' : '⛔ หมดเขตส่งลิงก์แล้ว (23 พ.ย.) · ยังโหวตได้ แต่ไม่มีสิทธิ์รับรางวัล') + '</div>';
     return h + '</div>';
   }
   function bindLink(emp, ph4) {
@@ -143,6 +145,33 @@
         if (!r) { out.textContent = '⚠️ เชื่อมต่อระบบไม่ได้ ลองใหม่'; return; }
         if (!r.ok) { out.textContent = '⚠️ ' + (r.error || 'ส่งไม่สำเร็จ'); return; }
         out.innerHTML = '✅ ส่งลิงก์แล้ว รอทีมงานตรวจสอบ'; var t = document.querySelector('.c7x-link .c7x-tag'); if (t) { t.className = 'c7x-tag wait'; t.textContent = '🔍 รอทีมงานตรวจลิงก์'; }
+      });
+    };
+  }
+  /* ★ v4.5 (5 พ.ย.): แก้แนะนำตัว / คำตอบ / ลิงก์โซเชียล ภายหลัง (ยืนยันด้วยรหัส + เบอร์ 4 ตัวท้าย) */
+  function proBlock(r, emp, ph4) {
+    var P = r['โปรไฟล์']; if (!P) return;
+    var res = document.getElementById('c7x-res') || document.querySelector('#c7x-status .c7x-res'); if (!res) return;
+    var d = document.createElement('details'); d.className = 'c7x-pro';
+    d.innerHTML = '<summary>✏️ แก้ไขแนะนำตัว / คำตอบ / ลิงก์โซเชียล</summary>'
+      + '<label for="c7x-in">แนะนำตัว</label><textarea id="c7x-in" maxlength="150" rows="2">' + esc(P['แนะนำตัว']) + '</textarea>'
+      + '<label for="c7x-an">' + esc(P['คำถาม'] || '🎲 คำตอบคำถามนพมาศ AI') + '</label><textarea id="c7x-an" maxlength="150" rows="2">' + esc(P['คำตอบ']) + '</textarea>'
+      + '<label for="c7x-ig">Instagram</label><input id="c7x-ig" type="url" value="' + esc(P.IG) + '" placeholder="https://www.instagram.com/ชื่อ">'
+      + '<label for="c7x-fb">Facebook</label><input id="c7x-fb" type="url" value="' + esc(P.FB) + '" placeholder="https://www.facebook.com/ชื่อ">'
+      + '<label for="c7x-tt">TikTok</label><input id="c7x-tt" type="url" value="' + esc(P.TikTok) + '" placeholder="https://www.tiktok.com/@ชื่อ">'
+      + '<label style="display:flex;gap:6px;align-items:flex-start;margin-top:8px"><input type="checkbox" id="c7x-sc"' + (P['ยินยอมโซเชียล'] ? ' checked' : '') + ' style="width:auto;margin-top:3px"> <span>ยินยอมให้แสดงบัญชีโซเชียลบนหน้าผู้เข้าประกวด</span></label>'
+      + '<button class="c7x-btn" type="button" id="c7x-pro-go">บันทึก</button><div id="c7x-pro-res" class="c7x-muted" style="margin-top:6px"></div>'
+      + '<div class="c7x-muted" style="margin-top:4px">💡 ลบลิงก์ = ลบข้อความในช่องแล้วกดบันทึก · ข้อความแสดงบนเว็บหลังผลงานผ่านการอนุมัติ</div>';
+    res.appendChild(d);
+    document.getElementById('c7x-pro-go').onclick = function () {
+      var g = function (id) { return (document.getElementById(id).value || '').trim(); }, out = document.getElementById('c7x-pro-res'), btn = this;
+      var body = { action:'update_profile', token:'COM7LKER2569', empId:emp, phone4:ph4, intro:g('c7x-in'), answer:g('c7x-an'), question:P['คำถาม'] || 'คำถามนพมาศ AI',
+                   IG:g('c7x-ig'), FB:g('c7x-fb'), TikTok:g('c7x-tt'), socialConsent:document.getElementById('c7x-sc').checked };
+      if ((body.IG || body.FB || body.TikTok) && !body.socialConsent) { out.textContent = '⚠️ ติ๊กยินยอมแสดงบัญชีโซเชียล หรือลบลิงก์ออก'; return; }
+      btn.disabled = true; btn.textContent = 'กำลังบันทึก…';
+      jsonp(body, function (x) { btn.disabled = false; btn.textContent = 'บันทึก';
+        if (!x) { out.textContent = '⚠️ เชื่อมต่อระบบไม่ได้ ลองใหม่'; return; }
+        out.textContent = x.ok ? ('✅ บันทึกแล้ว' + (x.hiddenPersonal ? ' · ⚠️ มีเบอร์/อีเมล/LINE ในข้อความ ระบบจะไม่แสดงบนเว็บ' : '')) : ('⚠️ ' + (x.error || 'บันทึกไม่สำเร็จ'));
       });
     };
   }
