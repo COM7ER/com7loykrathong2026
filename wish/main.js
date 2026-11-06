@@ -270,15 +270,13 @@
         '<h3>อีกนิดเดียว!</h3><p class="sub">ใส่รหัสพนักงาน ไว้เปิดอ่านพรของคุณเองภายหลัง</p>' +
         '<input class="wz-id" name="wid" maxlength="30" placeholder="รหัสพนักงาน" autocomplete="off" value="' + esc(st.id) + '">' +
         '<p class="who-note">🔒 รหัสพนักงานไม่แสดงให้ใครเห็น</p>' +
-        '<label class="consent"><input type="checkbox" name="consent"> ยินยอมให้เก็บคำขอพรไว้ในระบบกิจกรรม (ดูได้เฉพาะคุณและผู้ดูแลระบบ)</label>' +
-        '<div class="modal__actions"><button type="button" class="btn btn--ghost" data-back>← ย้อนกลับ</button><button type="submit" class="btn btn--gold">🐝 แขวนคำขอพร</button></div></form>', (body) => {
+        '<div class="modal__actions"><button type="button" class="btn btn--ghost" data-back>← ย้อนกลับ</button><button type="submit" class="btn btn--gold">🐝 แขวนคำขอพร</button></div><p class="consent-note">🔒 การกด “แขวนคำขอพร” ถือว่ายินยอมให้เก็บคำขอพรและรหัสพนักงานไว้ในระบบกิจกรรม ดูได้เฉพาะคุณและผู้ดูแลระบบ · <a href="contest.html#pdpa" target="_blank" rel="noopener">อ่านนโยบาย</a></p></form>', (body) => {
         const f = body.firstElementChild;
         $('[data-back]', f).addEventListener('click', step2);
         setTimeout(() => f.elements.wid.focus(), 50);
         f.addEventListener('submit', (e) => { e.preventDefault();
           const id = f.elements.wid.value.trim();
           if (!/^[A-Za-z0-9-]{3,30}$/.test(id)) { toast('กรุณากรอกรหัสพนักงาน'); f.elements.wid.focus(); return; }
-          if (!f.elements.consent.checked) { toast('กรุณาติ๊กยินยอมก่อนแขวนคำขอพร'); return; }
           const btn = f.querySelector('[type=submit]'); btn.disabled = true; btn.textContent = 'กำลังส่ง…';
           const tag = Math.floor(Math.random() * D.tags.length);
           api({ action: 'wish', token: TOKEN, consent: true, public: st.pub, text: st.text, cat: st.cat, tag: tag, empId: id }).then((r) => {
