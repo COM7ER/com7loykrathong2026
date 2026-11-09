@@ -414,6 +414,30 @@ h1,h2,h3,.l2,.bt,.gh h2,.pn h2,.step h3{font-family:'Noto Serif Thai',serif!impo
   #home.edA .rv,#home.edA .rv-s,#home.edA .arch{opacity:1!important;transform:none!important;filter:none!important}
   #home.edA h1 .ln>span{transform:none!important}#home.edA .dust{display:none}}
 </style>
+<style id="c7-vote-cards">
+/* ★ 9 พ.ย. การ์ดหน้าโหวต = ธีมเดียวกับหน้าผู้เข้าประกวด */
+#gal .grid{grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:18px}
+#gal .card.c7v{border-radius:22px 22px 14px 14px;overflow:hidden;border:1.5px solid rgba(231,197,106,.55);background:linear-gradient(180deg,rgba(48,28,92,.55),rgba(22,12,44,.92));
+  box-shadow:0 0 0 1px rgba(226,191,107,.22),0 16px 40px -16px #000c;transition:transform .3s cubic-bezier(.2,.8,.3,1),box-shadow .3s,border-color .3s}
+#gal .card.c7v:hover{transform:translateY(-5px);border-color:#FDF3D2}
+#gal .c7v .vm{position:relative;aspect-ratio:3/4.3;overflow:hidden;background:#241540}
+#gal .c7v .vm img{width:100%;height:100%;aspect-ratio:auto;object-fit:cover;transition:transform .6s}
+#gal .c7v:hover .vm img{transform:scale(1.05)}
+#gal .c7v .vm::after{content:"";position:absolute;inset:auto 0 0;height:46%;background:linear-gradient(transparent,rgba(16,8,31,.9));pointer-events:none}
+#gal .c7v .no{top:10px;left:10px;padding:4px 11px;border-radius:999px;font-size:12px;font-weight:600;color:#10081F;background:linear-gradient(180deg,#FBEBB6,#E7C56A 45%,#C9972F);z-index:2}
+#gal .c7v .ty{position:absolute;top:10px;right:10px;z-index:2;padding:4px 10px;border-radius:999px;font-size:12px;color:#FDF3D2;border:1px solid rgba(231,197,106,.6);background:rgba(16,8,31,.62)}
+#gal .c7v .okb{position:absolute;left:10px;bottom:10px;z-index:2;padding:4px 10px;border-radius:999px;font-size:12px;font-weight:500;color:#10301a;background:linear-gradient(180deg,#b8f0c4,#6fd38a)}
+#gal .c7v .ck{top:auto;bottom:10px;right:10px;width:36px;height:36px;z-index:3;font-size:18px;box-shadow:0 0 16px rgba(231,197,106,.8)}
+#gal .c7v .meta{padding:11px 12px 14px;text-align:center;font-family:'IBM Plex Sans Thai','Prompt',sans-serif}
+#gal .c7v .meta b{display:block;font-size:15px;font-weight:600;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#gal .c7v .meta small{display:block;margin-top:2px;font-size:12px;color:#F7E3A8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#gal .c7v .cn{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-top:6px;font-size:12.5px;line-height:1.45;color:#f3e7c4}
+#gal .c7v .pk{display:block;margin-top:10px;padding:9px 8px;border-radius:999px;font-size:14px;font-weight:600;color:#10081F;background:linear-gradient(180deg,#FBEBB6,#E7C56A 55%,#C9972F);box-shadow:0 4px 16px rgba(231,197,106,.35)}
+#gal .card.c7v.sel{transform:translateY(-4px);border-color:#FDF3D2;box-shadow:0 0 0 3px #E7C56A,0 0 34px rgba(231,197,106,.6),0 16px 40px -16px #000c}
+#gal .c7v.sel .pk{background:rgba(231,197,106,.16);color:#FDF3D2;border:1.5px solid #E7C56A;box-shadow:none}
+@media(max-width:640px){#gal .grid{grid-template-columns:repeat(2,1fr);gap:12px}#gal .c7v .ty{display:none}#gal .c7v .meta b{font-size:14px}#gal .c7v .pk{font-size:13px}}
+@media(max-width:340px){#gal .grid{grid-template-columns:1fr}}
+</style>
 </head>
 <body>
 
@@ -555,19 +579,27 @@ function jsonp(p,cb){const n="__cb"+Date.now()+Math.floor(Math.random()*999),s=d
 const map=c=>({id:c.id,name:c["ชื่อ"]||c.name,co:c["บริษัท"]||"",img:c["รูป"]||c.img||"",votes:+c["คะแนน"]||0});
 function load(){
   if(!live()){list={F:MOCK.F.slice(),M:MOCK.M.slice()};voteOpen=true;render();return}
-  jsonp({action:"results"},r=>{if(r&&r.ok){list={F:(r.female||[]).map(map),M:(r.male||[]).map(map)};voteOpen=!!r.voteOpen;render()}})}
+  jsonp({action:"results"},r=>{if(r&&r.ok){list={F:(r.female||[]).map(map),M:(r.male||[]).map(map)};voteOpen=!!r.voteOpen;
+    /* ★ ไม่เรียงตามคะแนน (กันเดาอันดับ) → เรียงตามรหัส เหมือนหน้าผู้เข้าประกวด */
+    ["F","M"].forEach(g=>list[g].sort((a,b)=>String(a.id).localeCompare(String(b.id))));render()}});
+  /* ★ ดึงแนวคิดชุด + ครบเงื่อนไข จาก gallery มาเติมบนการ์ด */
+  jsonp({action:"gallery"},r=>{if(r&&r.ok&&r.data){const m={};r.data.forEach(d=>{m[d.id]={bio:d["แนวคิด"]||"",ok:d["ครบเงื่อนไข"]===true}});window.__c7ex=m;render()}})}
 
 /* แกลเลอรี (สลับ class เท่านั้น ไม่วาดทั้งกริดใหม่ตอนกดเลือก) */
 function render(){
   const a=list[tab]||[];$("empty").hidden=a.length>0;
-  $("grid").innerHTML=a.map((c,i)=>`<div class="card${sel[tab].includes(c.id)?" sel":""}" data-id="${esc(c.id)}" tabindex="0" role="button" aria-label="เลือก ${esc(c.name)}">
-    <img src="${esc(c.img)}" alt="${esc(c.name)}" loading="lazy" onerror="this.removeAttribute('src')"><span class="no">${i+1}</span><span class="ck">✓</span>
-    <div class="meta">${esc(c.name)}${c.co?`<small>${esc(c.co)}</small>`:""}</div></div>`).join("");
+  /* ★ 9 พ.ย. การ์ดโหวต = หน้าตาเดียวกับหน้าผู้เข้าประกวด (กรอบทองหัวโค้ง · ป้าย #ID · ป้ายหมวด · แนวคิดชุด) */
+  const ex=window.__c7ex||{};
+  $("grid").innerHTML=a.map((c,i)=>{const x=ex[c.id]||{},on=sel[tab].includes(c.id);return `<div class="card c7v${on?" sel":""}" data-id="${esc(c.id)}" tabindex="0" role="button" aria-pressed="${on}" aria-label="เลือก ${esc(c.name)}">
+    <div class="vm"><img src="${esc(c.img)}" alt="${esc(c.name)}" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.visibility='hidden'">
+    <span class="no">#${esc(c.id)}</span><span class="ty">${tab==="F"?"นพมาศหญิง":"นพมาศชาย"}</span>${x.ok?'<span class="okb">✓ ครบเงื่อนไข</span>':""}<span class="ck">✓</span></div>
+    <div class="meta"><b>${esc(c.name)}</b>${c.co?`<small>${esc(c.co)}</small>`:""}${x.bio?`<i class="cn">“${esc(x.bio)}”</i>`:""}
+    <span class="pk">${on?"✓ เลือกแล้ว":"♡ แตะเพื่อเลือก"}</span></div></div>`}).join("");
   bar()}
 function bar(){const on=voteOpen&&(list.F.length||list.M.length);$("vbar").hidden=$("gal").hidden||!on;$("cnt").textContent=`หญิง ${sel.F.length}/${CFG.quota} · ชาย ${sel.M.length}/${CFG.quota}`}
 function pick(el){if(!voteOpen)return toast("ยังไม่เปิดโหวต (24 พ.ย. 06:00–15:00)");const id=el.dataset.id,a=sel[tab],i=a.indexOf(id);
   if(i>=0)a.splice(i,1);else{if(a.length>=CFG.quota)return toast(`หมวดนี้เลือกได้สูงสุด ${CFG.quota} คน`);a.push(id);navigator.vibrate&&navigator.vibrate(10)}
-  el.classList.toggle("sel",i<0);bar()}
+  el.classList.toggle("sel",i<0);el.setAttribute("aria-pressed",String(i<0));const pk=el.querySelector(".pk");if(pk)pk.textContent=i<0?"✓ เลือกแล้ว":"♡ แตะเพื่อเลือก";bar()}
 $("grid").addEventListener("click",e=>{const c=e.target.closest(".card");c&&pick(c)});
 $("grid").addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){const c=e.target.closest(".card");if(c){e.preventDefault();pick(c)}}});
 $("tabs").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;tab=b.dataset.g;document.querySelectorAll("#tabs button").forEach(x=>x.classList.toggle("on",x===b));render()});
