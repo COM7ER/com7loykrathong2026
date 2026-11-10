@@ -1241,7 +1241,7 @@ try{
   // fill companies + image preview on first open
   var inited=false;
   var REG_DEADLINE=new Date('2026-11-23T23:59:59+07:00');
-  window.openRegForm=function(){
+  window.openRegForm=function(){ location.href='contest.html#reg'; return; /* ★ 10 พ.ย. ใช้ฟอร์มสมัครใหม่ 4 ขั้นที่หน้าประกวดแทนฟอร์มเก่า */
     if(new Date() > REG_DEADLINE){ regToast("ปิดรับลงทะเบียนแล้ว (หมดเขต 23 พ.ย. 2569)"); return; }
     if(!inited){
       G("gco").innerHTML='<option value="">— เลือกบริษัท —</option>'+COMPANIES.map(function(c){return '<option>'+c+'</option>';}).join("");

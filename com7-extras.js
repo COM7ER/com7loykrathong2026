@@ -101,7 +101,7 @@
       go.disabled = false; go.textContent = 'ตรวจสอบ';
       if (!r) { res.innerHTML = '⚠️ เชื่อมต่อระบบไม่ได้ ลองใหม่อีกครั้ง'; return; }
       if (!r.ok) { res.innerHTML = '⚠️ ' + esc(r.error || 'ตรวจสอบไม่สำเร็จ'); return; }
-      if (!r.found) { res.innerHTML = '🔍 ' + esc(r.message || 'ไม่พบใบสมัคร') + '<div class="c7x-muted" style="margin-top:6px">ตรวจรหัสพนักงาน/เบอร์อีกครั้ง หรือยังไม่ได้ลงทะเบียน → <a href="contest.html" style="color:#f7e3a8">ลงทะเบียนประกวด</a></div>'; return; }
+      if (!r.found) { res.innerHTML = '🔍 ' + esc(r.message || 'ไม่พบใบสมัคร') + '<div class="c7x-muted" style="margin-top:6px">ตรวจรหัสพนักงาน/เบอร์อีกครั้ง หรือยังไม่ได้ลงทะเบียน → <a href="contest.html#reg" style="color:#f7e3a8">ลงทะเบียนประกวด</a></div>'; return; }
       var s = String(r['สถานะ'] || ''), cls = s === 'อนุมัติ' ? 'ok' : s === 'ปฏิเสธ' ? 'no' : 'wait';
       var note = s === 'อนุมัติ' ? 'ผลงานของคุณแสดงในหน้าผู้เข้าประกวดแล้ว ชวนเพื่อนมาโหวตช่วง 24 พ.ย. 06:00–15:00 ได้เลย 🎉'
                : s === 'ปฏิเสธ' ? 'ผลงานยังไม่ผ่านเกณฑ์ หากมีข้อสงสัย ติดต่อทีมจัดงานด้านล่าง'

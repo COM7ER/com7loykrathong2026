@@ -438,6 +438,87 @@ h1,h2,h3,.l2,.bt,.gh h2,.pn h2,.step h3{font-family:'Noto Serif Thai',serif!impo
 @media(max-width:640px){#gal .grid{grid-template-columns:repeat(2,1fr);gap:12px}#gal .c7v .ty{display:none}#gal .c7v .meta b{font-size:14px}#gal .c7v .pk{font-size:13px}}
 @media(max-width:340px){#gal .grid{grid-template-columns:1fr}}
 </style>
+<style id="c7-reg2">
+/* ★ 10 พ.ย. ฟอร์มสมัครใหม่: 3 ขั้น + ส่วนเสริมพับเก็บ · progress · แจ้ง error ใต้ช่อง · รองรับเว็บ/มือถือ */
+.pn.rg2{width:min(720px,100%);height:auto;max-height:94svh;max-height:94dvh;min-height:0;padding:0;display:flex;flex-direction:column;overflow:hidden;border-radius:26px 26px 0 0}
+@media (min-width:700px){#reg.ov{align-items:center;padding:24px}.pn.rg2{border-radius:28px;max-height:90vh;max-height:90dvh}}
+.rg2 .rg-h{display:flex;align-items:flex-start;gap:12px;padding:20px 20px 12px;border-bottom:1px solid #e2bf6b26;flex:none}
+.rg2 .rg-h>div{flex:1;min-width:0}
+.rg2 .rg-h h2{text-align:left;font-size:1.5rem!important;line-height:1.3}
+.rg2 .rg-h .sub{text-align:left;margin:2px 0 0}
+.rg2 .x{position:static;float:none;flex:none;width:40px;height:40px;display:grid;place-items:center}
+.pn.rg2{overflow:clip}
+.rg-body{flex:1 1 auto;min-height:0;overflow:auto;padding:16px 20px 20px;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+.rg-f{flex:none;padding:12px 20px calc(14px + env(safe-area-inset-bottom));border-top:1px solid #e2bf6b33;background:#140e2df5;backdrop-filter:blur(10px)}
+.rg2 .stp{margin:0 0 14px;padding:16px 16px 4px}
+.rg2 .stp h3{margin-bottom:14px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:0 14px}.g2 .span2{grid-column:1/-1}
+@media (max-width:540px){.g2{grid-template-columns:1fr}.rg-body{padding:14px 14px 18px}.rg2 .rg-h{padding:16px 14px 10px}.rg-f{padding-left:14px;padding-right:14px}}
+.rg2 .f{margin-bottom:14px}
+.rg2 .f>label{font-size:.9rem;font-weight:500;margin-bottom:6px}
+.f.req>label::after{content:" *";color:#ff9c9c}
+.f.req>label.drop::after,.f.req>label.later::after{content:none}
+.rg2 .f input:not([type=checkbox]):not([type=file]),.rg2 .f select{min-height:50px;font-size:16px;border-color:#e2bf6b40;background-color:#ffffff0d}
+.rg2 .f select{appearance:none;-webkit-appearance:none;padding-right:40px;text-overflow:ellipsis;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23E7C56A' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center}
+.rg2 ::placeholder{color:#ffffff6e}
+.rg2 textarea{font-size:16px}
+.hint{font-size:12.5px;opacity:.7;line-height:1.55;margin:-2px 0 14px}
+/* error */
+.rg2 .f.bad input:not([type=checkbox]),.rg2 .f.bad select,.rg2 .f.bad .drop,.rg2 .f.bad .seg button{border-color:#ff7b7b}
+.rg2 .f.bad .mode span{border-color:#ff7b7b}
+.rg2 .f.bad textarea{border-color:#ff7b7b}
+.rg2 .cc{text-align:right;font-size:12px;opacity:.65;margin-top:4px}
+.rg2 .f.bad::after,.rg2 .ck2.bad::after{content:attr(data-err);display:block;margin-top:6px;font-size:13px;color:#ffb3b3}
+.rg2 .ck2.bad{box-shadow:0 0 0 1.5px #ff7b7b}.rg2 .ck2.bad::after{position:static;flex-basis:100%}
+.rg2 .f.bad,.rg2 .ck2.bad{animation:rgShake .35s}
+@keyframes rgShake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+/* หมวด */
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.seg button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-height:66px;padding:10px;border-radius:16px;border:1.5px solid #ffffff33;background:#ffffff08;color:#fff;transition:.25s}
+.seg button b{font-weight:600;font-size:15px}.seg button small{font-size:12px;opacity:.7}
+.seg button.on{border-color:#E7C56A;background:linear-gradient(180deg,#e7c56a33,#e7c56a14);color:#FBEBB6;box-shadow:0 0 0 3px #e7c56a26}
+.seg button:focus-visible{outline:3px solid #fffb;outline-offset:2px}
+/* อัปโหลดรูป */
+.rg2 .f .drop{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;min-height:150px;margin:0;padding:16px;border:1.5px dashed #e7c56a88;border-radius:18px;background:#e7c56a0f;text-align:center;cursor:pointer;transition:.25s;font-size:inherit}
+.drop:hover,.drop.dz-on{background:#e7c56a24;border-color:#E7C56A}
+.drop.has{border-style:solid;padding:12px}
+.drop:focus-within{outline:3px solid #fffb;outline-offset:3px}
+.rg2 .f input.sr{position:absolute;width:1px;height:1px;min-height:0;padding:0;border:0;opacity:0;overflow:hidden}
+.drop .dz b{display:block;font-size:16px;color:#FBEBB6;font-weight:600}.drop .dz small{display:block;margin-top:4px;font-size:12.5px;opacity:.7}
+.drop .pv{max-height:280px;margin:0;border-radius:12px}
+.drop .dn{font-size:13px;color:#c9f0cf}
+/* เงื่อนไข */
+.rg2 .cond{margin:0 0 14px}.rg2 .cond .warn{margin:6px 0 0}
+.rg2 .later{display:flex;gap:10px;align-items:flex-start;margin-top:10px;font-size:13.5px;line-height:1.5;cursor:pointer;font-weight:400}
+.rg2 .later input{width:20px;height:20px;margin-top:1px;flex:none;min-height:0}
+#rlink:disabled{opacity:.4}
+/* ส่วนเสริม */
+.opt{margin:0 0 14px;border-radius:18px;border:1px solid #e2bf6b44;background:#ffffff08}
+.opt>summary{list-style:none;cursor:pointer;padding:12px 16px;min-height:56px;display:flex;align-items:center;justify-content:space-between;gap:10px;font-weight:600;color:#F7E3A8}
+.opt>summary::-webkit-details-marker{display:none}
+.opt>summary::after{content:"＋";font-size:20px;flex:none}.opt[open]>summary::after{content:"－"}
+.opt>summary small{display:block;font-weight:400;opacity:.7;color:#fff;font-size:12px;margin-top:2px}
+.optb{padding:4px 16px 8px}
+.rg2 .stp h3 small{flex-basis:100%;margin:-2px 0 0 32px}
+.optb .sl{font-size:.9rem;font-weight:500;margin:0 0 8px}
+.optb .mode{margin-bottom:10px}
+.optb .soc{margin:6px 0 10px}
+.optb textarea{min-height:56px}
+.rg2 .ck2{margin:0 0 6px;font-size:12.5px;align-items:flex-start;flex-wrap:wrap}.rg2 .ck2 input{width:20px;height:20px;flex:none}.rg2 .ck2>span{flex:1;min-width:0}
+/* progress + ปุ่ม */
+.prog{display:flex;align-items:center;gap:12px;margin-bottom:10px;font-size:12.5px;color:#f1e4c3}
+.prog .bar{flex:1;height:6px;border-radius:9px;background:#ffffff1f;overflow:hidden}
+.prog .bar i{display:block;height:100%;width:0;border-radius:9px;background:linear-gradient(90deg,#c9972f,#F7E3A8);transition:width .4s}
+.rg-f .soft{min-height:52px;font-size:1rem;font-weight:700}
+#rgo.ready{box-shadow:0 1px 0 #fff9 inset,0 10px 24px -8px #000a,0 0 0 1.5px #fff2c9,0 0 30px #e7c56acc}
+#rgo:disabled{opacity:.7;filter:grayscale(.3)}
+/* ฟอร์มต่อเนื่อง: ไม่แยกเป็นกล่อง ใช้เส้นคั่นบาง ๆ */
+.rg2 .stp{background:none;border:0;border-radius:0;padding:0;margin:0 0 6px}
+.rg2 .stp+.stp{padding-top:20px;margin-top:6px;border-top:1px solid #e2bf6b30}
+.rg2 .stp+.ck2{margin-top:6px}
+#reg.on~#toast{bottom:auto;top:calc(76px + env(safe-area-inset-top));max-width:calc(100vw - 32px)}
+@media (prefers-reduced-motion:reduce){.rg2 .f.bad,.rg2 .ck2.bad{animation:none}}
+</style>
 </head>
 <body>
 
@@ -510,38 +591,70 @@ h1,h2,h3,.l2,.bt,.gh h2,.pn h2,.step h3{font-family:'Noto Serif Thai',serif!impo
   <button class="soft" id="vgo" onclick="submitVote()">ยืนยันโหวต</button>
 </div></div>
 
-<div class="ov" id="reg"><div class="pn">
-  <button class="x" onclick="closeOv('reg')" aria-label="ปิด">×</button>
-  <h2>ลงทะเบียนเข้าประกวด</h2><p class="sub">กรอก 4 ขั้นด้านล่าง ใช้เวลาประมาณ 3 นาที</p>
-  <button type="button" class="been" onclick="openMine()">🙋 เคยสมัครแล้ว? <b>แก้ไขรูป / ข้อมูล</b> →</button>
-  <section class="stp"><h3><i>1</i>ข้อมูลผู้สมัคร</h3>
-  <div class="f" id="rCo"><label>บริษัท *</label><select id="rco"></select></div>
-  <div class="f" id="rId"><label>รหัสพนักงาน *</label><input id="rid" inputmode="numeric" autocomplete="off"></div>
-  <div class="f" id="rNm"><label>ชื่อ-สกุล *</label><input id="rnm" autocomplete="name"></div>
-  <div class="f" id="rPh"><label>เบอร์ติดต่อ *</label><input id="rph" type="tel" inputmode="tel" autocomplete="tel" placeholder="08x-xxx-xxxx"></div>
-  </section>
-  <section class="stp"><h3><i>2</i>ผลงานนพมาศ AI</h3>
-  <div class="f" id="rG"><label>หมวดที่ประกวด *</label><select id="rg"><option value="">— เลือก —</option><option value="F">นางนพมาศ (หญิง)</option><option value="M">นพมาศ (ชาย)</option></select></div>
-  <div class="f" id="rIm"><label>รูปนพมาศ AI * (JPG/PNG)</label><input id="rim" type="file" accept="image/jpeg,image/png"><img id="pv" class="pv" alt="ตัวอย่างรูป" hidden=""></div>
-  <div class="f" id="rCon"><label>แนวคิดชุด / คอนเซปต์ <small style="opacity:.6;font-weight:400">(ไม่บังคับ · แสดงหลังทีมงานอนุมัติ)</small></label><textarea id="rcon" rows="2" maxlength="100" placeholder="เช่น ชุดไทยจักรี แรงบันดาลใจจากโคมลอยเชียงใหม่" oninput="document.getElementById('rconN').textContent=this.value.length"></textarea><div class="cc"><span id="rconN">0</span>/100 · ห้ามใส่เบอร์โทร/อีเมล</div></div>
-  </section>
-  <section class="stp" id="rPro"><h3><i>3</i>แนะนำตัวเอง <small>(ไม่บังคับ · แสดงหลังทีมงานอนุมัติ)</small></h3>
-  <div class="mode" role="radiogroup" aria-label="เลือกวิธีแนะนำตัว">
-   <label><input type="radio" name="pmode" value="intro" checked=""><span>💬 แนะนำตัว<small>เขียนเอง</small></span></label>
-   <label><input type="radio" name="pmode" value="q"><span>🎲 ตอบคำถาม<small>สุ่มคำถามให้</small></span></label>
+<div class="ov" id="reg"><div class="pn rg2" role="dialog" aria-modal="true" aria-labelledby="rgT">
+  <div class="rg-h">
+    <div><h2 id="rgT">ลงทะเบียนเข้าประกวด</h2><p class="sub">นพมาศ AI · กรอก 4 ขั้น ใช้เวลาไม่ถึง 3 นาที</p></div>
+    <button class="x" onclick="closeOv('reg')" aria-label="ปิด">×</button>
   </div>
-  <div class="f" id="pIntro"><textarea id="rintro" rows="3" maxlength="150" placeholder="เช่น สวัสดีค่ะ อยู่ฝ่าย HR ชอบงานศิลปะไทย" oninput="document.getElementById('rintroN').textContent=this.value.length"></textarea><div class="cc"><span id="rintroN">0</span>/150 · ห้ามใส่เบอร์โทร/อีเมล/LINE</div></div>
-  <div class="f" id="pQ" hidden=""><div class="qbox"><span id="rq"></span><button type="button" class="qre" onclick="pickQ()" aria-label="สุ่มคำถามใหม่">🔄 เปลี่ยนคำถาม</button></div><textarea id="rans" rows="3" maxlength="150" placeholder="พิมพ์คำตอบของคุณ" oninput="document.getElementById('ransN').textContent=this.value.length"></textarea><div class="cc"><span id="ransN">0</span>/150 · ห้ามใส่เบอร์โทร/อีเมล/LINE</div></div>
-  <details class="soc"><summary>📱 ลิงก์โซเชียลของฉัน <small>(ไม่บังคับ · ให้เพื่อนตามได้)</small></summary>
-<input id="rig" type="url" inputmode="url" autocomplete="off" placeholder="Instagram เช่น https://www.instagram.com/ชื่อ"><input id="rfb" type="url" inputmode="url" autocomplete="off" placeholder="Facebook เช่น https://www.facebook.com/ชื่อ"><input id="rtt" type="url" inputmode="url" autocomplete="off" placeholder="TikTok เช่น https://www.tiktok.com/@ชื่อ">
-<label class="later"><input type="checkbox" id="rsc"><span>ยินยอมให้แสดงบัญชีโซเชียลนี้บนหน้าผู้เข้าประกวด (ลบได้ทุกเมื่อผ่าน “🔎 ตรวจสอบสถานะ”)</span></label></details>
-  </section>
-  <section class="stp"><h3><i>4</i>ลิงก์โพสต์ &amp; ยืนยัน</h3>
-  <div class="f" id="rLink"><label>ลิงก์โพสต์โซเชียล * <small style="opacity:.6;font-weight:400">(ใส่ตอนนี้ หรือส่งทีหลังก็ได้)</small></label><input id="rlink" type="url" inputmode="url" autocomplete="off" placeholder="วางลิงก์โพสต์สาธารณะที่ติด #COM7สานสายใจ (FB/IG/TikTok)"><label class="later"><input type="checkbox" id="rLater"><span>📌 ยังไม่ได้โพสต์ — <b>ขอส่งลิงก์ทีหลัง</b> (ภายใน 23 พ.ย. 2569)</span></label></div>
-  <div class="cond"><b>📣 เงื่อนไขรับรางวัล</b><ol><li>นำรูปไปโพสต์แบบ <b>สาธารณะ</b> ติด <b>#COM7สานสายใจ</b></li><li>ส่ง <b>ลิงก์โพสต์</b> ภายใน <b>23 พ.ย. 2569</b> (ก่อนเปิดโหวต)</li></ol><p>ยังไม่ได้โพสต์? สมัครได้เลย แล้วส่งลิงก์ทีหลังผ่านปุ่ม “🔎 ตรวจสอบสถานะการสมัคร” · โพสต์รูปตัวเองได้ทันที ไม่ต้องรอการ์ด</p><p class="warn">⚠️ วันประกาศผล พิจารณาเฉพาะคนที่ทำครบทั้ง 2 ข้อ</p></div>
-  <label class="ck2"><input type="checkbox" id="rck"><span>ข้าพเจ้ายินยอมให้ COM7 จัดเก็บและแสดงรูปภาพ ชื่อ และข้อมูลที่กรอกต่อสาธารณะในกิจกรรมนี้ และยินยอมเผยแพร่ภาพของตนเองต่อสาธารณะบนโซเชียลมีเดียเพื่อร่วมกิจกรรม (PDPA) <a href="#" onclick="openPdpa();return false" style="color:var(--gl);text-decoration:underline">อ่านนโยบายข้อมูลส่วนบุคคล</a></span></label>
-  </section>
-  <button class="soft" id="rgo" onclick="submitReg()">ส่งเข้าประกวด</button>
+
+  <div class="rg-body">
+    <button type="button" class="been" onclick="openMine()">🙋 เคยสมัครแล้ว? <b>แก้ไขรูป / ข้อมูล</b> →</button>
+
+    <section class="stp"><h3><i>1</i>ข้อมูลผู้สมัคร</h3>
+      <div class="g2">
+        <div class="f req span2" id="rCo"><label for="rco">บริษัท</label><select id="rco"></select></div>
+        <div class="f req" id="rId"><label for="rid">รหัสพนักงาน</label><input id="rid" inputmode="numeric" autocomplete="off" placeholder="เช่น 12345"></div>
+        <div class="f req" id="rPh"><label for="rph">เบอร์ติดต่อ</label><input id="rph" type="tel" inputmode="tel" autocomplete="tel" placeholder="08x-xxx-xxxx"></div>
+        <div class="f req span2" id="rNm"><label for="rnm">ชื่อ-สกุล</label><input id="rnm" autocomplete="name" placeholder="ชื่อ และนามสกุล"></div>
+      </div>
+      <p class="hint">🔒 เบอร์โทรและรหัสพนักงานไม่แสดงต่อสาธารณะ ใช้ยืนยันตัวตนตอนแก้ใบสมัคร (เบอร์ 4 ตัวท้าย)</p>
+    </section>
+
+    <section class="stp"><h3><i>2</i>ผลงานนพมาศ AI</h3>
+      <div class="f req" id="rG"><label>หมวดที่ประกวด</label>
+        <select id="rg" hidden><option value="">— เลือก —</option><option value="F">นางนพมาศ (หญิง)</option><option value="M">นพมาศ (ชาย)</option></select>
+        <div class="seg" role="radiogroup" aria-label="หมวดที่ประกวด">
+          <button type="button" role="radio" aria-checked="false" data-v="F"><b>👩 นางนพมาศ</b><small>หมวดหญิง</small></button>
+          <button type="button" role="radio" aria-checked="false" data-v="M"><b>👨 นพมาศ</b><small>หมวดชาย</small></button>
+        </div>
+      </div>
+      <div class="f req" id="rIm"><label for="rim">รูปนพมาศ AI</label>
+        <label class="drop" id="drop" for="rim">
+          <input id="rim" class="sr" type="file" accept="image/jpeg,image/png">
+          <img id="pv" class="pv" alt="ตัวอย่างรูป" hidden>
+          <span class="dz" id="dz"><b>📷 แตะเพื่อเลือกรูป</b><small>JPG / PNG · ไม่เกิน 20 MB · ภาพแนวตั้งสวยที่สุด</small></span>
+          <span class="dn" id="dn" hidden></span>
+        </label>
+      </div>
+    </section>
+
+    <section class="stp" id="rProS"><h3><i>3</i>แนะนำตัว หรือ ตอบคำถาม <small>(เลือก 1 อย่าง · แสดงหลังทีมงานอนุมัติ)</small></h3>
+      <div class="f req" id="rMode"><label>คุณอยากทำแบบไหน?</label>
+        <div class="mode" role="radiogroup" aria-label="เลือกวิธีแนะนำตัว">
+          <label><input type="radio" name="pmode" value="intro"><span>💬 แนะนำตัวเอง<small>เขียนเอง</small></span></label>
+          <label><input type="radio" name="pmode" value="q"><span>🎲 ตอบคำถามสุ่ม<small>เราสุ่มคำถามให้</small></span></label>
+        </div>
+      </div>
+      <div class="f req" id="pIntro" hidden=""><label for="rintro">แนะนำตัวสั้น ๆ</label><textarea id="rintro" rows="3" maxlength="150" placeholder="เช่น สวัสดีค่ะ อยู่ฝ่าย HR ชอบงานศิลปะไทย" oninput="document.getElementById('rintroN').textContent=this.value.length"></textarea><div class="cc"><span id="rintroN">0</span>/150 · ห้ามใส่เบอร์โทร/อีเมล/LINE</div></div>
+      <div class="f req" id="pQ" hidden=""><label for="rans">ตอบคำถามนี้</label><div class="qbox"><span id="rq"></span><button type="button" class="qre" onclick="pickQ()" aria-label="สุ่มคำถามใหม่">🔄 เปลี่ยนคำถาม</button></div><textarea id="rans" rows="3" maxlength="150" placeholder="พิมพ์คำตอบของคุณ" oninput="document.getElementById('ransN').textContent=this.value.length"></textarea><div class="cc"><span id="ransN">0</span>/150 · ห้ามใส่เบอร์โทร/อีเมล/LINE</div></div>
+    </section>
+
+    <section class="stp"><h3><i>4</i>ลิงก์โพสต์รับรางวัล</h3>
+      <div class="cond"><b>📣 เงื่อนไขรับรางวัล</b> โพสต์รูปแบบ <b>สาธารณะ</b> ติด <b>#COM7สานสายใจ</b> แล้วส่งลิงก์ภายใน <b>23 พ.ย. 2569</b>
+        <p class="warn">ไม่ส่งลิงก์ = ตัดสิทธิ์รางวัล (ยังอยู่ในการประกวดและได้รับโหวตตามปกติ)</p></div>
+      <div class="f" id="rLink"><label for="rlink">ลิงก์โพสต์ (Facebook / Instagram / TikTok)</label>
+        <input id="rlink" type="url" inputmode="url" autocomplete="off" placeholder="https://…">
+        <label class="later"><input type="checkbox" id="rLater"><span>📌 ยังไม่ได้โพสต์ — <b>ขอส่งลิงก์ทีหลัง</b></span></label>
+      </div>
+    </section>
+
+    <label class="ck2" id="rCk"><input type="checkbox" id="rck"><span>ข้าพเจ้ายินยอมให้ COM7 จัดเก็บและแสดงรูปภาพ ชื่อ และข้อมูลที่กรอกต่อสาธารณะในกิจกรรมนี้ และยินยอมเผยแพร่ภาพของตนเองต่อสาธารณะบนโซเชียลมีเดียเพื่อร่วมกิจกรรม (PDPA) <a href="#" onclick="openPdpa();return false" style="color:var(--gl);text-decoration:underline">อ่านนโยบายข้อมูลส่วนบุคคล</a></span></label>
+  </div>
+
+  <div class="rg-f">
+    <div class="prog"><span id="rgTxt">กรอกแล้ว 0/9</span><div class="bar"><i id="rgBar"></i></div></div>
+    <button class="soft" id="rgo" onclick="submitReg()">ส่งเข้าประกวด</button>
+  </div>
 </div></div>
 
 <div id="toast" role="status"></div>
@@ -642,13 +755,11 @@ $("rim").addEventListener("change",e=>{const f=e.target.files[0];if(!f)return;$(
 function shrink(f){return new Promise((ok,no)=>{const i=new Image();i.onload=()=>{const s=Math.min(1,CFG.maxPx/Math.max(i.width,i.height)),c=document.createElement("canvas");
   c.width=Math.round(i.width*s);c.height=Math.round(i.height*s);const x=c.getContext("2d");x.imageSmoothingEnabled=true;x.imageSmoothingQuality="high";x.drawImage(i,0,0,c.width,c.height);/* ★ 5 พ.ย.: คุณภาพสูง .92 — ถ้าเกิน ~2.7MB ค่อยลดทีละขั้น (ระบบรับได้ไม่เกิน 3MB) */let q=.92,d=c.toDataURL("image/jpeg",q);while(d.length*.75>2.7e6&&q>.7){q-=.06;d=c.toDataURL("image/jpeg",q)}ok(d)};i.onerror=no;i.src=URL.createObjectURL(f)})}
 async function submitReg(replace){
-  const v={co:$("rco").value,id:$("rid").value.trim(),nm:$("rnm").value.trim(),ph:$("rph").value.trim(),g:$("rg").value,f:$("rim").files[0],link:$("rlink").value.trim(),con:($("rcon")?$("rcon").value.trim():""),intro:pMode()==="intro"?$("rintro").value.trim():"",ans:pMode()==="q"?$("rans").value.trim():"",q:$("rq").textContent,ig:$("rig").value.trim(),fb:$("rfb").value.trim(),tt:$("rtt").value.trim(),sc:$("rsc").checked};
-  ["rCo","rId","rNm","rPh","rG","rIm","rLink"].forEach(x=>$(x).classList.remove("bad"));
-  const bad=!v.co?"rCo":!v.id?"rId":!v.nm?"rNm":!v.ph?"rPh":!v.g?"rG":!v.f?"rIm":(v.link&&!/^https?:\/\//i.test(v.link))?"rLink":(!v.link&&!$("rLater").checked)?"rLink":"";
-  if(bad){$(bad).classList.add("bad");return toast(bad==="rLink"?(v.link?"ลิงก์ต้องขึ้นต้นด้วย https://":"ใส่ลิงก์โพสต์ หรือติ๊ก “ขอส่งลิงก์ทีหลัง”"):"กรุณากรอกข้อมูลให้ครบ")}
-  const sbad=socBad(v);if(sbad){$("rPro").querySelector("details").open=true;$(sbad[0]).classList.add("bad");return toast(sbad[1])}
-  if((v.ig||v.fb||v.tt)&&!v.sc){$("rPro").querySelector("details").open=true;return toast("ติ๊กยินยอมแสดงบัญชีโซเชียล หรือลบลิงก์โซเชียลออก")}
-  if(!$("rck").checked)return toast("กรุณายินยอมเงื่อนไข PDPA ก่อนส่ง");
+  const v={co:$("rco").value,id:$("rid").value.trim(),nm:$("rnm").value.trim(),ph:$("rph").value.trim(),g:$("rg").value,f:$("rim").files[0],link:$("rlink").value.trim(),con:($("rcon")?$("rcon").value.trim():""),intro:pMode()==="intro"?$("rintro").value.trim():"",ans:pMode()==="q"?$("rans").value.trim():"",q:$("rq").textContent,ig:"",fb:"",tt:"",sc:false};
+  const fe=regCheck(v);if(fe)return regFail(fe[0],fe[1]);
+  const sbad=socBad(v);if(sbad){openSoc();$(sbad[0]).classList.add("bad");return toast(sbad[1])}
+  if((v.ig||v.fb||v.tt)&&!v.sc){openSoc();return toast("ติ๊กยินยอมแสดงบัญชีโซเชียล หรือลบลิงก์โซเชียลออก")}
+  if(!$("rck").checked)return regFail("rCk","ติ๊กยินยอมเงื่อนไข PDPA ก่อนส่ง");
   if(!v.link&&replace!==true&&!(await confirmLater()))return;
   if(!live())return toast("โหมดตัวอย่าง: ยังไม่ได้เชื่อมระบบ");
   const b=$("rgo");b.disabled=true;b.textContent="กำลังส่ง...";
@@ -656,7 +767,7 @@ async function submitReg(replace){
     const img=await shrink(v.f);window.__lastImg=img;
     const r=await fetch(CFG.url,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({token:CFG.token,action:"register","บริษัท":v.co,empId:v.id,"ชื่อ":v.nm,phone:v.ph,"เพศ":v.g==="F"?"ญ":"ช","ลิงก์โพสต์":v.link,socialLink:v.link,"แนวคิดชุด":v.con,concept:v.con,intro:v.intro,question:v.ans?v.q:"",answer:v.ans,IG:v.ig,FB:v.fb,TikTok:v.tt,socialConsent:v.sc,consent:true,replace:replace===true,imageBase64:img,imageMime:"image/jpeg"})});
     const d=await r.json();
-    if(d.ok&&d.replaced){closeOv("reg");confetti();showReplaced(d,v)}else if(d.ok){closeOv("reg");confetti();showRegDone(d.id,!!v.link)}else if(d.code==="ALREADY_REGISTERED"&&d.canReplace){askReplace(d)}else toast(d.error||"ส่งไม่สำเร็จ")
+    if(d.ok&&d.replaced){closeOv("reg");confetti();regReset();showReplaced(d,v)}else if(d.ok){closeOv("reg");confetti();regReset();showRegDone(d.id,!!v.link)}else if(d.code==="ALREADY_REGISTERED"&&d.canReplace){askReplace(d)}else toast(d.error||"ส่งไม่สำเร็จ")
   }catch(e){toast("ส่งไม่สำเร็จ ตรวจอินเทอร์เน็ตแล้วลองใหม่")}
   b.disabled=false;b.textContent="ส่งเข้าประกวด"}
 
@@ -746,6 +857,8 @@ async function mineSavePhoto(){var f=$("mImg").files[0],btn=$("mImgGo");if(!f){m
     if(d.ok&&d.replaced){closeOv("mineOv");confetti();showReplaced(d,{})}else mMsg(btn,"⚠️ "+(d.error||"ส่งไม่สำเร็จ"))
   }catch(e){btn.disabled=false;btn.textContent="ส่งรูปใหม่";mMsg(btn,"⚠️ ส่งไม่สำเร็จ ตรวจอินเทอร์เน็ตแล้วลองใหม่")}}
 if(location.hash==='#mine')setTimeout(function(){try{openMine()}catch(e){}},300);
+if(location.hash==='#reg')setTimeout(function(){try{openReg()}catch(e){}},300);   /* ★ 10 พ.ย. ลิงก์ลงทะเบียนจากหน้าอื่น */
+if(location.hash==='#reg')setTimeout(function(){try{openReg()}catch(e){}},300);   /* ★ 10 พ.ย. ลิงก์ลงทะเบียนจากหน้าอื่น */
 /* ★ 5 พ.ย.: เลือกส่งลิงก์ทีหลัง → เด้งแจ้งเงื่อนไขก่อนส่ง (กดยืนยัน/กลับไปใส่ลิงก์) */
 function confirmLater(){return new Promise(function(done){
   var o=document.getElementById("laterOv");if(!o){o=document.createElement("div");o.className="ov";o.id="laterOv";document.body.appendChild(o)}
@@ -855,5 +968,67 @@ else{const io=new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting)
 })();
 </script>
 
+
+<script>
+/* ★ 10 พ.ย.: ระบบฟอร์มสมัครใหม่ — ตรวจข้อมูลแบบแจ้งใต้ช่อง · progress · ตรวจไฟล์รูป · ล้างฟอร์มหลังสมัคร */
+function postHostOk(u){try{var h=new URL(u).hostname.toLowerCase().replace(/^www\./,"");return /(^|\.)(facebook\.com|fb\.com|fb\.watch|instagram\.com|tiktok\.com)$/.test(h)}catch(e){return false}}
+function regCheck(v){
+  ["rCo","rId","rNm","rPh","rG","rIm","rMode","pIntro","pQ","rLink","rCk"].forEach(function(x){var e=$(x);e.classList.remove("bad");delete e.dataset.err});
+  if(!v.co)return["rCo","เลือกบริษัทของคุณ"];
+  if(!v.id)return["rId","กรอกรหัสพนักงาน"];
+  if(/\s/.test(v.id))return["rId","รหัสพนักงานต้องไม่มีช่องว่าง"];
+  if(!v.nm)return["rNm","กรอกชื่อ-สกุล"];
+  if(v.nm.split(/\s+/).filter(Boolean).length<2)return["rNm","กรอกทั้งชื่อและนามสกุล เว้นวรรคระหว่างกัน"];
+  var d=v.ph.replace(/\D/g,"");
+  if(!v.ph)return["rPh","กรอกเบอร์ติดต่อ"];
+  if(d.length<9||d.length>10)return["rPh","เบอร์ไม่ถูกต้อง (ต้องมี 9–10 หลัก)"];
+  if(!v.g)return["rG","เลือกหมวดที่ประกวด"];
+  if(!v.f)return["rIm","เลือกรูปนพมาศ AI"];
+  var pm=document.querySelector("input[name=pmode]:checked");
+  if(!pm)return["rMode","เลือก 1 อย่าง: แนะนำตัวเอง หรือ ตอบคำถามสุ่ม"];
+  if(pm.value==="intro"&&v.intro.length<3)return["pIntro","เขียนแนะนำตัวสั้น ๆ อย่างน้อย 3 ตัวอักษร"];
+  if(pm.value==="q"&&v.ans.length<3)return["pQ","พิมพ์คำตอบอย่างน้อย 3 ตัวอักษร"];
+  if(v.link){
+    if(!/^https?:\/\//i.test(v.link))return["rLink","ลิงก์ต้องขึ้นต้นด้วย https://"];
+    if(!postHostOk(v.link))return["rLink","ใช้ลิงก์จาก Facebook / Instagram / TikTok เท่านั้น"]}
+  else if(!$("rLater").checked)return["rLink","ใส่ลิงก์โพสต์ หรือติ๊ก “ขอส่งลิงก์ทีหลัง”"];
+  return null}
+function regFail(id,msg){var w=$(id);w.classList.remove("bad");void w.offsetWidth;w.classList.add("bad");w.dataset.err=msg;
+  try{w.scrollIntoView({behavior:"smooth",block:"center"})}catch(e){}
+  setTimeout(function(){var i=w.querySelector("input:not([type=file]):not([type=checkbox]),textarea,.seg button,.drop input,input[type=checkbox]");if(i&&i.focus)try{i.focus({preventScroll:true})}catch(e){}},350);
+  }
+function openSoc(){}
+function setDrop(){var f=$("rim").files[0],d=$("drop");d.classList.toggle("has",!!f);$("dz").hidden=!!f;$("dn").hidden=!f;$("pv").hidden=!f;
+  if(f)$("dn").textContent="✓ "+f.name+" · "+(f.size/1048576).toFixed(1)+" MB · แตะเพื่อเปลี่ยนรูป"}
+function regProg(){
+  var g=$("rg").value;document.querySelectorAll("#rG .seg button").forEach(function(b){var on=b.dataset.v===g;b.classList.toggle("on",on);b.setAttribute("aria-checked",String(on))});
+  var ph=$("rph").value.replace(/\D/g,"");
+  var ok=[!!$("rco").value,!!$("rid").value.trim(),$("rnm").value.trim().split(/\s+/).filter(Boolean).length>=2,ph.length>=9&&ph.length<=10,!!g,!!$("rim").files[0],profOk(),!!$("rlink").value.trim()||$("rLater").checked,$("rck").checked];
+  var n=ok.filter(Boolean).length;$("rgTxt").textContent=n===9?"พร้อมส่งแล้ว ✓":"กรอกแล้ว "+n+"/9";$("rgBar").style.width=(n/9*100)+"%";$("rgo").classList.toggle("ready",n===9)}
+function profOk(){var m=document.querySelector("input[name=pmode]:checked");return !!m&&(m.value==="intro"?$("rintro").value.trim().length>=3:$("rans").value.trim().length>=3)}
+function regReset(){
+  ["rco","rid","rnm","rph","rg","rlink","rintro","rans"].forEach(function(i){$(i).value=""});
+  $("rim").value="";$("rLater").checked=false;$("rlink").disabled=false;$("rck").checked=false;
+  ["rintroN","ransN"].forEach(function(i){$(i).textContent="0"});
+  ["rCo","rId","rNm","rPh","rG","rIm","rMode","pIntro","pQ","rLink","rCk"].forEach(function(x){$(x).classList.remove("bad")});
+  document.querySelectorAll("input[name=pmode]").forEach(function(r){r.checked=false});$("pIntro").hidden=true;$("pQ").hidden=true;
+  setDrop();regProg()}
+(function(){
+  var reg=$("reg");
+  reg.addEventListener("input",function(e){var w=e.target.closest(".f,.ck2");if(w)w.classList.remove("bad");regProg()});
+  reg.addEventListener("change",function(e){var w=e.target.closest(".f,.ck2");if(w)w.classList.remove("bad");regProg()});
+  document.querySelectorAll("#rG .seg button").forEach(function(b){b.addEventListener("click",function(){var s=$("rg");s.value=b.dataset.v;s.dispatchEvent(new Event("change",{bubbles:true}))})});
+  $("rim").addEventListener("change",function(e){var f=e.target.files[0];
+    if(f&&!/^image\/(jpeg|png)$/.test(f.type)){e.target.value="";setDrop();regProg();return regFail("rIm","ใช้ไฟล์ JPG หรือ PNG เท่านั้น (ถ้าเป็น HEIC ให้บันทึกเป็น JPG ก่อน)")}
+    if(f&&f.size>20e6){e.target.value="";setDrop();regProg();return regFail("rIm","ไฟล์ใหญ่เกิน 20 MB กรุณาเลือกรูปที่เล็กลง")}
+    setDrop();regProg()});
+  var dr=$("drop");
+  ["dragenter","dragover"].forEach(function(t){dr.addEventListener(t,function(e){e.preventDefault();dr.classList.add("dz-on")})});
+  ["dragleave","drop"].forEach(function(t){dr.addEventListener(t,function(e){e.preventDefault();dr.classList.remove("dz-on")})});
+  dr.addEventListener("drop",function(e){var f=e.dataTransfer&&e.dataTransfer.files;if(f&&f.length){try{$("rim").files=f;$("rim").dispatchEvent(new Event("change",{bubbles:true}))}catch(x){toast("ลากไม่สำเร็จ กรุณาแตะเพื่อเลือกรูป")}}});
+  var pn=reg.querySelector(".pn");pn.addEventListener("scroll",function(){if(pn.scrollTop)pn.scrollTop=0});
+  regProg();
+})();
+</script>
 
 </body></html>
