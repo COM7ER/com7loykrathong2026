@@ -627,6 +627,14 @@ body.c7-stage-on{overflow:hidden}
 @media(max-width:600px){#c7Trend{border-radius:16px;margin:14px 12px 0}#c7Trend .tx{display:none}#c7Trend .ti span{display:none}}
 @media(prefers-reduced-motion:reduce){#c7Trend .tl i{animation:none}#c7Trend .ti{transition:none}}
 </style>
+<style id="c7-modal-about">
+/* ★ 10 พ.ย. กล่องแนวคิด/แนะนำตัวใต้คะแนน */
+.m-about{margin-top:16px;display:grid;gap:10px}
+.m-about .m-pro{margin-top:0}
+.m-bio-blk:has(#mBio:empty){display:none}
+.m-bio-blk.is-empty{display:none}
+#mBio{margin:0;font-size:14.5px;line-height:1.7;color:rgba(255,255,255,.92);font-style:italic;word-break:break-word}
+</style>
 </head>
 <body>
 
@@ -777,11 +785,14 @@ body.c7-stage-on{overflow:hidden}
       <span class="badge-no" id="mNo">#000</span>
       <h2 id="mName">—</h2>
       <p class="branch" id="mBranch">—</p>
-      <p class="bio" id="mBio">—</p>
-      <div class="m-pro" id="mPro"></div>
       <div class="modal-stats">
         <div class="mstat"><b id="mVotes">0</b><span>คะแนนโหวต</span></div>
         <div class="mstat"><b id="mRank">-</b><span>อันดับปัจจุบัน</span></div>
+      </div>
+      <!-- ★ 10 พ.ย. ย้ายแนวคิด/แนะนำตัว มาไว้ใต้คะแนน ให้เต็มพื้นที่ -->
+      <div class="m-about">
+        <div class="pro-blk m-bio-blk"><div class="pro-h">✨ แนวคิด / แนะนำตัว</div><p class="bio" id="mBio">—</p></div>
+        <div class="m-pro" id="mPro"></div>
       </div>
       <div class="modal-actions">
         <button class="btn-vote" id="mVote">
@@ -1121,7 +1132,7 @@ function syncModal(id){
   $('#mNo').textContent = '#'+String(p.id).padStart(3,'0');
   $('#mName').textContent = p.name;
   $('#mBranch').textContent = p.branch + ' · ' + (p.type==='female'?'นพมาศหญิง':'นพมาศชาย');
-  $('#mBio').textContent = p.bio;
+  $('#mBio').textContent = p.bio; { const bb=document.querySelector('.m-bio-blk'); if(bb) bb.classList.toggle('is-empty', !String(p.bio||'').trim()); }
   renderPro(p);
   /* ★ 5 พ.ย.: เตือนส่งลิงก์เฉพาะการ์ดที่ยังไม่ครบเงื่อนไข และก่อนหมดเขต 23 พ.ย. */
   { const n=$('#mNote'); if(n) n.style.display = (!p.ok && new Date() <= new Date('2026-11-23T23:59:59+07:00')) ? '' : 'none'; }
