@@ -586,7 +586,7 @@ function card(d){
     +(d.ลิงก์โพสต์?'<a href="'+esc(d.ลิงก์โพสต์)+'" target="_blank" rel="noopener">เปิดดูโพสต์</a><button class="btn sm ok" data-act="link" data-id="'+id+'" data-d="pass">✅</button><button class="btn sm no" data-act="link" data-id="'+id+'" data-d="fail">❌</button>':'')+'</div>';
 
   const newph=d.รูปใหม่?'<div class="newph"><b>🔄 ขอเปลี่ยนรูป (ครั้งที่ '+(d.เปลี่ยนรูป||1)+')</b><div class="cmp"><figure><img src="'+esc(d.รูป)+'" alt="" data-act="zoom" data-src="'+esc(d.รูป)+'">รูปเดิม</figure><figure><img src="'+esc(d.รูปใหม่)+'" alt="" data-act="zoom" data-src="'+esc(d.รูปใหม่)+'">รูปใหม่</figure></div>'
-    +'<div class="acts"><button class="btn sm ok" data-act="photo" data-id="'+id+'" data-d="approve">✅ ใช้รูปใหม่</button><button class="btn sm no" data-act="photo" data-id="'+id+'" data-d="reject">❌ ใช้รูปเดิม</button></div></div>':'';
+    +'<div class="acts" style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><button class="btn sm no" data-act="photo" data-id="'+id+'" data-d="reject">⬅ ใช้รูปเดิม</button><button class="btn sm ok" data-act="photo" data-id="'+id+'" data-d="approve">ใช้รูปใหม่ ➡</button></div></div>':'';
 
   const soc=['IG','FB','TikTok'].filter(k=>d[k]).map(k=>'<a href="'+esc(d[k])+'" target="_blank" rel="noopener">'+k+'</a>').join(' · ');
   const detail='<details><summary>โปรไฟล์ &amp; แนวคิดชุด</summary><div class="in">'
