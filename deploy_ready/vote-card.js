@@ -65,7 +65,7 @@ async function draw(cv,p){
   c.fillStyle='#fbf4ec';c.shadowColor=female?'rgba(243,154,194,.9)':'rgba(246,220,149,.85)';c.shadowBlur=18;c.fillText(L[0]||'',W/2,py+178);c.shadowBlur=0;
   var ty=py+226;
   if(p.bio){c.font='italic 400 27px "IBM Plex Sans Thai",Prompt,sans-serif';c.fillStyle='#e9dcc0';var B=wrap(c,'“'+p.bio+'”',pw-90);c.fillText(B.length>1?B[0]+'…':B[0],W/2,ty);ty+=52;}
-  c.font='400 30px Prompt,"IBM Plex Sans Thai",sans-serif';c.fillStyle=cream;c.fillText('ช่วยโหวตให้หน่อยนะ 💛 · 18–23 พ.ย. 2569',W/2,ty);
+  c.font='400 30px Prompt,"IBM Plex Sans Thai",sans-serif';c.fillStyle=cream;c.fillText('ช่วยโหวตให้หน่อยนะ 💛 · 24 พ.ย. 06:00–15:00',W/2,ty);
   c.font='500 26px Prompt,sans-serif';c.fillStyle='#f5c969';c.fillText('#COM7สานสายใจ',W/2,ty+44);
   // 6) QR มุมขวาเหนือแผ่นป้าย
   var qs=150,qx=W-60-qs-10,qy=py-qs-62;
