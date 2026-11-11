@@ -29,7 +29,7 @@
   @media(max-width:560px){.who{flex-direction:column}}
   /* ★ ต้นไม้ canvas + ลดเอฟเฟกต์หนัก (4 พ.ย.) */
   .tree-stage{aspect-ratio:1/.95!important}
-  .wt-cv{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1}
+  .wt-cv{position:absolute;top:0;right:0;bottom:0;left:0;width:100%;height:100%;pointer-events:none;z-index:1}
   .wish-layer{z-index:2}.wt-front{z-index:3}
   .tree-stage .mascot,.tree-stage .plaque{z-index:4}
   .wt-island{position:absolute;left:50%;bottom:-2%;width:86%;height:14%;transform:translateX(-50%);z-index:0;border-radius:50%;background:radial-gradient(ellipse at 50% 40%,rgba(130,180,60,.6),rgba(30,70,40,.65) 55%,transparent 72%)}
@@ -111,6 +111,7 @@
 
   </style>
 <style id="c7-wish-consent-note">.consent-note{width:100%;margin:10px 0 0;font-size:12px;line-height:1.55;opacity:.72;text-align:center}.consent-note a{color:#f5c969;text-decoration:underline}.who-note{margin:6px 0 4px!important;position:relative;z-index:1}</style>
+<script>/* ★ 11 พ.ย. (แจ็ค) เตือนเบราว์เซอร์เก่ามาก */(function(){try{if(window.Promise&&window.fetch&&window.CSS&&CSS.supports)return}catch(e){}document.addEventListener('DOMContentLoaded',function(){var d=document.createElement('div');d.style.cssText='position:fixed;left:0;right:0;bottom:0;z-index:99999;padding:12px 14px;background:#2a1a05;color:#f7e3a8;font:14px/1.5 sans-serif;text-align:center;border-top:2px solid #e7c56a';d.innerHTML='เครื่องหรือเบราว์เซอร์นี้เก่าเกินไป บางส่วนอาจใช้ไม่ได้ · กรุณาอัปเดต Chrome / Safari หรือเปิดด้วยเบราว์เซอร์อื่น · สอบถาม โทรภายใน 7224 หรือ 7213';document.body.appendChild(d)})})();</script>
 </head>
 <body>
   <!-- ฉากหลัง: ดาว + ละอองแสงทองลอย (ด้านหลัง) / ประกายแสงเอฟเฟกต์ (ด้านหน้า) -->

@@ -482,9 +482,9 @@
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 body{font-family:'Kanit',system-ui,sans-serif;color:var(--ink);background:var(--navy-900);min-height:100vh;overflow-x:hidden;position:relative}
 
-.bg{position:fixed;inset:0;z-index:0;overflow:hidden;background:var(--navy-900)}
-.bg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top}
-.bg::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 80% 50% at 50% 0%,rgba(8,11,36,.15),transparent 60%),linear-gradient(180deg,rgba(8,11,36,.35) 0%,rgba(15,12,40,.30) 45%,rgba(8,11,36,.85) 100%)}
+.bg{position:fixed;top:0;right:0;bottom:0;left:0;z-index:0;overflow:hidden;background:var(--navy-900)}
+.bg img{position:absolute;top:0;right:0;bottom:0;left:0;width:100%;height:100%;object-fit:cover;object-position:center top}
+.bg::after{content:"";position:absolute;top:0;right:0;bottom:0;left:0;background:radial-gradient(ellipse 80% 50% at 50% 0%,rgba(8,11,36,.15),transparent 60%),linear-gradient(180deg,rgba(8,11,36,.35) 0%,rgba(15,12,40,.30) 45%,rgba(8,11,36,.85) 100%)}
 
 /* prototype banner */
 .proto-banner{position:relative;z-index:7;background:rgba(232,176,74,.16);border-bottom:1px solid rgba(246,226,166,.3);
@@ -529,7 +529,7 @@ body{font-family:'Kanit',system-ui,sans-serif;color:var(--ink);background:var(--
 .loading,.empty{text-align:center;color:var(--ink-soft);padding:50px 20px;position:relative;z-index:5}
 
 /* Modal การ์ด */
-.modal-bg{position:fixed;inset:0;z-index:60;background:rgba(4,6,20,.7);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;padding:20px}
+.modal-bg{position:fixed;top:0;right:0;bottom:0;left:0;z-index:60;background:rgba(4,6,20,.7);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;padding:20px}
 .modal-bg.show{display:flex;animation:fadeIn .25s}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 .modal{background:rgba(15,20,64,.96);border:1px solid var(--brd);border-radius:22px;padding:28px 26px;max-width:420px;width:100%;text-align:center;position:relative;box-shadow:0 24px 70px rgba(0,0,0,.5)}
@@ -631,7 +631,7 @@ body{font-family:'Kanit',system-ui,sans-serif;color:var(--ink);background:var(--
 .water .wave.w1{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1200' height='60' viewBox='0 0 1200 60'><path d='M0,30 C150,55 350,5 600,30 C850,55 1050,5 1200,30 L1200,60 L0,60 Z' fill='%23ffffff' opacity='0.18'/></svg>");animation:waveMove 14s linear infinite;opacity:.9}
 .water .wave.w2{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1200' height='60' viewBox='0 0 1200 60'><path d='M0,32 C180,8 380,56 600,32 C820,8 1020,56 1200,32 L1200,60 L0,60 Z' fill='%23bfefff' opacity='0.22'/></svg>");top:10px;animation:waveMove 22s linear infinite reverse;opacity:.75}
 @keyframes waveMove{from{transform:translateX(0)}to{transform:translateX(-1200px)}}
-.water .shimmer{position:absolute;inset:0;background:radial-gradient(120px 40px at 20% 30%,rgba(255,255,255,.12),transparent 70%),radial-gradient(160px 50px at 70% 50%,rgba(255,255,255,.10),transparent 70%);mix-blend-mode:screen;animation:shimmer 9s ease-in-out infinite alternate}
+.water .shimmer{position:absolute;top:0;right:0;bottom:0;left:0;background:radial-gradient(120px 40px at 20% 30%,rgba(255,255,255,.12),transparent 70%),radial-gradient(160px 50px at 70% 50%,rgba(255,255,255,.10),transparent 70%);mix-blend-mode:screen;animation:shimmer 9s ease-in-out infinite alternate}
 @keyframes shimmer{from{opacity:.5}to{opacity:1}}
 /* กระทงลอยวน: ทุกจำนวนให้ล่องต่อเนื่อง (ไม่หยุดนิ่งแม้ใบน้อย) */
 .river-flow{position:relative;z-index:4}
@@ -763,7 +763,7 @@ body{font-family:'IBM Plex Sans Thai','Kanit',sans-serif!important;-webkit-font-
 html{background:#060a2a}
 body{display:flex;flex-direction:column;min-height:100vh;min-height:100dvh}
 .bg{bottom:auto;height:var(--sky);background:linear-gradient(180deg,#050826,#0c1245)}
-.bg img{inset:auto;left:50%;transform:translateX(-50%);width:auto;max-width:none;object-fit:fill;
+.bg img{top:auto;right:auto;bottom:auto;left:auto;left:50%;transform:translateX(-50%);width:auto;max-width:none;object-fit:fill;
   height:max(57.15vw,calc(var(--sky)/.655));top:calc(var(--sky) - .655*max(57.15vw,calc(var(--sky)/.655)))}
 .bg::after{background:linear-gradient(180deg,rgba(5,8,36,.45),rgba(5,8,36,0) 30%,rgba(5,8,36,0) 80%,rgba(5,8,36,.5))}
 .top{position:relative;z-index:5;min-height:var(--sky)}
@@ -773,7 +773,7 @@ body{display:flex;flex-direction:column;min-height:100vh;min-height:100dvh}
 /* น้ำเต็มจอ */
 .water{position:fixed;left:0;right:0;top:calc(var(--sky) - 24px);bottom:0;height:auto;z-index:1;overflow:hidden;border:0;box-shadow:none;
   background:linear-gradient(180deg,transparent 0 24px,#22c0d6 24px,#1a9fd0 calc(24px + 22%),#1479c0 60%,#0d56a3 85%,#083a84)}
-.water::after{content:"";position:absolute;inset:0;background:radial-gradient(70% 90px at 50% 24px,rgba(255,232,170,.35),transparent),linear-gradient(180deg,transparent 60%,rgba(3,18,60,.35));pointer-events:none}
+.water::after{content:"";position:absolute;top:0;right:0;bottom:0;left:0;background:radial-gradient(70% 90px at 50% 24px,rgba(255,232,170,.35),transparent),linear-gradient(180deg,transparent 60%,rgba(3,18,60,.35));pointer-events:none}
 .wave{position:absolute;left:0;width:calc(100% + 1200px);height:60px;background-repeat:repeat-x;background-size:1200px 60px;animation:wv 20s linear infinite}
 .wave.w1{top:2px;opacity:.6;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1200' height='60'><defs><linearGradient id='g' x1='0' y1='0' x2='0' y2='1'><stop offset='0' stop-color='%2362e0ee'/><stop offset='1' stop-color='%2362e0ee' stop-opacity='0'/></linearGradient></defs><path d='M0,30 C66,12 133,12 200,30 C266,48 333,48 400,30 C466,12 533,12 600,30 C666,48 733,48 800,30 C866,12 933,12 1000,30 C1066,48 1133,48 1200,30 V60 H0Z' fill='url(%23g)'/></svg>");animation-duration:30s}
 .wave.w2{top:10px;opacity:.85;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1200' height='60'><defs><linearGradient id='g' x1='0' y1='0' x2='0' y2='1'><stop offset='0' stop-color='%2322c0d6'/><stop offset='1' stop-color='%2322c0d6' stop-opacity='0'/></linearGradient></defs><path d='M0,32 C100,12 200,12 300,32 C400,52 500,52 600,32 C700,12 800,12 900,32 C1000,52 1100,52 1200,32 V60 H0Z' fill='url(%23g)'/></svg>");animation-duration:22s;animation-direction:reverse}
@@ -829,8 +829,8 @@ body{display:flex;flex-direction:column;min-height:100vh;min-height:100dvh}
 .tier.t1{z-index:2;--c0:#20b2d8;--c1:#1898d1}
 .tier.t2{z-index:3;--c0:#1789cd;--c1:#1171bc}
 .tier.t3{z-index:4;--c0:#1164b5;--c1:#0b4b9b}
-.tbg{position:absolute;inset:0;pointer-events:none}
-.tbg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,.1),transparent 30%,transparent 62%,rgba(0,24,70,.2))}
+.tbg{position:absolute;top:0;right:0;bottom:0;left:0;pointer-events:none}
+.tbg::after{content:"";position:absolute;top:0;right:0;bottom:0;left:0;background:linear-gradient(180deg,rgba(255,255,255,.1),transparent 30%,transparent 62%,rgba(0,24,70,.2))}
 .crest,.foam{position:absolute;left:0;top:-13px;width:calc(100% + 1200px);height:28px;animation:wv var(--cs,30s) linear infinite}
 .crest{background:var(--c0);
   -webkit-mask:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1200' height='28'><path d='M0,14 q75,-16 150,0 t150,0 t150,0 t150,0 t150,0 t150,0 t150,0 t150,0 V28 H0Z'/></svg>") repeat-x 0 0/1200px 28px;
@@ -838,11 +838,11 @@ body{display:flex;flex-direction:column;min-height:100vh;min-height:100dvh}
 .foam{background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1200' height='28'><path d='M0,14 q75,-16 150,0 t150,0 t150,0 t150,0 t150,0 t150,0 t150,0 t150,0' stroke='white' stroke-opacity='.75' stroke-width='2.4' fill='none' stroke-linecap='round'/></svg>") repeat-x 0 0/1200px 28px;
   animation-duration:calc(var(--cs,30s)*.9);filter:drop-shadow(0 0 4px rgba(255,255,255,.7))}
 /* ประกายแสงวิ่งบนผิวน้ำ + แสงใต้น้ำ */
-.gl{position:absolute;inset:14px 0 0;opacity:.85;background-repeat:repeat;
+.gl{position:absolute;top:14px;right:0;bottom:0;left:0;opacity:.85;background-repeat:repeat;
   background-size:calc(240px*var(--g,1)) calc(56px*var(--g,1));animation:glm 46s linear infinite;
   background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='56'><path d='M14,14 q12,-7 24,0 t24,0 M140,40 q12,-7 24,0 t24,0 M92,26 q9,-5 18,0 t18,0' stroke='white' stroke-opacity='.4' stroke-width='2' fill='none' stroke-linecap='round'/></svg>")}
 @keyframes glm{to{background-position-x:calc(-480px*var(--g,1))}}
-.cau{position:absolute;inset:0;mix-blend-mode:screen;animation:cau 11s ease-in-out infinite alternate;
+.cau{position:absolute;top:0;right:0;bottom:0;left:0;mix-blend-mode:screen;animation:cau 11s ease-in-out infinite alternate;
   background:radial-gradient(90px 20px at 18% 55%,rgba(255,255,255,.22),transparent),radial-gradient(130px 26px at 62% 40%,rgba(255,238,190,.2),transparent),radial-gradient(80px 18px at 88% 62%,rgba(255,255,255,.18),transparent)}
 @keyframes cau{from{transform:translateX(-5%);opacity:.5}to{transform:translateX(5%);opacity:1}}
 .tbg .spk{position:absolute}
@@ -1201,7 +1201,7 @@ body{position:relative}
 @keyframes waveRide{0%{transform:translateY(0) rotate(-6deg)}25%{transform:translateY(-13px) rotate(0)}50%{transform:translateY(-4px) rotate(6deg)}75%{transform:translateY(8px) rotate(0)}100%{transform:translateY(0) rotate(-6deg)}}
 
 /* ★ เงาสะท้อนบนน้ำ: ไฟเมือง + แสงจันทร์ (เฉพาะแถวน้ำแรกที่ติดถนน) */
-.refl{position:absolute;inset:0;pointer-events:none;mix-blend-mode:screen;overflow:hidden;z-index:0}
+.refl{position:absolute;top:0;right:0;bottom:0;left:0;pointer-events:none;mix-blend-mode:screen;overflow:hidden;z-index:0}
 .refl .rm{position:absolute;top:0;left:62%;width:90px;height:100%;
   background:repeating-linear-gradient(180deg,rgba(255,244,200,.55) 0 3px,transparent 3px 9px);
   -webkit-mask-image:linear-gradient(180deg,#000,transparent 85%),linear-gradient(90deg,transparent,#000 30%,#000 70%,transparent);
@@ -1336,6 +1336,7 @@ html,body{overflow-x:hidden!important;max-width:100%}
 #navLinks.nav-links{z-index:61!important;background:#080b24!important;box-shadow:0 18px 40px rgba(0,0,0,.6)}
 #navLinks.nav-links.open{-webkit-backdrop-filter:none;backdrop-filter:none}
 </style>
+<script>/* ★ 11 พ.ย. (แจ็ค) เตือนเบราว์เซอร์เก่ามาก */(function(){try{if(window.Promise&&window.fetch&&window.CSS&&CSS.supports)return}catch(e){}document.addEventListener('DOMContentLoaded',function(){var d=document.createElement('div');d.style.cssText='position:fixed;left:0;right:0;bottom:0;z-index:99999;padding:12px 14px;background:#2a1a05;color:#f7e3a8;font:14px/1.5 sans-serif;text-align:center;border-top:2px solid #e7c56a';d.innerHTML='เครื่องหรือเบราว์เซอร์นี้เก่าเกินไป บางส่วนอาจใช้ไม่ได้ · กรุณาอัปเดต Chrome / Safari หรือเปิดด้วยเบราว์เซอร์อื่น · สอบถาม โทรภายใน 7224 หรือ 7213';document.body.appendChild(d)})})();</script>
 </head>
 <body>
 

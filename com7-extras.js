@@ -1,3 +1,17 @@
+/* ★ 11 พ.ย. (แจ็ค) บันทึกรูปให้ใช้ได้ทั้งคอม/iPhone/Android/LINE */
+window.c7SaveImg=window.c7SaveImg||async function(blob,name,okMsg,toastFn){
+  var ua=navigator.userAgent||'',inApp=/Line\/|FBAN|FBAV|Instagram|; wv\)/i.test(ua),ios=/iPhone|iPad|iPod/i.test(ua);
+  if(inApp||ios){
+    try{var f=new File([blob],name,{type:blob.type||'image/png'});if(!inApp&&navigator.canShare&&navigator.canShare({files:[f]})){await navigator.share({files:[f]});return}}catch(e){if(e&&e.name==='AbortError')return}
+    var u=await new Promise(function(r){var fr=new FileReader();fr.onload=function(){r(fr.result)};fr.readAsDataURL(blob)});
+    var o=document.getElementById('c7SaveOv');if(o)o.remove();o=document.createElement('div');o.id='c7SaveOv';
+    o.style.cssText='position:fixed;top:0;left:0;right:0;bottom:0;z-index:99999;background:rgba(5,6,24,.94);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:18px;font-family:Prompt,sans-serif;color:#f7e3a8;text-align:center';
+    o.innerHTML='<div style="font-size:16px;line-height:1.5;margin-bottom:12px">👆 <b>กดค้างที่รูป</b> แล้วเลือก <b>"บันทึกรูปภาพ"</b></div><img alt="การ์ด" style="max-width:100%;max-height:72vh;border-radius:12px;-webkit-touch-callout:default"><button type="button" style="margin-top:12px;min-height:44px;padding:0 26px;border-radius:999px;border:1.5px solid #e7c56a;background:transparent;color:#f7e3a8;font:500 15px Prompt,sans-serif">ปิด</button>';
+    o.querySelector('img').src=u;o.querySelector('button').onclick=function(){o.remove()};document.body.appendChild(o);return;
+  }
+  var a=document.createElement('a'),x=URL.createObjectURL(blob);a.href=x;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(x)},3000);
+  if(toastFn)toastFn(okMsg);
+};
 /* ================================================================
  *  com7-extras.js — ส่วนเสริมใช้ร่วมทุกหน้า (v4.2 · แจ็ค · 2 พ.ย. 2569)
  *   1) ช่องทางติดต่อท้ายเว็บ        → แก้ข้อมูลที่ CONTACT ด้านล่างที่เดียว
@@ -40,7 +54,7 @@
     + '.c7x-chip{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:999px;border:1px solid rgba(231,197,106,.45);color:#f7e3a8;text-decoration:none;background:rgba(255,255,255,.04);font-size:13.5px;cursor:pointer}'
     + '.c7x-chip:hover{background:rgba(231,197,106,.14)}'
     + '.c7x-muted{opacity:.6;font-size:12.5px}'
-    + '.c7x-ov{position:fixed;inset:0;z-index:9999;display:none;align-items:center;justify-content:center;padding:18px;background:rgba(5,6,24,.72);backdrop-filter:blur(6px)}'
+    + '.c7x-ov{position:fixed;top:0;right:0;bottom:0;left:0;z-index:9999;display:none;align-items:center;justify-content:center;padding:18px;background:rgba(5,6,24,.72);backdrop-filter:blur(6px)}'
     + '.c7x-ov.on{display:flex}'
     + '.c7x-pn{position:relative;width:min(420px,100%);max-height:88vh;overflow:auto;padding:26px 22px 22px;border-radius:22px;border:1px solid rgba(231,197,106,.45);background:linear-gradient(160deg,#241650,#0d1040);color:#f5ecdc;font:400 15px/1.6 "Prompt","IBM Plex Sans Thai",sans-serif;box-shadow:0 30px 80px -20px rgba(0,0,0,.8)}'
     + '.c7x-pn h3{margin:0 0 4px;font-size:19px;color:#f3e2b3}'

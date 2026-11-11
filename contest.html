@@ -15,7 +15,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Charm:wght@700&amp;family=Prompt:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&amp;display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@400;500;600;700;800&amp;family=IBM+Plex+Sans+Thai:wght@300;400;500;600&amp;family=Cormorant+Garamond:ital,wght@1,500;1,600&amp;family=Charmonman:wght@700&amp;display=swap" rel="stylesheet">
 <!-- ตั้งค่าที่ config.js (ไม่บังคับ): window.COM7_CONFIG={url:"(ใส่ Web App URL)",token:"COM7LKER2569",mock:false} -->
-<script src="config.js" onerror="void 0"></script>
+<!-- config.js ไม่ใช้แล้ว (ตั้งค่าอยู่ในไฟล์นี้) -->
 <style>
 :root{--gold:#E7C56A;--gl:#F7E3A8;--ink:#150c29;--navy:#0d1240;--r-card:26px;--r-in:16px;--sp:cubic-bezier(.34,1.56,.64,1)}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
@@ -32,7 +32,7 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;touch-
 .soft svg{width:1.5em;height:1.5em;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
 .soft .ar{display:grid;place-items:center;width:1.4em;height:1.4em;border:1.5px solid #2a1b4db3;border-radius:50%;transition:transform .35s var(--sp)}
 .soft .ar svg{width:.6em;height:.6em;stroke-width:2.6}
-.soft::after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,transparent 35%,#fff9 50%,transparent 65%);transform:translateX(-120%)}
+.soft::after{content:"";position:absolute;top:0;right:0;bottom:0;left:0;background:linear-gradient(105deg,transparent 35%,#fff9 50%,transparent 65%);transform:translateX(-120%)}
 @media (hover:hover){.soft:hover{--lift:-2px;--s:1.02;filter:brightness(1.05);box-shadow:0 1px 0 #fff9 inset,0 14px 30px -8px #000a,0 0 34px #e7c56acc}
   .soft:hover::after{transform:translateX(120%);transition:transform .8s}.soft:hover .ar{transform:translateX(3px)}}
 .soft:active{--lift:1px;--s:.96;transition-duration:.12s}
@@ -42,11 +42,11 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;touch-
 
 /* ---------- หน้าแรก (เดสก์ท็อป 16:9) ---------- */
 .stage{position:relative;max-width:1920px;margin:0 auto;aspect-ratio:16/9;overflow:hidden;container-type:inline-size;isolation:isolate}
-.bg,.bg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
-.sparkles{position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden}
+.bg,.bg img{position:absolute;top:0;right:0;bottom:0;left:0;width:100%;height:100%;object-fit:cover;display:block}
+.sparkles{position:absolute;top:0;right:0;bottom:0;left:0;z-index:1;pointer-events:none;overflow:hidden}
 .sparkles i{position:absolute;border-radius:50%;background:#FDF3D2;box-shadow:0 0 8px 2px #e7c56ad9;opacity:0;animation:fl linear infinite}
 @keyframes fl{0%{transform:translateY(0) scale(.6);opacity:0}12%{opacity:.9}70%{opacity:.7}100%{transform:translateY(-38cqw) scale(1.25);opacity:0}}
-.wave{position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none}
+.wave{position:absolute;top:0;right:0;bottom:0;left:0;width:100%;height:100%;z-index:2;pointer-events:none}
 .hero{position:absolute;left:62.5%;top:42.8%;width:38%;transform:translateX(-50%);text-align:center;z-index:4;text-shadow:0 2px 12px #000c,0 0 26px #2a1b4db3;animation:in .9s cubic-bezier(.2,.7,.3,1) both}
 @keyframes in{from{opacity:0;transform:translate(-50%,16px);filter:blur(4px)}}
 .l1,.l4{display:flex;align-items:center;justify-content:center;gap:.7cqw;font-size:max(11.5px,1.15cqw);white-space:nowrap}
@@ -110,10 +110,10 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;touch-
   padding:8px 8px 8px 20px;border-radius:999px;background:#0d1240e6;backdrop-filter:blur(12px);box-shadow:0 0 0 1px #e7c56a66,0 14px 34px #000a;white-space:nowrap;font-size:.9rem;animation:up .5s var(--sp)}
 .vbar a{color:var(--gl);text-decoration:underline;cursor:pointer;font-size:.8rem}
 
-body::before{content:"";position:fixed;inset:0;z-index:-1;background:linear-gradient(#150c29b3,#150c29f0),url(assets/pages/contest_ed_1.webp) center/cover;opacity:0;transition:opacity .6s}
+body::before{content:"";position:fixed;top:0;right:0;bottom:0;left:0;z-index:-1;background:linear-gradient(#150c29b3,#150c29f0),url(assets/pages/contest_ed_1.webp) center/cover;opacity:0;transition:opacity .6s}
 body.g-on::before{opacity:1}
 /* ---------- แผงเลื่อนขึ้น (ฟอร์ม/ยืนยันโหวต) ---------- */
-.ov{position:fixed;inset:0;z-index:50;display:none;align-items:flex-end;justify-content:center;background:#050714b3;backdrop-filter:blur(4px)}
+.ov{position:fixed;top:0;right:0;bottom:0;left:0;z-index:50;display:none;align-items:flex-end;justify-content:center;background:#050714b3;backdrop-filter:blur(4px)}
 .ov.on{display:flex}
 .pn{position:relative;width:min(480px,100%);max-height:92svh;overflow:auto;padding:24px 20px calc(24px + env(safe-area-inset-bottom));border-radius:28px 28px 0 0;
   background:linear-gradient(160deg,#281c50,#140e2d);box-shadow:0 0 0 1px #ffffff2e;animation:up .45s var(--sp)}
@@ -161,7 +161,7 @@ body.g-on::before{opacity:1}
 .hero .l3{color:#fff3cf;text-shadow:0 2px 14px rgba(0,0,0,.75),0 0 22px rgba(246,226,166,.5)}
 .hero .l1,.hero .l4{font-family:'Prompt',sans-serif;opacity:.96}
 /* กล่องมืดโปร่งนุ่มหลังข้อความ ให้ตัดกับพื้นหลังลายเยอะ โดยไม่บังภาพ */
-.hero::before{content:"";position:absolute;inset:-18% -12%;z-index:-1;border-radius:50%;
+.hero::before{content:"";position:absolute;top:-18%;right:-12%;bottom:-18%;left:-12%;z-index:-1;border-radius:50%;
   background:radial-gradient(ellipse at center,rgba(10,8,34,.5) 0%,rgba(10,8,34,.28) 45%,rgba(10,8,34,0) 72%);
   filter:blur(6px)}
 
@@ -322,7 +322,7 @@ h1,h2,h3,.l2,.bt,.gh h2,.pn h2,.step h3{font-family:'Noto Serif Thai',serif!impo
 /* ===== A · Editorial v2: ภาพนพมาศในกรอบโค้ง + ของตกแต่ง ===== */
 #home.edA{--bgimg:url(assets/pages/contest_ed_1.webp);background:url(assets/pages/contest_ed_1.webp) center 35%/cover no-repeat,#0b0d22}
 #home.edA .bgl{background-position:center 35%;background-repeat:no-repeat}
-#home.edA::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+#home.edA::before{content:"";position:absolute;top:0;right:0;bottom:0;left:0;z-index:0;pointer-events:none;
   background:linear-gradient(90deg,#070a1fe6 0%,#070a1fcc 34%,#070a1f55 60%,#070a1f33 100%),
   linear-gradient(#070a1f99 0%,transparent 22%,transparent 62%,#0b0d22 100%)}
 #home.edA .wrap{grid-template-columns:1.05fr 1fr;align-items:center;padding-bottom:clamp(20px,4vh,40px)}
@@ -357,7 +357,7 @@ h1,h2,h3,.l2,.bt,.gh h2,.pn h2,.step h3{font-family:'Noto Serif Thai',serif!impo
 
 /* ===== A · v4 Motion premium ===== */
 #home.edA{background-size:cover}
-#home.edA .bgl{position:absolute;inset:0;z-index:-1;background:inherit;background-size:cover}
+#home.edA .bgl{position:absolute;top:0;right:0;bottom:0;left:0;z-index:-1;background:inherit;background-size:cover}
 /* reveal */
 #home.edA .rv{opacity:0;transform:translateY(18px);filter:blur(6px);animation:rv 1s cubic-bezier(.2,.7,.2,1) var(--d,0s) forwards}
 @keyframes rv{to{opacity:1;transform:none;filter:none}}
@@ -370,7 +370,7 @@ h1,h2,h3,.l2,.bt,.gh h2,.pn h2,.step h3{font-family:'Noto Serif Thai',serif!impo
 @keyframes gsh{from{background-position:120% 0}to{background-position:-130% 0}}
 /* button shine */
 #home.edA .btnA{position:relative;overflow:hidden;isolation:isolate}
-#home.edA .btnA::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(105deg,transparent 35%,#ffffffcc 50%,transparent 65%);transform:translateX(-130%);animation:bsh 4.5s ease-in-out 2s infinite}
+#home.edA .btnA::after{content:"";position:absolute;top:0;right:0;bottom:0;left:0;z-index:-1;background:linear-gradient(105deg,transparent 35%,#ffffffcc 50%,transparent 65%);transform:translateX(-130%);animation:bsh 4.5s ease-in-out 2s infinite}
 @keyframes bsh{0%,60%{transform:translateX(-130%)}85%,100%{transform:translateX(130%)}}
 #home.edA .btnA span{transition:transform .35s}#home.edA .btnA:hover span{transform:translateX(4px)}
 /* arches: entrance + float + tilt + light sweep + rotating gold edge */
@@ -384,10 +384,10 @@ h1,h2,h3,.l2,.bt,.gh h2,.pn h2,.step h3{font-family:'Noto Serif Thai',serif!impo
 #home.edA .arch{transform:rotateY(var(--ry,0deg)) rotateX(var(--rx,0deg));transition:transform .8s cubic-bezier(.2,.7,.2,1)}
 #home.edA .arch img{animation:kz 18s ease-in-out infinite alternate}
 @keyframes kz{from{scale:1}to{scale:1.08}}
-#home.edA .shine{position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(115deg,transparent 30%,#fff3 45%,#fff8 50%,#fff3 55%,transparent 70%);transform:translateX(-120%);animation:ssh 6s ease-in-out infinite}
+#home.edA .shine{position:absolute;top:0;right:0;bottom:0;left:0;z-index:2;pointer-events:none;background:linear-gradient(115deg,transparent 30%,#fff3 45%,#fff8 50%,#fff3 55%,transparent 70%);transform:translateX(-120%);animation:ssh 6s ease-in-out infinite}
 #home.edA .a2 .shine{animation-delay:1.5s}
 @keyframes ssh{0%,55%{transform:translateX(-120%)}80%,100%{transform:translateX(120%)}}
-#home.edA .arch::after{content:"";position:absolute;inset:0;border-radius:inherit;padding:2px;z-index:3;pointer-events:none;
+#home.edA .arch::after{content:"";position:absolute;top:0;right:0;bottom:0;left:0;border-radius:inherit;padding:2px;z-index:3;pointer-events:none;
   background:conic-gradient(from var(--ga),transparent 0 70%,#fff8d6 82%,#E7C56A 88%,transparent 100%);
   -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:ga 6s linear infinite}
 @property --ga{syntax:"<angle>";inherits:false;initial-value:0deg}
@@ -395,7 +395,7 @@ h1,h2,h3,.l2,.bt,.gh h2,.pn h2,.step h3{font-family:'Noto Serif Thai',serif!impo
 #home.edA .ring-g{animation:spin 30s linear infinite;border-style:dashed}
 @keyframes spin{to{rotate:360deg}}
 /* golden dust (สร้างโดย JS) */
-#home.edA .dust{position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden}
+#home.edA .dust{position:absolute;top:0;right:0;bottom:0;left:0;z-index:1;pointer-events:none;overflow:hidden}
 #home.edA .dust i{position:absolute;bottom:-10px;border-radius:50%;background:#FFF3C9;box-shadow:0 0 10px 3px #e7c56aaa;opacity:0;animation:dr linear infinite}
 @keyframes dr{10%{opacity:.9}80%{opacity:.6}100%{transform:translate(var(--sx),-105vh);opacity:0}}
 #home.edA .dust b{position:absolute;width:10px;height:14px;border-radius:40% 40% 30% 30%;background:radial-gradient(#ffe7a6,#e79a3a 70%);box-shadow:0 0 18px 6px #f2a54a66;opacity:0;animation:lan linear infinite}
@@ -423,7 +423,7 @@ h1,h2,h3,.l2,.bt,.gh h2,.pn h2,.step h3{font-family:'Noto Serif Thai',serif!impo
 #gal .c7v .vm{position:relative;aspect-ratio:3/4.3;overflow:hidden;background:#241540}
 #gal .c7v .vm img{width:100%;height:100%;aspect-ratio:auto;object-fit:cover;transition:transform .6s}
 #gal .c7v:hover .vm img{transform:scale(1.05)}
-#gal .c7v .vm::after{content:"";position:absolute;inset:auto 0 0;height:46%;background:linear-gradient(transparent,rgba(16,8,31,.9));pointer-events:none}
+#gal .c7v .vm::after{content:"";position:absolute;top:auto;right:0;bottom:0;left:0;height:46%;background:linear-gradient(transparent,rgba(16,8,31,.9));pointer-events:none}
 #gal .c7v .no{top:10px;left:10px;padding:4px 11px;border-radius:999px;font-size:12px;font-weight:600;color:#10081F;background:linear-gradient(180deg,#FBEBB6,#E7C56A 45%,#C9972F);z-index:2}
 #gal .c7v .ty{position:absolute;top:10px;right:10px;z-index:2;padding:4px 10px;border-radius:999px;font-size:12px;color:#FDF3D2;border:1px solid rgba(231,197,106,.6);background:rgba(16,8,31,.62)}
 #gal .c7v .okb{position:absolute;left:10px;bottom:10px;z-index:2;padding:4px 10px;border-radius:999px;font-size:12px;font-weight:500;color:#10301a;background:linear-gradient(180deg,#b8f0c4,#6fd38a)}
@@ -519,6 +519,7 @@ h1,h2,h3,.l2,.bt,.gh h2,.pn h2,.step h3{font-family:'Noto Serif Thai',serif!impo
 #reg.on~#toast{bottom:auto;top:calc(76px + env(safe-area-inset-top));max-width:calc(100vw - 32px)}
 @media (prefers-reduced-motion:reduce){.rg2 .f.bad,.rg2 .ck2.bad{animation:none}}
 </style>
+<script>/* ★ 11 พ.ย. (แจ็ค) เตือนเบราว์เซอร์เก่ามาก */(function(){try{if(window.Promise&&window.fetch&&window.CSS&&CSS.supports)return}catch(e){}document.addEventListener('DOMContentLoaded',function(){var d=document.createElement('div');d.style.cssText='position:fixed;left:0;right:0;bottom:0;z-index:99999;padding:12px 14px;background:#2a1a05;color:#f7e3a8;font:14px/1.5 sans-serif;text-align:center;border-top:2px solid #e7c56a';d.innerHTML='เครื่องหรือเบราว์เซอร์นี้เก่าเกินไป บางส่วนอาจใช้ไม่ได้ · กรุณาอัปเดต Chrome / Safari หรือเปิดด้วยเบราว์เซอร์อื่น · สอบถาม โทรภายใน 7224 หรือ 7213';document.body.appendChild(d)})})();</script>
 </head>
 <body>
 
@@ -902,6 +903,7 @@ async function makeNewCard(d){
     var b=await VoteCard.toBlob(cv),u=URL.createObjectURL(b),f=new File([b],"com7-vote-"+d.id+".png",{type:"image/png"});
     box.innerHTML='<img src="'+u+'" alt="การ์ดชวนโหวตรูปใหม่"><div class="brow2"><a class="btn-ghost2" href="'+u+'" download="com7-vote-'+d.id+'.png">⬇ เซฟการ์ด</a>'
       +(navigator.canShare&&navigator.canShare({files:[f]})?'<button class="btn-main" id="repShare">📤 แชร์</button>':'')+'</div>';
+    var sv=box.querySelector('a[download]');if(sv)sv.onclick=function(ev){if(window.c7SaveImg){ev.preventDefault();c7SaveImg(b,"com7-vote-"+d.id+".png","บันทึกการ์ดแล้ว 🎴",typeof toast==='function'?toast:null)}};
     var s=document.getElementById("repShare");if(s)s.onclick=function(){navigator.share({files:[f],title:"โหวตให้ฉันหน่อยนะ",text:"ประกวดนพมาศ AI #COM7สานสายใจ"}).catch(function(){})};
   }catch(e){box.innerHTML='<p class="rd-tip">สร้างการ์ดไม่สำเร็จ — หลังแอดมินอนุมัติ ดาวน์โหลดการ์ดได้ที่หน้าผู้เข้าประกวด</p>'}
 }

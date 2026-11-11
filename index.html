@@ -31,9 +31,9 @@ html,body{height:100%;background:#04060d;overflow:hidden}
 body{color:var(--cream);font-family:Prompt,system-ui,sans-serif;font-weight:300;-webkit-font-smoothing:antialiased}
 a{color:inherit;text-decoration:none}
 button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
-#river{position:fixed;inset:0;display:block;width:100%;height:100%;touch-action:none}
+#river{position:fixed;top:0;right:0;bottom:0;left:0;display:block;width:100%;height:100%;touch-action:none}
 
-.ui{position:fixed;inset:0;z-index:2;pointer-events:none;opacity:0;transition:opacity 1.6s ease}
+.ui{position:fixed;top:0;right:0;bottom:0;left:0;z-index:2;pointer-events:none;opacity:0;transition:opacity 1.6s ease}
 .ui.on{opacity:1}
 .ui a,.ui button{pointer-events:auto}
 
@@ -67,7 +67,7 @@ h1{margin-top:calc(-.16em + 10*var(--u));padding:.36em .16em .12em;font-family:C
   background:linear-gradient(180deg,rgba(255,255,255,.16),rgba(255,255,255,.04));-webkit-backdrop-filter:blur(14px) saturate(140%);backdrop-filter:blur(14px) saturate(140%);
   border:1px solid rgba(255,226,160,.55);box-shadow:0 0 0 1px rgba(255,255,255,.06) inset,0 1px 0 rgba(255,255,255,.35) inset,0 0 22px var(--gl),0 10px 30px rgba(3,4,25,.45);
   text-shadow:0 0 12px var(--gl);transition:transform .35s,box-shadow .35s,border-color .35s,background .35s}
-.act::before{content:"";position:absolute;inset:-1px;border-radius:inherit;padding:1px;background:linear-gradient(120deg,rgba(255,240,200,.9),rgba(255,255,255,.1) 40%,var(--gl2) 70%,rgba(255,240,200,.8));
+.act::before{content:"";position:absolute;top:-1px;right:-1px;bottom:-1px;left:-1px;border-radius:inherit;padding:1px;background:linear-gradient(120deg,rgba(255,240,200,.9),rgba(255,255,255,.1) 40%,var(--gl2) 70%,rgba(255,240,200,.8));
   -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;z-index:-1}
 .act::after{content:"";position:absolute;top:0;bottom:0;left:-60%;width:40%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.35),transparent);transform:skewX(-20deg);animation:sweep 4.8s ease-in-out infinite;z-index:-1}
 .a2::after{animation-delay:2.4s}
@@ -102,14 +102,14 @@ h1{margin-top:calc(-.16em + 10*var(--u));padding:.36em .16em .12em;font-family:C
 .sound[aria-pressed=true] .x{opacity:0}
 
 /* ---------- เมนูมือถือ ---------- */
-.sheet{position:fixed;inset:0;z-index:4;display:flex;flex-direction:column;justify-content:center;gap:6px;padding:80px 32px 40px;background:rgba(4,6,13,.94);backdrop-filter:blur(10px);opacity:0;visibility:hidden;transition:opacity .35s,visibility .35s}
+.sheet{position:fixed;top:0;right:0;bottom:0;left:0;z-index:4;display:flex;flex-direction:column;justify-content:center;gap:6px;padding:80px 32px 40px;background:rgba(4,6,13,.94);backdrop-filter:blur(10px);opacity:0;visibility:hidden;transition:opacity .35s,visibility .35s}
 .sheet.on{opacity:1;visibility:visible}
 .sheet a{font-family:"Noto Sans Thai",Prompt,sans-serif;font-stretch:75%;font-size:34px;font-weight:300;line-height:1.5;opacity:.9}
 .sheet a.dim{font-size:20px;opacity:.5;margin-top:10px}
 .sheet .x{position:absolute;top:18px;right:18px;width:42px;height:42px;border-radius:50%;border:1px solid rgba(245,239,226,.45);font-size:22px}
 
 /* ---------- ตัวโหลด ---------- */
-.loader{position:fixed;inset:0;z-index:5;display:grid;place-items:center;background:#04060d;transition:opacity 1s ease;pointer-events:none}
+.loader{position:fixed;top:0;right:0;bottom:0;left:0;z-index:5;display:grid;place-items:center;background:#04060d;transition:opacity 1s ease;pointer-events:none}
 .loader.gone{opacity:0}
 .loader span{width:calc(9*var(--u));height:calc(9*var(--u));min-width:6px;min-height:6px;border-radius:50%;background:var(--cream);animation:pulse 1.2s ease-in-out infinite}
 @keyframes pulse{50%{transform:scale(.4);opacity:.4}}
@@ -149,6 +149,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--cream);outline-offs
 }
 @media (prefers-reduced-motion:reduce){.loader span{animation:none}.ui{transition:none}}
 </style>
+<script>/* ★ 11 พ.ย. (แจ็ค) เตือนเบราว์เซอร์เก่ามาก */(function(){try{if(window.Promise&&window.fetch&&window.CSS&&CSS.supports)return}catch(e){}document.addEventListener('DOMContentLoaded',function(){var d=document.createElement('div');d.style.cssText='position:fixed;left:0;right:0;bottom:0;z-index:99999;padding:12px 14px;background:#2a1a05;color:#f7e3a8;font:14px/1.5 sans-serif;text-align:center;border-top:2px solid #e7c56a';d.innerHTML='เครื่องหรือเบราว์เซอร์นี้เก่าเกินไป บางส่วนอาจใช้ไม่ได้ · กรุณาอัปเดต Chrome / Safari หรือเปิดด้วยเบราว์เซอร์อื่น · สอบถาม โทรภายใน 7224 หรือ 7213';document.body.appendChild(d)})})();</script>
 </head>
 <body data-c7x-nofoot>
 <canvas id="river" aria-hidden="true"></canvas>
@@ -201,7 +202,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--cream);outline-offs
 </div>
 
 <div class="loader" id="loader"><span></span></div>
-<noscript><p style="position:fixed;inset:auto 0 40px;text-align:center;color:#f5efe2;z-index:9">เปิด JavaScript เพื่อดูฉากสายน้ำ · <a href="float.html" style="text-decoration:underline">ไปหน้าลอยกระทง</a></p></noscript>
+<noscript><p style="position:fixed;top:auto;right:0;bottom:40px;left:0;text-align:center;color:#f5efe2;z-index:9">เปิด JavaScript เพื่อดูฉากสายน้ำ · <a href="float.html" style="text-decoration:underline">ไปหน้าลอยกระทง</a></p></noscript>
 
 <script>
 /* =====================================================================
