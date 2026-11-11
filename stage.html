@@ -312,6 +312,22 @@ body.win-on .sky,body.win-on .moon{display:none}
 #wToast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:160;padding:11px 20px;border-radius:999px;background:#1C1036;border:1px solid rgba(231,197,106,.6);color:#F7E3A8;font:14px 'IBM Plex Sans Thai',sans-serif;opacity:0;transition:opacity .3s;pointer-events:none;max-width:90vw;text-align:center}#wToast.on{opacity:1}
 @media(prefers-reduced-motion:reduce){#wCurtain{display:none!important}#stWin .p.in.r1,#stWin .p.in.r1.pop{animation:none}}
 </style>
+<script id="c7-save-img">
+/* ★ 11 พ.ย. (แจ็ค) เซฟรูปในแอป LINE/FB/IG ไม่ได้ (เบราว์เซอร์ในแอปไม่รองรับดาวน์โหลด) → เปิดรูปเต็มจอ "กดค้างที่รูปเพื่อบันทึก" */
+window.c7SaveImg=async function(blob,name,okMsg,toastFn){
+  var ua=navigator.userAgent||'',inApp=/Line\/|FBAN|FBAV|Instagram|; wv\)/i.test(ua),ios=/iPhone|iPad|iPod/i.test(ua);
+  if(inApp||ios){
+    try{var f=new File([blob],name,{type:blob.type||'image/png'});if(!inApp&&navigator.canShare&&navigator.canShare({files:[f]})){await navigator.share({files:[f]});return}}catch(e){if(e&&e.name==='AbortError')return}
+    var u=await new Promise(function(r){var fr=new FileReader();fr.onload=function(){r(fr.result)};fr.readAsDataURL(blob)});
+    var o=document.getElementById('c7SaveOv');if(o)o.remove();o=document.createElement('div');o.id='c7SaveOv';
+    o.style.cssText='position:fixed;inset:0;z-index:99999;background:rgba(5,6,24,.94);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:18px;font-family:Prompt,sans-serif;color:#f7e3a8;text-align:center';
+    o.innerHTML='<div style="font-size:16px;line-height:1.5">👆 <b>กดค้างที่รูป</b> แล้วเลือก <b>"บันทึกรูปภาพ"</b></div><img alt="การ์ด" style="max-width:100%;max-height:72vh;border-radius:12px;box-shadow:0 10px 40px rgba(0,0,0,.6);-webkit-touch-callout:default;user-select:auto"><button type="button" style="min-height:44px;padding:0 26px;border-radius:999px;border:1.5px solid #e7c56a;background:transparent;color:#f7e3a8;font:500 15px Prompt,sans-serif">ปิด</button>';
+    o.querySelector('img').src=u;o.querySelector('button').onclick=function(){o.remove()};document.body.appendChild(o);return;
+  }
+  var a=document.createElement('a'),x=URL.createObjectURL(blob);a.href=x;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(x)},3000);
+  if(toastFn)toastFn(okMsg);
+};
+</script>
 </head>
 <body>
 <header class="c7top" id="c7top">
@@ -575,7 +591,7 @@ function dlWin(btn){var el=btn.closest('.podium'),list=el&&el.__list,w=list&&lis
   var go=function(){winCard(w,el.id==='podF').then(function(b){btn.disabled=false;if(!b){wToast('สร้างรูปไม่ได้ (รูปจาก Drive ถูกจำกัด) ลองใหม่อีกครั้ง');return}
     var f=new File([b],'com7-winner-'+w.id+'.png',{type:'image/png'});
     if(navigator.canShare&&navigator.canShare({files:[f]})&&/Mobi|Android/i.test(navigator.userAgent)){navigator.share({files:[f],title:'ผลประกวดนพมาศ AI',text:'#COM7สานสายใจ'}).catch(function(){});return}
-    var a=document.createElement('a'),u=URL.createObjectURL(b);a.href=u;a.download=f.name;document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(u)},3000);wToast('บันทึกการ์ดผู้ชนะแล้ว 🏆')})};
+    c7SaveImg(b,f.name,'บันทึกการ์ดผู้ชนะแล้ว 🏆',wToast)})};
   if(document.fonts&&document.fonts.load){Promise.all(['600 70px "IBM Plex Sans Thai"','700 64px Charmonman','700 84px Prompt'].map(function(f){return document.fonts.load(f,'กขค')})).then(go,go)}else go()}
 document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('#stWin .dl');if(b)dlWin(b)});
 function curtain(){var c=$('wCurtain');if(!c||matchMedia('(prefers-reduced-motion:reduce)').matches){window.__wT0=500;return}window.__wT0=1700;c.classList.add('on');requestAnimationFrame(function(){requestAnimationFrame(function(){setTimeout(function(){c.classList.add('open')},350)})});setTimeout(function(){c.classList.remove('on')},2400)}
