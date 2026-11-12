@@ -174,7 +174,7 @@
   form.addEventListener('submit', (e) => {
     e.preventDefault();
     const id = form.elements.empId.value.trim();
-    const okId = setErr('empId', /^[A-Za-z0-9-]{3,30}$/.test(id) ? '' : 'กรุณากรอกรหัสพนักงานให้ถูกต้อง');
+    const okId = setErr('empId', /^[A-Za-z0-9-]{2,30}$/.test(id) ? '' : 'กรุณากรอกรหัสพนักงานให้ถูกต้อง');
     if (!okId) { form.elements.empId.focus(); return; }
     currentUser = { id: id };
     showMine();
@@ -273,14 +273,18 @@
         '<div class="modal__actions"><button type="button" class="btn btn--ghost" data-back>← ย้อนกลับ</button><button type="submit" class="btn btn--gold">🐝 แขวนคำขอพร</button></div><p class="consent-note">🔒 การกด “แขวนคำขอพร” ถือว่ายินยอมให้เก็บคำขอพรและรหัสพนักงานไว้ในระบบกิจกรรม ดูได้เฉพาะคุณและผู้ดูแลระบบ · <a href="contest.html#pdpa" target="_blank" rel="noopener">อ่านนโยบาย</a></p></form>', (body) => {
         const f = body.firstElementChild;
         $('[data-back]', f).addEventListener('click', step2);
+        /* ★ 12 พ.ย. แจ้งเตือนในหน้าต่าง (เดิมขึ้นด้านหลังหน้าต่าง มองไม่เห็น) */
+        const errEl = document.createElement('p'); errEl.className = 'wz-err'; errEl.setAttribute('role', 'alert'); f.elements.wid.insertAdjacentElement('afterend', errEl);
+        const showErr = (t) => { errEl.textContent = t; f.elements.wid.classList.add('is-err'); f.elements.wid.classList.remove('shake'); void f.elements.wid.offsetWidth; f.elements.wid.classList.add('shake'); };
+        f.elements.wid.addEventListener('input', () => { errEl.textContent = ''; f.elements.wid.classList.remove('is-err'); });
         setTimeout(() => f.elements.wid.focus(), 50);
         f.addEventListener('submit', (e) => { e.preventDefault();
           const id = f.elements.wid.value.trim();
-          if (!/^[A-Za-z0-9-]{3,30}$/.test(id)) { toast('กรุณากรอกรหัสพนักงาน'); f.elements.wid.focus(); return; }
+          if (!/^[A-Za-z0-9-]{2,30}$/.test(id)) { showErr(id ? 'รหัสพนักงานต้องมีอย่างน้อย 2 ตัว (ตัวเลข/ตัวอักษรอังกฤษ)' : 'กรุณากรอกรหัสพนักงาน'); f.elements.wid.focus(); return; }
           const btn = f.querySelector('[type=submit]'); btn.disabled = true; btn.textContent = 'กำลังส่ง…';
           const tag = Math.floor(Math.random() * D.tags.length);
           api({ action: 'wish', token: TOKEN, consent: true, public: st.pub, text: st.text, cat: st.cat, tag: tag, empId: id }).then((r) => {
-            if (!r || !r.ok) { btn.disabled = false; btn.textContent = '🐝 แขวนคำขอพร'; toast((r && r.error) || 'ส่งไม่สำเร็จ ลองใหม่'); return; }
+            if (!r || !r.ok) { btn.disabled = false; btn.textContent = '🐝 แขวนคำขอพร'; showErr((r && r.error) || 'ส่งไม่สำเร็จ ลองใหม่อีกครั้ง'); return; }
             currentUser = { id: id };
             hangWish(st.text, st.cat, r.wishId, tag, !!r.public);
             if (st.pub && !r.public) setTimeout(() => toast('มีเบอร์โทร/อีเมลในคำขอพร ระบบจึงปิดผนึกให้อัตโนมัติ 🔒'), 3200);

@@ -1104,7 +1104,7 @@ function fPreview(){
   if(F.toTree){
     if(F.wish.length<3){fToast('เขียนคำอธิษฐานก่อน ถึงจะแขวนบนต้นไม้ได้');document.getElementById('wishInput').focus();return;}
     if(F.wish.length>120){fToast('พรที่จะแขวนบนต้นไม้ยาวได้ไม่เกิน 120 ตัวอักษร (ตอนนี้ '+F.wish.length+')');document.getElementById('wishInput').focus();return;}
-    if(!/^[A-Za-z0-9-]{3,30}$/.test(F.empId)){var ei=document.getElementById('empIdInput');ei.classList.add('err');fToast('แขวนพรบนต้นไม้ ต้องใส่รหัสพนักงาน');ei.focus();return;}
+    if(!/^[A-Za-z0-9-]{2,30}$/.test(F.empId)){var ei=document.getElementById('empIdInput');ei.classList.add('err');fToast('แขวนพรบนต้นไม้ ต้องใส่รหัสพนักงาน');ei.focus();return;}
   }
   copyKr('krPrev');
   document.getElementById('previewName').textContent=F.publish?name:'กระทงนิรนาม';
