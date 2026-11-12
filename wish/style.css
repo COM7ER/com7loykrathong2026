@@ -699,7 +699,7 @@ main, footer { position: relative; z-index: 1; }
 }
 
 /* ★ 11 พ.ย. (แจ็ค) แก้มือถือ: กล่องสถิติล้นจอขวา + เมนูบนโปร่งจนเห็นเนื้อหาซ้อน */
-.stats__body{grid-template-columns:minmax(0,1fr)}
+@media (max-width:1200px){.stats__body{grid-template-columns:minmax(0,1fr)}}
 .stats__body>*{min-width:0;max-width:100%}
 .stats__panel{overflow:hidden}
 @media (max-width:960px){
@@ -720,3 +720,13 @@ dialog.modal.is-fallback{display:block;position:fixed;left:50%;top:50%;-webkit-t
   text-decoration:none;box-shadow:0 10px 30px rgba(0,0,0,.45);white-space:nowrap;transition:transform .45s cubic-bezier(.2,.9,.3,1.2);max-width:92vw}
 .go-float.is-show{-webkit-transform:translate(-50%,0);transform:translate(-50%,0)}
 @media (max-width:380px){.go-float{font-size:13.5px;padding:11px 16px}}
+
+/* ★ 12 พ.ย. ข้อความแจ้งเตือนในหน้าต่างขอพร */
+.wz-err{margin:8px 0 0;color:#ffb4b4;font-size:14px;text-align:center;min-height:1em}
+.wz-id.is-err{border-color:#ff8a8a!important;box-shadow:0 0 0 3px rgba(255,120,120,.18)}
+
+/* ★ 12 พ.ย. ผึ้งในกล่องสถิติไม่ให้ใหญ่เกิน/ทับการ์ดหมวด */
+.promo{overflow:hidden}
+.promo__mascot{max-width:170px}
+@media (max-width:1200px){.promo__mascot{max-width:150px}}
+@media (max-width:560px){.promo__mascot{max-width:110px}}
