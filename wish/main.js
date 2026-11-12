@@ -117,10 +117,10 @@
   function openModal(html, onMount) {
     modalBody.innerHTML = html;
     Mascot.mountAll(modalBody);
-    if (!modal.open) modal.showModal();
+    if (!modal.open) { if (typeof modal.showModal === 'function') modal.showModal(); else { modal.setAttribute('open',''); modal.classList.add('is-fallback'); document.documentElement.classList.add('modal-fb-on'); } }
     if (onMount) onMount(modalBody);
   }
-  function closeModal() { if (modal.open) modal.close(); }
+  function closeModal() { if (!modal.open && !modal.hasAttribute('open')) return; if (typeof modal.close === 'function') modal.close(); else { modal.removeAttribute('open'); modal.classList.remove('is-fallback'); document.documentElement.classList.remove('modal-fb-on'); } }
 
   $('#modalClose').addEventListener('click', closeModal);
   modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
@@ -139,7 +139,7 @@
         '<div class="wish-meta"><span>' + (w.mine ? 'คำอธิษฐานของคุณ' + (w.pub ? ' · เปิดเผย' : ' · ปิดผนึก') : 'ไม่ระบุชื่อผู้ขอพร') + '</span>' +
         '<span>💛 ได้รับพลังใจ <b>' + fmt(w.power) + '</b> ครั้ง</span></div>' +
         '<div class="modal__actions">' +
-          ((w.text && (w.pub || w.mine)) ? '<button type="button" class="btn btn--ghost" data-action="card">🎴 การ์ดคำขอพร</button>' : '') +
+          '' + /* ★ 12 พ.ย. เอาการ์ดคำขอพรออก */
           '<button type="button" class="btn btn--gold" data-action="power">ส่งพลังใจให้ ✨</button>' +
         '</div>' +
       '</div>',
@@ -213,7 +213,7 @@
             '<span class="chip">' + c.icon + ' ' + c.label + '</span>' +
             '<p>' + esc(w.text) + '</p>' +
             '<small>💛 ได้รับพลังใจ ' + fmt(w.power) + ' ครั้ง · ' + (w.pub ? '🌕 เปิดเผย (ไม่ระบุชื่อ)' : '🔒 ปิดผนึก') + '</small>' +
-            '<button type="button" class="mini-card" data-card="' + w.id + '">🎴 สร้างการ์ด</button></li>';
+            '</li>';
         }).join('') + '</ul>' +
         '<div class="modal__actions">' +
           '<button type="button" class="btn btn--ghost" data-action="write">+ แขวนเพิ่ม</button>' +
@@ -549,14 +549,18 @@ function renderStats(stats, tot) {
 
 
   /* ---------- 9) 🎴 การ์ดคำขอพร (ดาวน์โหลด / แชร์) — ไม่มีชื่อผู้ขอพรบนการ์ด ---------- */
+  /* ★ 12 พ.ย. เอาการ์ดคำขอพรออก (เหลือการ์ดประกวด + การ์ดกระทง) → หลังแขวนพร ชวนไปลอยกระทงแทน */
   function offerCard(w) {
-    if (modal.open) return;
-    openModal('<div class="modal__body"><div class="modal__mascot" data-mascot aria-hidden="true"></div><h3>แขวนเรียบร้อย! ✨</h3>' +
-      '<p class="sub">อยากเก็บคำขอพรเป็นการ์ดสวย ๆ ไว้แชร์ไหม?</p>' +
-      '<div class="modal__actions"><button type="button" class="btn btn--ghost" data-close>ไว้ก่อน</button>' +
-      '<button type="button" class="btn btn--gold" data-action="mk">🎴 สร้างการ์ด</button></div>' +
-      '<p class="sub" style="margin-top:12px"><a href="float.html?wish=' + encodeURIComponent(w.text || '') + '" style="color:#ffe9a8">🪷 ลอยกระทงพร้อมพรนี้ →</a></p></div>',   /* ★ 5 พ.ย. เชื่อมหน้าลอยกระทง */
-      (body) => { $('[data-action="mk"]', body).addEventListener('click', () => openCard({ text: w.text, cat: w.cat, tag: w.tag })); });
+    if (modal.open || modal.hasAttribute('open')) return;
+    let el = document.getElementById('goFloat');
+    if (!el) {
+      el = document.createElement('a'); el.id = 'goFloat'; el.className = 'go-float';
+      el.innerHTML = '🪷 ไปลอยกระทง รับการ์ดกระทงสวย ๆ →';
+      document.body.appendChild(el);
+    }
+    el.href = 'float.html' + (w && w.text ? '?wish=' + encodeURIComponent(w.text) : '');
+    el.classList.add('is-show');
+    clearTimeout(offerCard._t); offerCard._t = setTimeout(() => el.classList.remove('is-show'), 9000);
   }
   function rr(c, x, y, w, h, r) { c.beginPath(); c.moveTo(x + r, y); c.arcTo(x + w, y, x + w, y + h, r); c.arcTo(x + w, y + h, x, y + h, r); c.arcTo(x, y + h, x, y, r); c.arcTo(x, y, x + w, y, r); c.closePath(); }
   function wrapTh(c, t, max) {
@@ -627,7 +631,7 @@ function renderStats(stats, tot) {
         const cv = $('.card-cv', body); drawCard(cv, o);
         $$('[data-th]', body).forEach((b) => b.addEventListener('click', () => { o.theme = b.dataset.th; $$('[data-th]', body).forEach((x) => x.classList.toggle('on', x === b)); drawCard(cv, o); }));
         const file = (cb) => cv.toBlob((b) => cb(b), 'image/png');
-        const save = () => file((b) => { const a = document.createElement('a'), u = URL.createObjectURL(b); a.href = u; a.download = 'com7-wish-card.png'; document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(u), 3000); toast('บันทึกการ์ดแล้ว 🎴'); });
+        const save = () => file((b) => { if (window.c7SaveImg) { closeModal(); window.c7SaveImg(b, 'com7-wish-card.png', 'บันทึกการ์ดแล้ว 🎴', toast); return; } const a = document.createElement('a'), u = URL.createObjectURL(b); a.href = u; a.download = 'com7-wish-card.png'; document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(u), 3000); toast('บันทึกการ์ดแล้ว 🎴'); });
         $('[data-action="save"]', body).addEventListener('click', save);
         $('[data-action="share"]', body).addEventListener('click', () => file((b) => {
           const f = new File([b], 'com7-wish-card.png', { type: 'image/png' });
