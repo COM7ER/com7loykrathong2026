@@ -713,3 +713,10 @@ dialog.modal.is-fallback{display:block;position:fixed;left:50%;top:50%;-webkit-t
 @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
   .nav.is-scrolled,.card,.stats__panel,.nav__menu{background:#0e1036!important}
 }
+
+/* ★ 12 พ.ย. ปุ่มชวนไปลอยกระทง (แทนการ์ดคำขอพร) */
+.go-float{position:fixed;left:50%;bottom:18px;z-index:60;-webkit-transform:translate(-50%,140%);transform:translate(-50%,140%);
+  padding:12px 20px;border-radius:999px;background:linear-gradient(180deg,#f7e3a8,#d9a944);color:#2a1a05;font:600 15px Prompt,sans-serif;
+  text-decoration:none;box-shadow:0 10px 30px rgba(0,0,0,.45);white-space:nowrap;transition:transform .45s cubic-bezier(.2,.9,.3,1.2);max-width:92vw}
+.go-float.is-show{-webkit-transform:translate(-50%,0);transform:translate(-50%,0)}
+@media (max-width:380px){.go-float{font-size:13.5px;padding:11px 16px}}
