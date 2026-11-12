@@ -369,6 +369,14 @@ h1{font-size:clamp(30px,5.2vw,58px)!important;line-height:1.3!important}
 #fs4 .brow{flex-wrap:wrap}
 </style>
 <script>/* ★ 11 พ.ย. (แจ็ค) เตือนเบราว์เซอร์เก่ามาก */(function(){try{if(window.Promise&&window.fetch&&window.CSS&&CSS.supports)return}catch(e){}document.addEventListener('DOMContentLoaded',function(){var d=document.createElement('div');d.style.cssText='position:fixed;left:0;right:0;bottom:0;z-index:99999;padding:12px 14px;background:#2a1a05;color:#f7e3a8;font:14px/1.5 sans-serif;text-align:center;border-top:2px solid #e7c56a';d.innerHTML='เครื่องหรือเบราว์เซอร์นี้เก่าเกินไป บางส่วนอาจใช้ไม่ได้ · กรุณาอัปเดต Chrome / Safari หรือเปิดด้วยเบราว์เซอร์อื่น · สอบถาม โทรภายใน 7224 หรือ 7213';document.body.appendChild(d)})})();</script>
+<style id="c7-kcard">
+.kc-wrap{margin:14px auto 6px;max-width:420px;text-align:center}
+.kc-wrap img{display:block;width:100%;height:auto;border-radius:16px;border:1.5px solid rgba(231,197,106,.6);box-shadow:0 14px 40px rgba(0,0,0,.45)}
+.kc-btns{display:flex;gap:10px;margin-top:12px}
+.kc-b{flex:1;min-height:46px;border-radius:999px;font:600 15px Prompt,sans-serif;cursor:pointer}
+.kc-save{border:1.5px solid #e7c56a;background:transparent;color:#f7e3a8}
+.kc-share{border:0;background:linear-gradient(180deg,#f7e3a8,#d9a944);color:#2a1a05}
+</style>
 </head>
 <body>
 
@@ -552,6 +560,11 @@ h1{font-size:clamp(30px,5.2vw,58px)!important;line-height:1.3!important}
       <div class="stage fstage fdone"><svg class="kr" id="krDone" viewBox="0 0 520 400" preserveAspectRatio="xMidYMid meet"></svg></div>
       <h2 class="fh">ลอยกระทงสำเร็จ 🪷</h2>
       <p class="pd" id="doneMsg" style="text-align:center">กำลังบันทึก…</p>
+      <!-- ★ 12 พ.ย. การ์ดลอยกระทง (กระทง+ของตกแต่งที่เลือก · ชื่อ · #COM7สานสายใจ) -->
+      <div class="kc-wrap" id="kcWrap" hidden>
+        <img id="kcImg" alt="การ์ดลอยกระทงของฉัน">
+        <div class="kc-btns"><button type="button" class="kc-b kc-save" id="kcSave">⬇ บันทึกการ์ด</button><button type="button" class="kc-b kc-share" id="kcShare">↗ แชร์</button></div>
+      </div>
       <div class="brow"><button class="next" type="button" onclick="fViewMine()"><span>ดูกระทงของฉันในสายน้ำ</span><span class="arr">→</span></button><button class="gbtn" type="button" id="treeBtn" hidden onclick="fGoTree()"><span>🌳 ต้นไม้แห่งคำอธิษฐาน</span></button><button class="gbtn" type="button" onclick="location.reload()">ลอยอีกครั้ง</button></div>
     </section>
   </main>
@@ -927,7 +940,7 @@ function renderPreview(pop){
 /* ───────── option tiles ───────── */
 var CHK='<span class="chk"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5l3 3 6-7" fill="none" stroke="#3a2606" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>';
 var thumbs=document.getElementById('thumbs'),addons=document.getElementById('addons'),animals=document.getElementById('animals'),decor=document.getElementById('decor'),count=document.getElementById('count');
-document.getElementById('hint').textContent='เลือกได้สูงสุด '+MAXA+' อย่าง • แตะอีกครั้งเพื่อเอาออก';
+document.getElementById('hint').textContent='เลือกได้สูงสุด '+MAXA+' อย่าง • ครบแล้วแตะชิ้นใหม่เพื่อสลับได้เลย';
 Object.keys(KR).forEach(function(id){
   var p=KR[id],b=document.createElement('button');
   b.type='button';b.className='opt';b.setAttribute('role','radio');b.dataset.id=id;
@@ -964,9 +977,10 @@ ADD.forEach(function(a){
 function toggle(id){
   if(state.add.has(id)){state.add.delete(id)}
   else{
+    /* ★ 12 พ.ย. ครบ 3 แล้วกดชิ้นใหม่ = สลับแทนชิ้นที่เลือกไว้นานสุดทันที (ไม่ต้องกดเอาออกก่อน) */
     if(state.add.size>=MAXA){
-      count.classList.add('flash');decor.classList.remove('shake');void decor.offsetWidth;decor.classList.add('shake');
-      setTimeout(function(){count.classList.remove('flash')},700);return;
+      var first=state.add.values().next().value;state.add.delete(first);
+      count.classList.add('flash');setTimeout(function(){count.classList.remove('flash')},500);
     }
     state.add.add(id);
   }
@@ -1106,13 +1120,27 @@ function fRelease(){
     'คำอวยพร':F.wish,'แบบกระทง':(window.KrathongArt?KrathongArt.encode(F.kr,F.decor):F.kr),'ของตกแต่ง':F.decor.join(',')};
   if(F.toTree){p.toTree=true;p.wishCat=F.wishCat;p.wishPublic=F.treePub;p.wishTag=Math.floor(Math.random()*6);}
   fJsonp(p,function(res){F.busy=false;document.getElementById('releaseBtn').disabled=false;
-    if(res&&res.ok){F.myId=res.krathongId||null;F.wishId=res.wishId||null;msg.textContent='ขอให้คำอธิษฐานของคุณเป็นจริง ✨'+(F.wishId?' · น้องผึ้งแขวนพรบนต้นไม้แล้ว 🐝':'');
+    if(res&&res.ok){fMakeCard();F.myId=res.krathongId||null;F.wishId=res.wishId||null;msg.textContent='ขอให้คำอธิษฐานของคุณเป็นจริง ✨'+(F.wishId?' · น้องผึ้งแขวนพรบนต้นไม้แล้ว 🐝':'');
       if(F.toTree&&F.treePub&&res.wishPublic===false)setTimeout(function(){fToast('มีเบอร์โทร/อีเมลในพร ระบบจึงปิดผนึกบนต้นไม้ให้อัตโนมัติ 🔒')},1200);
       var tb=document.getElementById('treeBtn');tb.hidden=false;tb.querySelector('span').textContent=F.wishId?'🌳 ไปดูพรของฉันบนต้นไม้':'🌳 อยากขอพรเพิ่มที่ต้นไม้ไหม?';
       try{var k='com7_my_krathongs',m=JSON.parse(localStorage.getItem(k)||'[]');if(F.myId){m.push({id:F.myId,name:F.name,at:Date.now()});localStorage.setItem(k,JSON.stringify(m));}}catch(e){}
     }else{msg.textContent='บันทึกไม่สำเร็จ: '+((res&&res.error)||'ลองใหม่อีกครั้ง');}
   });
 }
+/* ★ 12 พ.ย. การ์ดลอยกระทง */
+var KC={blob:null};
+function fMakeCard(){if(!window.KrathongCard)return;var cv=document.createElement('canvas');
+  KrathongCard.draw(cv,{kr:F.kr,add:F.decor,name:F.name}).then(function(){return KrathongCard.toBlob(cv)}).then(function(b){if(!b)return;KC.blob=b;
+    document.getElementById('kcImg').src=URL.createObjectURL(b);document.getElementById('kcWrap').hidden=false;}).catch(function(){});}
+document.getElementById('kcSave').addEventListener('click',function(){if(!KC.blob)return;
+  if(window.c7SaveImg)c7SaveImg(KC.blob,'com7-krathong.png','บันทึกการ์ดแล้ว 🪷',fToast);
+  else{var a=document.createElement('a'),u=URL.createObjectURL(KC.blob);a.href=u;a.download='com7-krathong.png';document.body.appendChild(a);a.click();a.remove();fToast('บันทึกการ์ดแล้ว 🪷');}});
+document.getElementById('kcShare').addEventListener('click',function(){if(!KC.blob)return;
+  var url='https://com7er.github.io/com7loykrathong2026/float.html',txt='มาลอยกระทงออนไลน์ด้วยกันนะ 🪷 #COM7สานสายใจ';
+  try{var f=new File([KC.blob],'com7-krathong.png',{type:'image/png'});
+    if(navigator.canShare&&navigator.canShare({files:[f]})){navigator.share({files:[f],text:txt+' '+url}).catch(function(){});return;}}catch(e){}
+  if(navigator.share){navigator.share({title:'ลอยกระทง COM7',text:txt,url:url}).catch(function(){});return;}
+  try{navigator.clipboard.writeText(txt+' '+url);fToast('คัดลอกลิงก์แล้ว · บันทึกการ์ดแล้วแนบรูปได้เลย');}catch(e){fToast('กดบันทึกการ์ด แล้วแนบรูปในแชทได้เลย');}});
 function fGoTree(){if(F.wishId){try{sessionStorage.setItem('c7_wish_emp',F.empId)}catch(e){}location.href='wish.html#mine';}else location.href='wish.html';}
 function fViewMine(){location.href='river.html'+(F.myId?'?my='+encodeURIComponent(F.myId):'');}
 function fJsonp(params,cb){
@@ -1124,7 +1152,7 @@ function fJsonp(params,cb){
   s.onerror=function(){done();cb({ok:false,error:'เชื่อมต่อระบบไม่ได้'});};document.body.appendChild(s);
 }
 </script>
-<script src="krathong-art.js"></script>
+<script src="krathong-art.js"></script><script src="qrcode.min.js"></script><script src="krathong-card.js"></script>
 <script src="com7-extras.js" defer></script>
 </body>
 </html>
