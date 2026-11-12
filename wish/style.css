@@ -65,8 +65,8 @@ button, input, textarea { font: inherit; color: inherit; }
 }
 .container { width: min(1360px, 100% - 48px); margin-inline: auto; }
 
-#sky-canvas { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
-#fx-canvas  { position: fixed; inset: 0; z-index: 60; pointer-events: none; }
+#sky-canvas { position: fixed; top:0;right:0;bottom:0;left:0; z-index: 0; pointer-events: none; }
+#fx-canvas  { position: fixed; top:0;right:0;bottom:0;left:0; z-index: 60; pointer-events: none; }
 main, footer { position: relative; z-index: 1; }
 
 /* ---------- 3. Buttons ---------- */
@@ -105,7 +105,7 @@ main, footer { position: relative; z-index: 1; }
 .btn--sm { padding: 10px 22px; font-size: 15px; }
 
 /* ---------- 4. Navbar ---------- */
-.nav { position: fixed; inset: 0 0 auto 0; z-index: 50; transition: background .3s, box-shadow .3s, backdrop-filter .3s; }
+.nav { position: fixed; top:0;right:0;bottom:auto;left:0; z-index: 50; transition: background .3s, box-shadow .3s, backdrop-filter .3s; }
 .nav.is-scrolled {
   background: rgba(8, 11, 36, .72);
   backdrop-filter: blur(14px);
@@ -155,7 +155,7 @@ main, footer { position: relative; z-index: 1; }
 }
 
 /* โคมลอย */
-.hero__lanterns { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+.hero__lanterns { position: absolute; top:0;right:0;bottom:0;left:0; z-index: 0; pointer-events: none; overflow: hidden; }
 .lantern {
   position: absolute; bottom: -8%;
   width: var(--s); height: calc(var(--s) * 1.3);
@@ -189,14 +189,14 @@ main, footer { position: relative; z-index: 1; }
     linear-gradient(180deg, #23236a 0%, #141648 40%, #0a0c2c 100%);
 }
 .water__shine {
-  position: absolute; inset: 0;
+  position: absolute; top:0;right:0;bottom:0;left:0;
   background: repeating-linear-gradient(90deg, transparent 0 46px, rgba(255, 214, 140, .2) 46px 78px, transparent 78px 130px);
   -webkit-mask: repeating-linear-gradient(180deg, #000 0 2px, transparent 2px 10px);
           mask: repeating-linear-gradient(180deg, #000 0 2px, transparent 2px 10px);
   animation: shimmer 14s linear infinite;
 }
 @keyframes shimmer { to { background-position: 520px 0; } }
-.water__krathongs { position: absolute; inset: 0; }
+.water__krathongs { position: absolute; top:0;right:0;bottom:0;left:0; }
 
 /* กระทงลอยน้ำ */
 .krathong {
@@ -282,9 +282,9 @@ main, footer { position: relative; z-index: 1; }
   aspect-ratio: 1000 / 900;
   container-type: inline-size;
 }
-.tree-svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+.tree-svg { position: absolute; top:0;right:0;bottom:0;left:0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
 .tree-img {
-  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain;
+  position: absolute; top:0;right:0;bottom:0;left:0; width: 100%; height: 100%; object-fit: contain;
   pointer-events: none; user-select: none;
   animation: tree-breathe 6s ease-in-out infinite;
 }
@@ -310,7 +310,7 @@ main, footer { position: relative; z-index: 1; }
 @keyframes aura { 50% { opacity: .8; scale: 1.03; } }
 
 /* กลีบทองร่วงโปรย */
-.petals { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+.petals { position: absolute; top:0;right:0;bottom:0;left:0; pointer-events: none; overflow: hidden; }
 .petal {
   position: absolute; width: var(--s); height: calc(var(--s) * .62);
   border-radius: 80% 0 80% 0;
@@ -337,7 +337,7 @@ main, footer { position: relative; z-index: 1; }
    - ปุ่ม .wish โยกอย่างเดียว (sway) และไม่เคยเปลี่ยนแอนิเมชัน → ไม่มีอาการกระตุกตอนเปลี่ยน class
    - ภาพป้าย (img) รับท่าเข้า/เงา/แสง → เงากับแสงถูกวาดครั้งเดียวในเลเยอร์ของตัวเอง ไม่คำนวณใหม่ทุกเฟรมตอนโยก
    - filter ทุกสถานะมีรายการเท่ากัน จึงไล่ค่าได้นุ่ม (ไม่สลับวูบ) */
-.wish-layer { position: absolute; inset: 0; }
+.wish-layer { position: absolute; top:0;right:0;bottom:0;left:0; }
 .wish {
   --str: 8px;
   --amp: 2.4deg;
@@ -510,7 +510,7 @@ main, footer { position: relative; z-index: 1; }
   box-shadow: 0 0 26px rgba(245, 201, 105, .3);
 }
 .stat__rank { position: absolute; top: -18px; left: 50%; translate: -50% 0; width: 40px; height: 32px; display: grid; place-items: center; }
-.stat__rank svg { position: absolute; inset: 0; width: 100%; height: 100%; filter: drop-shadow(0 2px 6px rgba(0, 0, 0, .4)); }
+.stat__rank svg { position: absolute; top:0;right:0;bottom:0;left:0; width: 100%; height: 100%; filter: drop-shadow(0 2px 6px rgba(0, 0, 0, .4)); }
 .stat__rank b { position: relative; margin-top: 9px; font-family: var(--font-head); font-size: 12px; color: #3a2508; }
 .stat__rank--plain { top: 6px; }
 .stat__rank--plain b { margin: 0; font-size: 15px; color: var(--gold-300); }
@@ -697,3 +697,26 @@ main, footer { position: relative; z-index: 1; }
   }
   .lantern { display: none; }
 }
+
+/* ★ 11 พ.ย. (แจ็ค) แก้มือถือ: กล่องสถิติล้นจอขวา + เมนูบนโปร่งจนเห็นเนื้อหาซ้อน */
+.stats__body{grid-template-columns:minmax(0,1fr)}
+.stats__body>*{min-width:0;max-width:100%}
+.stats__panel{overflow:hidden}
+@media (max-width:960px){
+  .nav.is-scrolled,.nav{background:#080b24!important}
+}
+
+/* ★ 11 พ.ย. (แจ็ค) รองรับมือถือรุ่นเก่า (iOS 12–15.3 / Android เก่า): หน้าต่างแบบสำรองเมื่อไม่มี <dialog> */
+dialog.modal:not([open]){display:none}
+dialog.modal.is-fallback{display:block;position:fixed;left:50%;top:50%;-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%);z-index:1000;margin:0}
+.modal-fb-on body::after{content:"";position:fixed;top:0;left:0;right:0;bottom:0;z-index:999;background:rgba(4,6,20,.8)}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+  .nav.is-scrolled,.card,.stats__panel,.nav__menu{background:#0e1036!important}
+}
+
+/* ★ 12 พ.ย. ปุ่มชวนไปลอยกระทง (แทนการ์ดคำขอพร) */
+.go-float{position:fixed;left:50%;bottom:18px;z-index:60;-webkit-transform:translate(-50%,140%);transform:translate(-50%,140%);
+  padding:12px 20px;border-radius:999px;background:linear-gradient(180deg,#f7e3a8,#d9a944);color:#2a1a05;font:600 15px Prompt,sans-serif;
+  text-decoration:none;box-shadow:0 10px 30px rgba(0,0,0,.45);white-space:nowrap;transition:transform .45s cubic-bezier(.2,.9,.3,1.2);max-width:92vw}
+.go-float.is-show{-webkit-transform:translate(-50%,0);transform:translate(-50%,0)}
+@media (max-width:380px){.go-float{font-size:13.5px;padding:11px 16px}}
