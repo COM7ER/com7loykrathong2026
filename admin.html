@@ -183,6 +183,7 @@ details.adv .row{margin-top:10px}
 @media(max-width:760px){.stats{grid-template-columns:repeat(2,1fr)}.res2{grid-template-columns:1fr}.stp{flex:1 1 45%}.stp:first-child,.stp:last-child{border-radius:0}}
 </style>
 <script>/* ★ 11 พ.ย. (แจ็ค) เตือนเบราว์เซอร์เก่ามาก */(function(){try{if(window.Promise&&window.fetch&&window.CSS&&CSS.supports)return}catch(e){}document.addEventListener('DOMContentLoaded',function(){var d=document.createElement('div');d.style.cssText='position:fixed;left:0;right:0;bottom:0;z-index:99999;padding:12px 14px;background:#2a1a05;color:#f7e3a8;font:14px/1.5 sans-serif;text-align:center;border-top:2px solid #e7c56a';d.innerHTML='เครื่องหรือเบราว์เซอร์นี้เก่าเกินไป บางส่วนอาจใช้ไม่ได้ · กรุณาอัปเดต Chrome / Safari หรือเปิดด้วยเบราว์เซอร์อื่น · สอบถาม โทรภายใน 7224 หรือ 7213';document.body.appendChild(d)})})();</script>
+<style id="c7-reject-note">.rnote{margin:8px 0 2px;padding:8px 10px;border-radius:10px;background:rgba(224,96,96,.12);border:1px solid rgba(224,96,96,.35);color:#ffd7d7;font-size:13px;line-height:1.5;word-break:break-word}.rq{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}.rq .chip{font-size:12px;padding:5px 10px}</style>
 </head>
 <body>
 
@@ -414,7 +415,7 @@ function toast(msg, kind){
 }
 
 /* modal (แทน prompt/confirm) — คืน element ของ modal เมื่อกดตกลง, false เมื่อยกเลิก */
-function modal({title,body,ok='ตกลง',cancel='ยกเลิก',danger=false}){
+function modal({title,body,ok='ตกลง',cancel='ยกเลิก',danger=false,onOpen=null}){
   return new Promise(res=>{
     const o=document.createElement('div'); o.className='ov';
     o.innerHTML='<div class="md" role="dialog" aria-modal="true"><h3>'+esc(title)+'</h3><div class="mb">'+body+'</div><div class="mf"><button class="btn ghost" data-x>'+esc(cancel)+'</button><button class="btn '+(danger?'no':'')+'" data-ok>'+esc(ok)+'</button></div></div>';
@@ -425,6 +426,7 @@ function modal({title,body,ok='ตกลง',cancel='ยกเลิก',danger=
     o.querySelector('[data-x]').onclick=()=>close(false);
     o.querySelector('[data-ok]').onclick=()=>close(o);
     o.addEventListener('mousedown',e=>{if(e.target===o)close(false);});
+    if(onOpen) try{onOpen(o);}catch(_){}
     const f=o.querySelector('input,textarea'); if(f) f.focus(); else o.querySelector('[data-ok]').focus();
   });
 }
@@ -603,14 +605,32 @@ function card(d){
     +'<div><span class="badge '+bc+'">'+esc(d.สถานะ)+'</span></div>'
     +'<div class="nm">'+esc(d.ชื่อ)+' <small class="mute">('+esc(d.เพศ==='ญ'?'หญิง':d.เพศ==='ช'?'ชาย':d.เพศ)+')</small></div>'
     +'<div class="meta">'+esc(d.บริษัท)+' · #'+id+' · '+(d.คะแนน||0)+' คะแนน</div>'
+    +(d.สถานะ==='ปฏิเสธ'?'<div class="rnote">'+(d.หมายเหตุ?'📝 '+esc(d.หมายเหตุ):'<span style="opacity:.6">📝 ยังไม่มีหมายเหตุ</span>')+'</div>':'')
     +newph+link+detail+'<div class="acts">'+acts+'</div></div></div>';
 }
 
 /* ============ Actions: ผู้สมัคร ============ */
 async function decide(id,dec){
   const label=dec==='approve'?'อนุมัติ':'ปฏิเสธ/ซ่อน';
-  if(!await ask(label+'ผู้สมัคร','ยืนยัน'+label+'ผู้สมัคร #'+id+' ?',{ok:label,danger:dec!=='approve'})) return;
-  const r=await call('admin_approve',{id,decision:dec}); toast(r.message||'อัปเดตแล้ว','ok'); await refresh(true);
+  let note='';
+  if(dec==='approve'){
+    if(!await ask(label+'ผู้สมัคร','ยืนยัน'+label+'ผู้สมัคร #'+id+' ?',{ok:label})) return;
+  }else{
+    /* ★ 18 พ.ย. ปฏิเสธพร้อมหมายเหตุ — ผู้สมัครเห็นข้อความนี้ในหน้า "ตรวจสอบสถานะ" */
+    const d=S.c.find(x=>x.id===id)||{};
+    const quick=['รูปไม่ชัด / ความละเอียดต่ำ','ไม่ใช่ภาพนพมาศ AI','ภาพไม่เหมาะสม','ข้อมูลไม่ครบ / ไม่ถูกต้อง','ลิงก์โพสต์ไม่ถูกต้อง'];
+    const o=await modal({title:'ปฏิเสธผู้สมัคร · #'+id,ok:'ยืนยันปฏิเสธ',danger:true,body:
+      '<p style="margin:0 0 8px">'+esc(d.ชื่อ||'')+'</p>'+
+      '<label class="f"><span>หมายเหตุถึงผู้สมัคร <em>(ขาดอะไร / ต้องแก้อะไร · ไม่บังคับ · ไม่เกิน 200 ตัวอักษร)</em></span>'+
+      '<textarea name="note" maxlength="200" placeholder="เช่น รูปไม่ชัด กรุณาส่งรูปความละเอียดสูงกว่านี้">'+esc(d.หมายเหตุ||'')+'</textarea></label>'+
+      '<div class="rq">'+quick.map(q=>'<button type="button" class="chip" data-q="'+esc(q)+'">+ '+esc(q)+'</button>').join('')+'</div>'+
+      '<p style="margin:8px 0 0;font-size:12.5px;opacity:.75">ผู้สมัครเห็นหมายเหตุนี้เมื่อกด 🔎 ตรวจสอบสถานะ · ห้ามใส่เบอร์โทร/อีเมล</p>',
+      onOpen:(box)=>{const ta=box.querySelector('[name=note]');box.querySelectorAll('[data-q]').forEach(b=>b.onclick=()=>{ta.value=(ta.value?ta.value.replace(/\s+$/,'')+' · ':'')+b.dataset.q;ta.focus();});}});
+    if(!o) return;
+    note=(o.querySelector('[name=note]').value||'').trim().slice(0,200);
+    if(/\d[\d\s-]{7,}\d|[\w.+-]+@[\w-]+\.\w+/.test(note)){ toast('ห้ามมีเบอร์โทร/อีเมลในหมายเหตุ','err'); return; }
+  }
+  const r=await call('admin_approve',{id,decision:dec,note}); toast(r.message||'อัปเดตแล้ว','ok'); await refresh(true);
 }
 async function decidePhoto(id,dec){
   if(!await ask('รูปภาพ',dec==='approve'?'เปลี่ยนเป็นรูปใหม่บนเว็บ?':'ไม่ใช้รูปใหม่ (คงรูปเดิม)?',{ok:'ยืนยัน',danger:dec!=='approve'})) return;

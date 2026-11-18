@@ -125,6 +125,7 @@ window.c7SaveImg=window.c7SaveImg||async function(blob,name,okMsg,toastFn){
         + '<div class="c7x-muted">' + esc(r.id) + ' · ' + (r['เพศ'] === 'ญ' ? 'นางนพมาศ (หญิง)' : 'นพมาศ (ชาย)') + '</div>'
         + '<div style="margin:10px 0 6px"><span class="c7x-tag ' + cls + '">' + esc(s || 'รออนุมัติ') + '</span></div>'
         + '<div style="font-size:14px;clear:both">' + note + '</div>'
+        + (s === 'ปฏิเสธ' && r['หมายเหตุ'] ? '<div class="c7x-warn" style="margin-top:8px">📝 <b>หมายเหตุจากทีมงาน:</b> ' + esc(r['หมายเหตุ']) + '</div>' : '')
         + (r['รูปใหม่รออนุมัติ'] ? '<div class="c7x-warn" style="margin-top:8px">🔄 รูปใหม่ของคุณรอแอดมินอนุมัติ — ระหว่างนี้หน้าเว็บยังแสดงรูปเดิม</div>' : '')
         + linkBlock(r, emp, ph4);
       bindLink(emp, ph4);
