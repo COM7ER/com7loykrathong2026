@@ -1031,7 +1031,7 @@ function render(){
   }
 
   $('#count').textContent = `แสดง ${show.length} จาก ${list.length} คน`;
-  $('#more').style.display = show.length < list.length ? '' : 'none';
+  $('#more').style.display = show.length < list.length ? '' : 'none'; $('#more').textContent = 'ดูทั้งหมด (อีก ' + (list.length - show.length) + ' คน)';
 
   const canVote = votingOpen();
   $('#grid').innerHTML = show.map((p,i)=>{
@@ -1222,7 +1222,7 @@ _on('#typeChips','click', e=>{
   $$('.chip').forEach(x=>x.classList.remove('on'));
   c.classList.add('on'); state.type = c.dataset.type; state.page = 1; render();
 });
-_on('#more','click', ()=>{ state.page++; render(); });
+_on('#more','click', ()=>{ state.page = 9999; render(); });   /* ★ 20 พ.ย. กดครั้งเดียวเห็นทั้งหมด */
 _on('#burger','click', ()=> $('#navLinks').classList.toggle('open'));
 
 /* เปิด modal อัตโนมัติถ้ามาจากลิงก์แชร์ ?c=3 */
