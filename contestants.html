@@ -662,7 +662,7 @@ window.c7SaveImg=async function(blob,name,okMsg,toastFn){
   .modal-box{display:flex!important;flex-direction:column;width:100%!important;
     max-height:calc(100vh - 20px)!important;max-height:calc(100dvh - 20px)!important;overflow:hidden!important}
   .modal-img{flex:0 1 auto;width:100%;min-height:0!important;height:auto!important;
-    max-height:34vh!important;max-height:34dvh!important;aspect-ratio:4/3;object-fit:cover;object-position:center 22%}
+    height:40vh!important;height:40dvh!important;max-height:40vh!important;max-height:40dvh!important;object-fit:contain!important;object-position:center!important;background:radial-gradient(ellipse at center,#2a1d55 0%,#120c2e 75%)!important}   /* ★ 23 พ.ย. แสดงรูปเต็ม ไม่ตัดหัว */
   .modal-info{flex:1 1 auto;min-height:0;overflow-y:auto!important;-webkit-overflow-scrolling:touch;
     padding:clamp(12px,3.6vw,18px) clamp(14px,4.2vw,18px) 0!important}
   .modal-info .badge-no{margin-bottom:6px;font-size:12px}
@@ -678,7 +678,7 @@ window.c7SaveImg=async function(blob,name,okMsg,toastFn){
   .m-note{font-size:11.5px!important;margin:4px 0 12px!important}
 }
 @media (max-width:760px) and (max-height:620px){
-  .modal-img{max-height:28vh!important;max-height:28dvh!important}
+  .modal-img{height:32vh!important;height:32dvh!important;max-height:32vh!important;max-height:32dvh!important}
 }
 </style>
 <script>/* ★ 11 พ.ย. (แจ็ค) เตือนเบราว์เซอร์เก่ามาก */(function(){try{if(window.Promise&&window.fetch&&window.CSS&&CSS.supports)return}catch(e){}document.addEventListener('DOMContentLoaded',function(){var d=document.createElement('div');d.style.cssText='position:fixed;left:0;right:0;bottom:0;z-index:99999;padding:12px 14px;background:#2a1a05;color:#f7e3a8;font:14px/1.5 sans-serif;text-align:center;border-top:2px solid #e7c56a';d.innerHTML='เครื่องหรือเบราว์เซอร์นี้เก่าเกินไป บางส่วนอาจใช้ไม่ได้ · กรุณาอัปเดต Chrome / Safari หรือเปิดด้วยเบราว์เซอร์อื่น · สอบถาม โทรภายใน 7224 หรือ 7213';document.body.appendChild(d)})})();</script>
