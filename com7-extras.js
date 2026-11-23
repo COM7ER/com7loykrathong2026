@@ -248,3 +248,23 @@ window.c7SaveImg=window.c7SaveImg||async function(blob,name,okMsg,toastFn){
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 })();
+
+/* ★ 23 พ.ย. 2569 — แถบแจ้งเตือน ส่งลิงก์โพสต์/เปิดสาธารณะ (แสดงเฉพาะ 23 พ.ย. ถึง 23:55 แล้วหายเอง) */
+(function(){
+  var END=new Date('2026-11-23T23:55:00+07:00').getTime();
+  var START=new Date('2026-11-23T00:00:00+07:00').getTime();
+  if(Date.now()<START||Date.now()>=END||/admin\.html/i.test(location.pathname))return;
+  function show(){
+    if(document.getElementById('c7LinkWarn'))return;
+    var st=document.createElement('style');
+    st.textContent='#c7LinkWarn{position:fixed;left:12px;right:12px;bottom:12px;z-index:9998;max-width:760px;margin:0 auto;display:flex;gap:12px;align-items:center;padding:12px 14px;border-radius:16px;background:linear-gradient(135deg,#3a0f1f,#1c0b33);border:1.5px solid #e7c56a;box-shadow:0 10px 30px rgba(0,0,0,.5);color:#fff3d6;font:500 13.5px/1.5 Prompt,sans-serif}#c7LinkWarn b{color:#ffd36b}#c7LinkWarn .w-i{font-size:24px}#c7LinkWarn .w-t{flex:1}#c7LinkWarn .w-b{flex:0 0 auto;border:0;border-radius:999px;padding:9px 14px;background:linear-gradient(#f7e3a8,#d9a944);color:#2a1a05;font:600 13px Prompt,sans-serif;cursor:pointer}#c7LinkWarn .w-x{flex:0 0 auto;background:none;border:0;color:#e7c56a;font-size:20px;cursor:pointer;padding:0 4px}@media(max-width:560px){#c7LinkWarn{flex-wrap:wrap;font-size:12.5px}#c7LinkWarn .w-b{width:100%}}';
+    document.head.appendChild(st);
+    var d=document.createElement('div');d.id='c7LinkWarn';d.setAttribute('role','alert');
+    d.innerHTML='<span class="w-i">⚠️</span><div class="w-t"><b>ผู้เข้าประกวดที่ยังไม่ส่งลิงก์โพสต์ หรือยังไม่เปิดโพสต์เป็นสาธารณะ</b><br>กรุณาส่งลิงก์และเปิดสาธารณะให้ครบเงื่อนไข ภายใน <b>วันนี้ 23 พ.ย. 2569 เวลา 23:59 น.</b> ไม่เช่นนั้นจะถูกตัดสิทธิ์การรับรางวัล</div><button class="w-b" type="button">🔎 ส่งลิงก์ / เช็กสถานะ</button><button class="w-x" type="button" aria-label="ปิด">✕</button>';
+    d.querySelector('.w-b').onclick=function(){if(window.COM7_openStatus)window.COM7_openStatus();else location.href='contest.html#mine'};
+    d.querySelector('.w-x').onclick=function(){d.remove()};
+    document.body.appendChild(d);
+    setInterval(function(){if(Date.now()>=END&&d.parentNode)d.remove()},60000);
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',show);else show();
+})();
