@@ -605,6 +605,9 @@ body{font-family:'IBM Plex Sans Thai','Prompt',sans-serif!important;-webkit-font
 #c7Stage{position:fixed;left:0;right:0;bottom:0;top:var(--c7navH,64px);z-index:55;background:#0a0a24;display:none}
 #c7Stage.on{display:block}#c7Stage iframe{width:100%;height:100%;border:0;display:block}
 body.c7-stage-on{overflow:hidden}
+/* ★ 24 พ.ย. กันช่องว่างด้านบน: ตอนแสดงหน้าเวที เมนูติดด้านบนเสมอ + เวทีเริ่มต่อจากเมนูพอดี */
+body.c7-stage-on .nav{position:fixed!important;top:0!important;left:0;right:0;background:rgba(19,10,38,.96)!important}
+body.c7-stage-on #c7Stage{top:var(--c7navH,64px)!important}
 #c7StageBack{position:absolute;right:14px;bottom:14px;z-index:2;font:500 13px Prompt,sans-serif;color:#f3d58a;background:rgba(11,7,32,.8);border:1px solid rgba(231,197,106,.4);border-radius:22px;padding:9px 16px;cursor:pointer}
 </style>
 <style id="c7-trend">
@@ -1397,7 +1400,7 @@ document.addEventListener("click",function(e){ if(e.target&&e.target.id==="pdpaC
   window.c7StageApply=function(r){
     if(!r||!r.ok) return; var ph=phaseOf(r), show=(ph==='judging'||ph==='announced');
     if(ph!==cur){ hidden=false; cur=ph; }
-    if(show&&!hidden){ navH(); if(!fr.getAttribute('src')) fr.setAttribute('src','stage.html?embed=1'); box.classList.add('on'); document.body.classList.add('c7-stage-on'); }
+    if(show&&!hidden){ try{ if(window.scrollY>0) window.scrollTo(0,0); }catch(_){} navH(); setTimeout(navH,300); if(!fr.getAttribute('src')) fr.setAttribute('src','stage.html?embed=1'); box.classList.add('on'); document.body.classList.add('c7-stage-on'); }
     else if(!show){ box.classList.remove('on'); document.body.classList.remove('c7-stage-on'); }
   };
   /* สถานะมาจาก health ของหน้านี้ (เรียก c7StageApply) + ตรวจซ้ำทุก 30 วิ ด้วย JSONP ของตัวเอง */
