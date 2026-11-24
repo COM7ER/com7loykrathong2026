@@ -329,7 +329,73 @@ window.c7SaveImg=async function(blob,name,okMsg,toastFn){
 };
 </script>
 <script>/* ★ 11 พ.ย. (แจ็ค) เตือนเบราว์เซอร์เก่ามาก */(function(){try{if(window.Promise&&window.fetch&&window.CSS&&CSS.supports)return}catch(e){}document.addEventListener('DOMContentLoaded',function(){var d=document.createElement('div');d.style.cssText='position:fixed;left:0;right:0;bottom:0;z-index:99999;padding:12px 14px;background:#2a1a05;color:#f7e3a8;font:14px/1.5 sans-serif;text-align:center;border-top:2px solid #e7c56a';d.innerHTML='เครื่องหรือเบราว์เซอร์นี้เก่าเกินไป บางส่วนอาจใช้ไม่ได้ · กรุณาอัปเดต Chrome / Safari หรือเปิดด้วยเบราว์เซอร์อื่น · สอบถาม โทรภายใน 7224 หรือ 7213';document.body.appendChild(d)})})();</script>
-</head>
+<style id="pv-lotus">
+.lt-deco{position:fixed;bottom:6px;z-index:1;pointer-events:none;width:clamp(140px,20vw,290px);filter:drop-shadow(0 0 16px rgba(255,170,220,.55)) drop-shadow(0 -6px 34px rgba(255,200,110,.45));animation:ltSway 5s ease-in-out infinite;transform-origin:bottom center}
+.lt-l{left:-10px}.lt-r{right:-10px;transform:scaleX(-1);animation-name:ltSwayR}
+.lt-glow{position:fixed;bottom:-80px;width:46vw;height:220px;z-index:0;pointer-events:none;background:radial-gradient(ellipse at center,rgba(255,140,210,.28),transparent 70%)}
+.lt-gl{left:-12vw}.lt-gr{right:-12vw}
+@keyframes ltSway{0%,100%{transform:translateY(0) rotate(-1.5deg)}50%{transform:translateY(-6px) rotate(1.5deg)}}
+@keyframes ltSwayR{0%,100%{transform:scaleX(-1) translateY(0) rotate(-1.5deg)}50%{transform:scaleX(-1) translateY(-6px) rotate(1.5deg)}}
+.lt-pet{position:fixed;top:-30px;z-index:1;pointer-events:none;width:14px;height:20px;border-radius:80% 0 80% 0;background:linear-gradient(135deg,#ffd6ea,#ff8cc0);opacity:.85;box-shadow:0 0 8px rgba(255,160,210,.7);animation:ltFall linear infinite}
+@keyframes ltFall{0%{transform:translate(0,0) rotate(0)}100%{transform:translate(var(--dx),110vh) rotate(540deg)}}
+#stWin{position:relative;z-index:2}
+@media(max-width:600px){.lt-deco{width:clamp(100px,28vw,140px);bottom:4px}.lt-pet{width:10px;height:14px}}
+@media(prefers-reduced-motion:reduce){.lt-deco,.lt-pet{animation:none}.lt-pet{display:none}}
+</style><style id="pv-purple">
+/* ★ 24 พ.ย. ประกาศผล: โทนม่วง + กิมมิกพื้นหลัง (ยืมจากแบบของพี่) */
+body.win-on::before{content:"";position:fixed;top:0;right:0;bottom:0;left:0;z-index:0;pointer-events:none;
+  background:radial-gradient(56rem 34rem at 12% 6%,rgba(150,80,240,.45),transparent 64%),radial-gradient(48rem 34rem at 92% 30%,rgba(220,90,200,.30),transparent 66%),
+  radial-gradient(70rem 30rem at 50% 108%,rgba(255,120,200,.22),transparent 62%),linear-gradient(180deg,rgba(60,20,140,.55),rgba(110,40,160,.45) 60%,rgba(90,30,140,.55));mix-blend-mode:normal}
+#pvFx{position:fixed;top:0;left:0;width:100%;height:100%;z-index:1;pointer-events:none}
+.pv-orb{position:fixed;z-index:0;pointer-events:none;border-radius:50%;filter:blur(2px);background:radial-gradient(circle,rgba(255,210,140,.75),rgba(255,160,220,0) 70%);animation:pvOrb var(--d) ease-in-out infinite alternate}
+@keyframes pvOrb{from{transform:translateY(0);opacity:.35}to{transform:translateY(-26px);opacity:.9}}
+.pv-chedi{position:fixed;bottom:0;z-index:0;pointer-events:none;height:min(52vh,420px);opacity:.38;filter:drop-shadow(0 0 30px rgba(255,190,90,.45))}
+.pv-chedi.r{right:2vw}.pv-chedi.l{left:2vw;transform:scaleX(-1);height:min(34vh,280px);opacity:.25}
+@media(max-width:700px){.pv-chedi{display:none}}
+@media(prefers-reduced-motion:reduce){.pv-orb{animation:none}#pvFx{display:none}}
+</style><style id="pv-medal">
+/* ★ 24 พ.ย. ประกาศผล: ป้ายอันดับ → เหรียญรางวัล 1 2 3 (ใหญ่ เด่น มีริบบิ้น) */
+#stWin .p .rk{top:-58px!important;width:var(--md)!important;min-width:0!important;height:var(--md)!important;padding:0!important;border-radius:50%!important;z-index:4!important;
+  --md:clamp(64px,7vw,92px);font-family:"Cormorant Garamond",Georgia,serif!important;font-style:italic;font-weight:700!important;font-size:calc(var(--md)*.5)!important;line-height:1!important;
+  color:var(--mc)!important;background:var(--mf)!important;border:3px solid rgba(255,255,255,.7);
+  box-shadow:0 0 0 3px var(--mr),0 8px 18px rgba(0,0,0,.55),inset 0 3px 5px rgba(255,255,255,.8),inset 0 -4px 6px rgba(0,0,0,.25),0 0 30px var(--mg)!important;overflow:visible!important;animation:mdIn .9s cubic-bezier(.2,1.4,.4,1) both}
+#stWin .p .rk::before{content:"";position:absolute;top:7px;right:7px;bottom:7px;left:7px;border-radius:50%;border:1.5px dashed var(--mc);opacity:.35}
+#stWin .p .rk::after{content:"";position:absolute;left:50%;top:-34%;width:62%;height:48%;transform:translateX(-50%);z-index:-1;
+  background:linear-gradient(90deg,var(--rb1) 0 33%,var(--rb2) 33% 66%,var(--rb1) 66%);clip-path:polygon(0 0,100% 0,82% 100%,18% 100%);filter:brightness(.95)}
+#stWin .p.r1 .rk{--md:clamp(84px,9vw,118px);top:-76px!important;--mc:#4a2a05;--mf:radial-gradient(circle at 35% 30%,#fff9dc,#f6d77a 38%,#d9a23a 70%,#a9741c);--mr:#c9972f;--mg:rgba(255,210,120,.85);--rb1:#7b3fd0;--rb2:#e3b95a;animation:mdIn .9s cubic-bezier(.2,1.4,.4,1) both,mdGlow 2.4s ease-in-out 1s infinite}
+#stWin .p.r2 .rk{--mc:#2b3040;--mf:radial-gradient(circle at 35% 30%,#ffffff,#e3e6ee 40%,#aeb4c4 72%,#7d8496);--mr:#9aa1b3;--mg:rgba(220,228,255,.6);--rb1:#3c4bb8;--rb2:#d9dce6}
+#stWin .p.r3 .rk{--mc:#3a1a08;--mf:radial-gradient(circle at 35% 30%,#ffe7d2,#e8a978 40%,#b8703f 72%,#8a4c24);--mr:#a8653a;--mg:rgba(255,170,120,.55);--rb1:#9a2b6e;--rb2:#e8a978}
+#stWin .p .rk .shine{position:absolute;top:0;right:0;bottom:0;left:0;border-radius:50%;overflow:hidden;pointer-events:none}
+#stWin .p .rk .shine::after{content:"";position:absolute;top:-20%;bottom:-20%;width:35%;left:-60%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.85),transparent);transform:skewX(-20deg);animation:mdShine 3.2s ease-in-out 1.2s infinite}
+#stWin .p.r1 .crown{top:-148px!important;font-size:40px!important}
+#stWin .p{margin-top:70px}
+#stWin .p.r1{margin-top:112px}
+@keyframes mdIn{from{transform:translateX(-50%) scale(.2) rotate(-200deg);opacity:0}to{transform:translateX(-50%) scale(1) rotate(0);opacity:1}}
+@keyframes mdGlow{50%{box-shadow:0 0 0 3px var(--mr),0 8px 18px rgba(0,0,0,.55),inset 0 3px 5px rgba(255,255,255,.8),inset 0 -4px 6px rgba(0,0,0,.25),0 0 52px rgba(255,220,140,1)}}
+@keyframes mdShine{0%{left:-60%}55%,100%{left:130%}}
+@media(max-width:600px){#stWin .p .rk{--md:56px;top:-46px!important}#stWin .p.r1 .rk{--md:72px;top:-60px!important}#stWin .p.r1 .crown{top:-112px!important;font-size:32px!important}#stWin .p{margin-top:52px}#stWin .p.r1{margin-top:86px}}
+@media(prefers-reduced-motion:reduce){#stWin .p .rk,#stWin .p .rk .shine::after{animation:none!important}}
+</style><style id="pv-medal-corner">
+/* ★ 24 พ.ย. ประกาศผล: เหรียญที่มุมบนซ้ายของรูป (แบบโปสเตอร์ประกาศรางวัล) */
+#stWin .p .media{position:relative}
+#stWin .p .rk{top:auto!important;left:-14px!important;transform:none!important;animation:mdIn2 .9s cubic-bezier(.2,1.4,.4,1) both!important}
+#stWin .p.r1 .rk{animation:mdIn2 .9s cubic-bezier(.2,1.4,.4,1) both,mdGlow 2.4s ease-in-out 1s infinite!important}
+#stWin .p .rk::after{display:none}
+#stWin .p .rk .rb{position:absolute;left:50%;top:78%;width:56%;height:62%;transform:translateX(-50%);z-index:-1;
+  background:linear-gradient(90deg,var(--rb1) 0 50%,var(--rb2) 50%);clip-path:polygon(0 0,100% 0,100% 100%,50% 78%,0 100%);filter:drop-shadow(0 4px 6px rgba(0,0,0,.4))}
+#stWin .p{margin-top:28px!important}#stWin .p.r1{margin-top:40px!important}
+#stWin .p.r1 .crown{top:-40px!important}
+@keyframes mdIn2{from{transform:scale(.2) rotate(-200deg);opacity:0}to{transform:scale(1) rotate(0);opacity:1}}
+@media(max-width:600px){#stWin .p .rk{left:-8px!important}#stWin .p{margin-top:22px!important}#stWin .p.r1{margin-top:34px!important}#stWin .p.r1 .crown{top:-34px!important}}
+</style><style id="pv-ribbon-fix">
+/* ★ แก้: ริบบิ้นอยู่ "หลัง" เหรียญ (แยกเป็น element พี่น้อง ไม่ใช่ลูกของเหรียญ) */
+#stWin .p .rk .rb{display:none!important}
+#stWin .p .rbx{position:absolute;z-index:3;pointer-events:none;width:var(--w);height:var(--h);display:flex;gap:2px;justify-content:center;filter:drop-shadow(0 4px 6px rgba(0,0,0,.45))}
+#stWin .p .rbx i{display:block;width:50%;height:100%;clip-path:polygon(0 0,100% 0,100% 100%,50% 82%,0 100%)}
+#stWin .p .rbx i:first-child{background:linear-gradient(180deg,var(--rb1),color-mix(in srgb,var(--rb1) 70%,#000));transform:rotate(12deg);transform-origin:top right}
+#stWin .p .rbx i:last-child{background:linear-gradient(180deg,var(--rb2),color-mix(in srgb,var(--rb2) 70%,#000));transform:rotate(-12deg);transform-origin:top left}
+#stWin .p.r1 .rbx{--rb1:#7b3fd0;--rb2:#e3b95a}#stWin .p.r2 .rbx{--rb1:#3c4bb8;--rb2:#d9dce6}#stWin .p.r3 .rbx{--rb1:#9a2b6e;--rb2:#e8a978}
+</style><style id="c7-win-deco-gate">/* ★ 24 พ.ย. ของตกแต่งหน้าประกาศผล แสดงเฉพาะตอนประกาศผล */body:not(.win-on) .lt-deco,body:not(.win-on) .lt-glow,body:not(.win-on) .lt-pet,body:not(.win-on) #pvFx,body:not(.win-on) .pv-orb,body:not(.win-on) .pv-chedi{display:none!important}</style></head>
 <body>
 <header class="c7top" id="c7top">
   <a class="c7brand" href="index.html">COM<b>7</b></a>
@@ -787,5 +853,24 @@ window.__stage={show:show,pod:pod,check:check};
 
 };</script>
 <script src="com7-extras.js" defer></script>
+
+<!-- ★ 24 พ.ย. 2569 ตกแต่งหน้าประกาศผล: กระทงกลีบบัว · โทนม่วง · พลุ · เหรียญมุมรูป -->
+<div class="lt-glow lt-gl"></div><div class="lt-glow lt-gr"></div><img class="lt-deco lt-l" src="assets/pages/win_krathong.webp" alt=""><img class="lt-deco lt-r" src="assets/pages/win_krathong.webp" alt=""><i class="lt-pet" style="left:43vw;--dx:-42px;animation-duration:15s;animation-delay:-10s"></i><i class="lt-pet" style="left:8vw;--dx:-62px;animation-duration:10s;animation-delay:-5s"></i><i class="lt-pet" style="left:76vw;--dx:-66px;animation-duration:12s;animation-delay:-0s"></i><i class="lt-pet" style="left:13vw;--dx:31px;animation-duration:15s;animation-delay:-1s"></i><i class="lt-pet" style="left:32vw;--dx:-57px;animation-duration:15s;animation-delay:-0s"></i><i class="lt-pet" style="left:74vw;--dx:-49px;animation-duration:12s;animation-delay:-10s"></i><i class="lt-pet" style="left:82vw;--dx:69px;animation-duration:9s;animation-delay:-9s"></i><i class="lt-pet" style="left:76vw;--dx:21px;animation-duration:9s;animation-delay:-3s"></i><i class="lt-pet" style="left:7vw;--dx:62px;animation-duration:11s;animation-delay:-4s"></i><i class="lt-pet" style="left:55vw;--dx:-44px;animation-duration:10s;animation-delay:-9s"></i><svg width="0" height="0" style="position:absolute"><defs><linearGradient id="pvcg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff3c2"/><stop offset=".5" stop-color="#e6bb5c"/><stop offset="1" stop-color="#8f621b"/></linearGradient><symbol id="pvchedi" viewBox="0 0 200 440"><path d="M99 6h2l2 8-1 150h-4L97 14Z" fill="url(#pvcg)"/><path d="M100 150C86 188 62 222 54 292c-3 18-6 34-10 48h112c-4-14-7-30-10-48-8-70-32-104-46-142Z" fill="url(#pvcg)"/><path d="M92 150h16l4 10H88Z M84 340h32v-14H84Z" fill="url(#pvcg)"/><path d="M30 344h140l8 24H22Z" fill="url(#pvcg)"/><path d="M16 372h168l8 28H8Z" fill="url(#pvcg)"/><rect x="0" y="400" width="200" height="40" fill="#8a5f1b"/><path d="M38 292c-4-24-12-38-22-52-8 14-14 30-16 52Z M162 292c4-24 12-38 22-52 8 14 14 30 16 52Z" fill="url(#pvcg)" opacity=".9"/></symbol></defs></svg><svg class="pv-chedi r" viewBox="0 0 200 440"><use href="#pvchedi"/></svg><svg class="pv-chedi l" viewBox="0 0 200 440"><use href="#pvchedi"/></svg><i class="pv-orb" style="left:8vw;top:30vh;width:18px;height:18px;--d:4s"></i><i class="pv-orb" style="left:22vw;top:58vh;width:12px;height:12px;--d:5s"></i><i class="pv-orb" style="left:40vw;top:20vh;width:10px;height:10px;--d:6s"></i><i class="pv-orb" style="left:63vw;top:46vh;width:14px;height:14px;--d:4.5s"></i><i class="pv-orb" style="left:78vw;top:26vh;width:16px;height:16px;--d:5.5s"></i><i class="pv-orb" style="left:90vw;top:62vh;width:12px;height:12px;--d:4s"></i><i class="pv-orb" style="left:52vw;top:72vh;width:10px;height:10px;--d:6.5s"></i><i class="pv-orb" style="left:14vw;top:80vh;width:14px;height:14px;--d:5s"></i><canvas id="pvFx" aria-hidden="true"></canvas><script>
+/* ★ พรีวิว: พลุเบา ๆ มุมบน (ดัดแปลงจากแบบของพี่) */
+(function(){if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;var cv=document.getElementById('pvFx'),cx=cv.getContext('2d'),W,H,P=[],raf=0;
+function fit(){var d=Math.min(devicePixelRatio||1,2);W=innerWidth;H=innerHeight;cv.width=W*d;cv.height=H*d;cx.setTransform(d,0,0,d,0,0)}addEventListener('resize',fit);fit();
+var C1=['#ffd37a','#b79cff','#fff2c4','#d9a6ff'],C2=['#ffd37a','#ff8cc6','#fff2c4','#ffb3dd'];
+function burst(x,y,cols,n){for(var i=0;i<n;i++){var a=Math.random()*6.283,s=3.4*(.35+Math.random()*.65);P.push({x:x,y:y,vx:Math.cos(a)*s,vy:Math.sin(a)*s,l:1,dc:.008+Math.random()*.009,c:cols[i%4],r:1.2+Math.random()*1.5})}go()}
+function go(){if(!raf)raf=requestAnimationFrame(loop)}
+function loop(){raf=0;cx.clearRect(0,0,W,H);cx.globalCompositeOperation='lighter';for(var i=P.length-1;i>=0;i--){var p=P[i];p.vx*=.986;p.vy=p.vy*.986+.045;p.x+=p.vx;p.y+=p.vy;p.l-=p.dc;if(p.l<=0){P.splice(i,1);continue}
+cx.globalAlpha=p.l*.75;cx.strokeStyle=p.c;cx.lineWidth=p.r;cx.lineCap='round';cx.beginPath();cx.moveTo(p.x-p.vx*2.2,p.y-p.vy*2.2);cx.lineTo(p.x,p.y);cx.stroke()}cx.globalAlpha=1;if(P.length)raf=requestAnimationFrame(loop)}
+setInterval(function(){if(document.hidden||!document.body.classList.contains('win-on'))return;var L=Math.random()<.5;burst(W*(L?.06+Math.random()*.2:.74+Math.random()*.2),H*(.08+Math.random()*.2),L?C1:C2,50)},3800);
+var _fw0=setInterval(function(){if(document.body.classList.contains('win-on')){clearInterval(_fw0);setTimeout(function(){burst(W*.15,H*.14,C1,60);burst(W*.85,H*.12,C2,60)},1200)}},500);})();
+</script><script>/* ★ พรีวิว: ใส่ประกายบนเหรียญ */(function(){function f(){document.querySelectorAll('#stWin .p .rk').forEach(function(r){if(!r.querySelector('.shine')){var i=document.createElement('i');i.className='shine';r.appendChild(i)}})}setInterval(f,800);})();</script><script>/* ★ พรีวิว: วางเหรียญที่มุมบนซ้ายของรูป */(function(){function f(){document.querySelectorAll('#stWin .p').forEach(function(p){var r=p.querySelector('.rk'),m=p.querySelector('.media');if(!r||!m)return;
+if(!r.querySelector('.rb')){var b=document.createElement('i');b.className='rb';r.appendChild(b)}
+var t=m.offsetTop-r.offsetHeight*0.28;r.style.setProperty('top',t+'px','important')})}setInterval(f,500);addEventListener('resize',f);})();</script><script>/* ★ ริบบิ้นหลังเหรียญ */(function(){function f(){document.querySelectorAll('#stWin .p').forEach(function(p){var r=p.querySelector('.rk');if(!r||!r.offsetWidth)return;var x=p.querySelector('.rbx');
+if(!x){x=document.createElement('span');x.className='rbx';x.innerHTML='<i></i><i></i>';p.insertBefore(x,r)}
+var d=r.offsetWidth,w=d*0.5,h=d*0.62;x.style.setProperty('--w',w+'px');x.style.setProperty('--h',h+'px');
+x.style.left=(r.offsetLeft+d/2-w/2)+'px';x.style.top=(r.offsetTop+d*0.72)+'px'})}setInterval(f,500);addEventListener('resize',f);})();</script>
 </body>
 </html>
