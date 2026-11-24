@@ -685,6 +685,7 @@ window.c7SaveImg=async function(blob,name,okMsg,toastFn){
 }
 </style>
 <script>/* ★ 11 พ.ย. (แจ็ค) เตือนเบราว์เซอร์เก่ามาก */(function(){try{if(window.Promise&&window.fetch&&window.CSS&&CSS.supports)return}catch(e){}document.addEventListener('DOMContentLoaded',function(){var d=document.createElement('div');d.style.cssText='position:fixed;left:0;right:0;bottom:0;z-index:99999;padding:12px 14px;background:#2a1a05;color:#f7e3a8;font:14px/1.5 sans-serif;text-align:center;border-top:2px solid #e7c56a';d.innerHTML='เครื่องหรือเบราว์เซอร์นี้เก่าเกินไป บางส่วนอาจใช้ไม่ได้ · กรุณาอัปเดต Chrome / Safari หรือเปิดด้วยเบราว์เซอร์อื่น · สอบถาม โทรภายใน 7224 หรือ 7213';document.body.appendChild(d)})})();</script>
+<style id="c7-top3only">.votes.c7win{color:#F7E3A8;font-weight:500}.votes.c7win b{color:#FFE7A0}</style>
 </head>
 <body>
 
@@ -930,11 +931,15 @@ const STORE_KEY  = 'np_votes_v1';
 /* สถานะเปิด/ปิดโหวตจริง ควรดึงมาจาก API ที่แอดมินกดเปิด-ปิดหลังบ้าน
    ตอนนี้ใช้ค่าคงที่ไปก่อนเป็นตัวจำลอง — แอดมินจะสลับเป็น true ช่วงวันที่เปิดโหวตจริง */
 let LOAD_FAILED = false;
-function scoresVisible(){ return ANNOUNCED; }   /* ★ 6 พ.ย. คะแนนแสดงหลังแอดมินกดประกาศผลเท่านั้น */
+function scoresVisible(){ return ANNOUNCED; }
+/* ★ 24 พ.ย. แสดงคะแนน/อันดับเฉพาะผู้ชนะ 1-2-3 (ญ+ช) ตามผลประกาศจริงจากหลังบ้าน · คนอื่นไม่แสดงคะแนน */
+let WIN_RANK = {};
+function isWinner(id){ return ANNOUNCED && Object.prototype.hasOwnProperty.call(WIN_RANK, String(id)); }
+function c7LoadWinners(){ try{ if(!beReady()) return; jsonp({action:'winners'}, function(r){ if(r && r.ok && r.revealed){ var m={}; ['female','male'].forEach(function(g){ (r[g]||[]).forEach(function(c,i){ m[String(c.id)] = c['อันดับ']||(i+1); }); }); WIN_RANK=m; try{ render(); }catch(_){} } }); }catch(_){} }   /* ★ 6 พ.ย. คะแนนแสดงหลังแอดมินกดประกาศผลเท่านั้น */
 let ANNOUNCED = false;  /* ★ ซ่อนคะแนนจนกว่าปิดโหวต (ตรงกับหลังบ้าน) */
 let ADMIN_VOTING_OPEN = false;   /* ★ v4.1: อ่านสถานะจริงจากหลังบ้าน (แอดมินกดเปิด/ปิดใน admin.html) */
 /* ★ 24 พ.ย. เช็กสถานะโหวตทันที (ไม่รอรูปทั้งหน้าโหลดเสร็จ) + ลองใหม่ถ้าเน็ตช้า */
-(function c7Health(n){ n=n||0; try{ if(!beReady()) return; jsonp({action:'health'}, function(r){ if(r && r.ok){ window.__c7health=true; try{ window.c7StageApply && window.c7StageApply(r); }catch(_){} try{ window.c7TrendStart && window.c7TrendStart(!!r.voteOpen); }catch(_){} ADMIN_VOTING_OPEN = !!r.voteOpen; ANNOUNCED = !!r.announced; try{ render(); tick(); }catch(_){} } else if(n<5){ setTimeout(function(){ c7Health(n+1); }, 3000); } }); }catch(_){ if(n<5) setTimeout(function(){ c7Health(n+1); }, 3000); } })();
+(function c7Health(n){ n=n||0; try{ if(!beReady()) return; jsonp({action:'health'}, function(r){ if(r && r.ok){ window.__c7health=true; try{ window.c7StageApply && window.c7StageApply(r); }catch(_){} try{ window.c7TrendStart && window.c7TrendStart(!!r.voteOpen); }catch(_){} ADMIN_VOTING_OPEN = !!r.voteOpen; ANNOUNCED = !!r.announced; if(ANNOUNCED) c7LoadWinners(); try{ render(); tick(); }catch(_){} } else if(n<5){ setTimeout(function(){ c7Health(n+1); }, 3000); } }); }catch(_){ if(n<5) setTimeout(function(){ c7Health(n+1); }, 3000); } })();
 /* ★ 6 พ.ย.: ข้อความปุ่มโหวตตอนปิด — ก่อน 24 พ.ย. 06:00 = ยังไม่ถึงวันโหวต · หลัง 15:00 = ปิดโหวตแล้ว */
 function closedTxt(){ return ANNOUNCED ? 'ประกาศผลแล้ว' : (new Date() > VOTE_END ? 'ปิดโหวตแล้ว' : 'ยังไม่ถึงวันโหวต'); }
 function votingOpen(){
@@ -1006,7 +1011,7 @@ function filtered(){
                    || String(p.id) === q.replace('#','');
     return okQ && (!state.type || p.type === state.type);
   });
-  if(scoresVisible()) list.sort((a,b)=>b.votes-a.votes); else list.sort((a,b)=>String(a.id).localeCompare(String(b.id)));   /* ★ ซ่อนอันดับระหว่างโหวต */
+  list.sort((a,b)=>String(a.id).localeCompare(String(b.id)));   /* ★ 24 พ.ย. เรียงตามรหัสเสมอ ไม่บอกอันดับคนที่ไม่ได้รางวัล */   /* ★ ซ่อนอันดับระหว่างโหวต */
   return list;
 }
 
@@ -1056,8 +1061,7 @@ function render(){
         <h3>${p.name}</h3>
         <p class="branch">${p.branch}</p>
         ${p.bio ? `<p class="concept">“${String(p.bio).replace(/[<>&]/g,"")}”</p>` : ""}
-        ${SV ? `<div class="bar"><i data-w="${(p.votes/max*100).toFixed(1)}"></i></div>
-        <p class="votes"><b>${fmt(p.votes)}</b> คะแนน</p>` : `<p class="votes" style="opacity:.75">🔒 คะแนนเปิดเผยหลังปิดโหวต</p>`}
+        ${SV ? (isWinner(p.id) ? `<p class="votes c7win">🏆 อันดับ ${WIN_RANK[String(p.id)]} · <b>${fmt(p.votes)}</b> คะแนน</p>` : ``) : `<p class="votes" style="opacity:.75">🔒 คะแนนเปิดเผยหลังปิดโหวต</p>`}
         <div class="card-actions">
           <button class="btn-vote ${voteCls}" data-vote="${p.id}">
             ${ICON_HEART}<span>${voteTxt}</span>
@@ -1081,10 +1085,11 @@ function renderPodium(){
     $('#podium').innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:22px;border:1px solid rgba(231,197,106,.3);border-radius:18px;opacity:.85">🏆 ประกาศ Top 3 วันที่ 24 พ.ย. 2569 — ระหว่างเปิดโหวตจะไม่แสดงคะแนนเพื่อความยุติธรรม</div>`;
     return;
   }
-  const top = [...DATA].sort((a,b)=>b.votes-a.votes).slice(0,3);
+  const top = DATA.filter(p=>isWinner(p.id)).sort((a,b)=>(a.type===b.type?0:(a.type==='female'?-1:1))||WIN_RANK[String(a.id)]-WIN_RANK[String(b.id)]);
+  if(!top.length){ $('#podium').innerHTML=''; return; }
   $('#podium').innerHTML = top.map((p,i)=>`
     <div class="pod" data-open="${p.id}">
-      <span class="pod-rank">${i+1}</span>
+      <span class="pod-rank">${WIN_RANK[String(p.id)]}</span>
       <img class="pod-ava" src="${p.img}" alt="" onerror="this.style.visibility='hidden'">
       <div class="pod-info"><b>${p.name}</b><span>${fmt(p.votes)} คะแนน</span></div>
     </div>`).join('');
@@ -1189,8 +1194,8 @@ function syncModal(id){
   renderPro(p);
   /* ★ 5 พ.ย.: เตือนส่งลิงก์เฉพาะการ์ดที่ยังไม่ครบเงื่อนไข และก่อนหมดเขต 23 พ.ย. */
   { const n=$('#mNote'); if(n) n.style.display = (!p.ok && new Date() <= new Date('2026-11-23T23:59:59+07:00')) ? '' : 'none'; }
-  $('#mVotes').textContent = scoresVisible() ? fmt(p.votes) : '🔒';
-  $('#mRank').textContent = scoresVisible() ? ('อันดับ ' + rank) : 'ประกาศ 24 พ.ย.';
+  $('#mVotes').textContent = scoresVisible() ? (isWinner(id) ? fmt(p.votes) : '—') : '🔒';
+  $('#mRank').textContent = scoresVisible() ? (isWinner(id) ? ('🏆 อันดับ ' + WIN_RANK[String(id)]) : 'ขอบคุณที่ร่วมสนุก 💛') : 'ประกาศ 24 พ.ย.';
   const v = hasVoted(id);
   const canVote = votingOpen();
   $('#mVote').classList.toggle('voted', v);
