@@ -674,7 +674,7 @@ h1,h2,h3,.l2,.bt,.gh h2,.pn h2,.step h3{font-family:'Noto Serif Thai',serif!impo
 
 <script>
 const CFG=Object.assign({url:"https://script.google.com/macros/s/AKfycbxxfSz7t00UR9g4H78boZm4RJRLN3O0uqsRnDVEnTK_sEFkZlHiweCdOnEeL0slpuAZuQ/exec",token:"COM7LKER2569",mock:false,quota:3,maxPx:2048},window.COM7_CONFIG||{});
-const COMPANIES=["บริษัท คอมเซเว่น จำกัด (มหาชน)","บริษัท ดับเบิ้ล เซเว่น จำกัด","บริษัท ซี โนว์ ฮาว จำกัด","บริษัท เอเดพท์ จำกัด","บริษัท ธันเดอร์ ฟิน ฟิน จำกัด","บริษัท ไอแคร์ประกันภัย จำกัด (มหาชน)","บริษัท ไอเทค ซอฟต์แวร์ จำกัด","บริษัท โฟร์พอส์ จำกัด","บริษัท อินเตอร์วิชั่น บิสิเนสกรุ๊ป จำกัด","บริษัท แบรกซ์3853 จำกัด","บริษัท แบรกซ์แอนด์เบน จำกัด","บริษัท โกลด์อินทิเกรท จำกัด","EV7 Company Limited"];
+const COMPANIES=["บริษัท คอมเซเว่น จำกัด (มหาชน)","บริษัท ดับเบิ้ล เซเว่น จำกัด","บริษัท ซี โนว์ ฮาว จำกัด","บริษัท เอเดพท์ จำกัด","บริษัท ยูฟัน แคปปิตอล จำกัด","บริษัท ไอแคร์ประกันภัย จำกัด (มหาชน)","บริษัท ไอเทค ซอฟต์แวร์ จำกัด","บริษัท โฟร์พอส์ จำกัด","บริษัท อินเตอร์วิชั่น บิสิเนสกรุ๊ป จำกัด","บริษัท แบรกซ์3853 จำกัด","บริษัท แบรกซ์แอนด์เบน จำกัด","บริษัท โกลด์อินทิเกรท จำกัด","EV7 Company Limited"];
 const MOCK={F:[1,2,3].map(n=>({id:"MF"+n,name:"ตัวอย่าง นางนพมาศ "+n,img:`assets/mock/f${n}.jpg`})),M:[1,2,3].map(n=>({id:"MM"+n,name:"ตัวอย่าง นพมาศ "+n,img:`assets/mock/m${n}.jpg`}))};
 let tab="F",voteOpen=false,list={F:[],M:[]},sel={F:[],M:[]},voter=null;
 const $=id=>document.getElementById(id);
@@ -705,7 +705,8 @@ function jsonp(p,cb){const n="__cb"+Date.now()+Math.floor(Math.random()*999),s=d
 const map=c=>({id:c.id,name:c["ชื่อ"]||c.name,co:c["บริษัท"]||"",img:c["รูป"]||c.img||"",votes:+c["คะแนน"]||0});
 function load(){
   if(!live()){list={F:MOCK.F.slice(),M:MOCK.M.slice()};voteOpen=true;render();return}
-  jsonp({action:"results"},r=>{if(r&&r.ok){list={F:(r.female||[]).map(map),M:(r.male||[]).map(map)};voteOpen=!!r.voteOpen;
+  window.__c7ld=1;clearTimeout(window.__c7to);window.__c7to=setTimeout(()=>{if(window.__c7ld){window.__c7ld=0;window.__c7try=(window.__c7try||0)+1;if(window.__c7try<4)load();else{$("empty").hidden=false;$("empty").innerHTML="เชื่อมต่อช้า <button class=\"soft sm\" onclick=\"window.__c7try=0;load()\">โหลดใหม่</button>"}}},16000);$("empty").hidden=false;$("empty").textContent="⏳ กำลังโหลดรายชื่อผู้เข้าประกวด…";
+  jsonp({action:"results"},r=>{window.__c7ld=0;if(!(r&&r.ok)){window.__c7try=(window.__c7try||0)+1;$("empty").hidden=false;$("empty").innerHTML="โหลดรายชื่อไม่สำเร็จ · กำลังลองใหม่… <button class=\"soft sm\" onclick=\"load()\">โหลดใหม่</button>";if(window.__c7try<4)setTimeout(load,2500);return}$("empty").textContent="ยังไม่มีผู้เข้าประกวดที่อนุมัติในหมวดนี้";if(r&&r.ok){list={F:(r.female||[]).map(map),M:(r.male||[]).map(map)};voteOpen=!!r.voteOpen;
     /* ★ ไม่เรียงตามคะแนน (กันเดาอันดับ) → เรียงตามรหัส เหมือนหน้าผู้เข้าประกวด */
     ["F","M"].forEach(g=>list[g].sort((a,b)=>String(a.id).localeCompare(String(b.id))));render()}});
   /* ★ ดึงแนวคิดชุด + ครบเงื่อนไข จาก gallery มาเติมบนการ์ด */
@@ -713,7 +714,7 @@ function load(){
 
 /* แกลเลอรี (สลับ class เท่านั้น ไม่วาดทั้งกริดใหม่ตอนกดเลือก) */
 function render(){
-  const a=list[tab]||[];$("empty").hidden=a.length>0;
+  const a=list[tab]||[];if(window.__c7ld&&!a.length){$("empty").hidden=false}else{$("empty").hidden=a.length>0;}
   /* ★ 9 พ.ย. การ์ดโหวต = หน้าตาเดียวกับหน้าผู้เข้าประกวด (กรอบทองหัวโค้ง · ป้าย #ID · ป้ายหมวด · แนวคิดชุด) */
   const ex=window.__c7ex||{};
   $("grid").innerHTML=a.map((c,i)=>{const x=ex[c.id]||{},on=sel[tab].includes(c.id);return `<div class="card c7v${on?" sel":""}" data-id="${esc(c.id)}" tabindex="0" role="button" aria-pressed="${on}" aria-label="เลือก ${esc(c.name)}">

@@ -930,7 +930,8 @@ let LOAD_FAILED = false;
 function scoresVisible(){ return ANNOUNCED; }   /* ★ 6 พ.ย. คะแนนแสดงหลังแอดมินกดประกาศผลเท่านั้น */
 let ANNOUNCED = false;  /* ★ ซ่อนคะแนนจนกว่าปิดโหวต (ตรงกับหลังบ้าน) */
 let ADMIN_VOTING_OPEN = false;   /* ★ v4.1: อ่านสถานะจริงจากหลังบ้าน (แอดมินกดเปิด/ปิดใน admin.html) */
-window.addEventListener('load', function(){ try{ if(beReady()) jsonp({action:'health'}, function(r){ if(r && r.ok){ try{ window.c7StageApply && window.c7StageApply(r); }catch(_){} try{ window.c7TrendStart && window.c7TrendStart(!!r.voteOpen); }catch(_){} ADMIN_VOTING_OPEN = !!r.voteOpen; ANNOUNCED = !!r.announced; try{ render(); tick(); }catch(_){} } }); }catch(_){} });
+/* ★ 24 พ.ย. เช็กสถานะโหวตทันที (ไม่รอรูปทั้งหน้าโหลดเสร็จ) + ลองใหม่ถ้าเน็ตช้า */
+(function c7Health(n){ n=n||0; try{ if(!beReady()) return; jsonp({action:'health'}, function(r){ if(r && r.ok){ window.__c7health=true; try{ window.c7StageApply && window.c7StageApply(r); }catch(_){} try{ window.c7TrendStart && window.c7TrendStart(!!r.voteOpen); }catch(_){} ADMIN_VOTING_OPEN = !!r.voteOpen; ANNOUNCED = !!r.announced; try{ render(); tick(); }catch(_){} } else if(n<5){ setTimeout(function(){ c7Health(n+1); }, 3000); } }); }catch(_){ if(n<5) setTimeout(function(){ c7Health(n+1); }, 3000); } })();
 /* ★ 6 พ.ย.: ข้อความปุ่มโหวตตอนปิด — ก่อน 24 พ.ย. 06:00 = ยังไม่ถึงวันโหวต · หลัง 15:00 = ปิดโหวตแล้ว */
 function closedTxt(){ return ANNOUNCED ? 'ประกาศผลแล้ว' : (new Date() > VOTE_END ? 'ปิดโหวตแล้ว' : 'ยังไม่ถึงวันโหวต'); }
 function votingOpen(){
@@ -1109,11 +1110,14 @@ function toast(msg){
   window._tt = setTimeout(()=> $('#toast').classList.remove('show'), 2600);
 }
 function doVote(id, btn, ev){
-  if(!votingOpen()){ toast(new Date() > VOTE_END ? 'ปิดโหวตแล้ว · รอคณะกรรมการตัดสิน ประกาศผลเร็ว ๆ นี้ค่ะ' : 'ยังไม่ถึงวันโหวต ระบบจะเปิดให้โหวตวันที่ 24 พ.ย. 2569 เวลา 06:00–15:00 น. ค่ะ'); return; }
+  /* ★ 24 พ.ย. ถ้าสถานะจากหลังบ้านยังโหลดไม่เสร็จ แต่อยู่ในช่วงเวลาโหวต → ให้เลือกได้ (หลังบ้านตรวจซ้ำตอนส่ง) */
+  var _nw=Date.now(), _inWin=_nw>=new Date('2026-11-24T06:00:00+07:00').getTime() && _nw<new Date('2026-11-24T15:00:00+07:00').getTime();
+  if(!votingOpen() && !(window.__c7health!==true && _inWin)){ toast(new Date() > VOTE_END ? 'ปิดโหวตแล้ว · รอคณะกรรมการตัดสิน ประกาศผลเร็ว ๆ นี้ค่ะ' : 'ยังไม่ถึงวันโหวต ระบบจะเปิดให้โหวตวันที่ 24 พ.ย. 2569 เวลา 06:00–15:00 น. ค่ะ'); return; }
   // ★ v4.1: โหวตจริงทำที่หน้าประกวด (กรอกรหัสพนักงาน/ชื่อ · เลือกหญิง 3 + ชาย 3 · แก้ผลเดิมได้)
-  if(ev) hearts(ev.clientX, ev.clientY);
-  toast('กำลังพาไปหน้าโหวต…');
-  setTimeout(function(){ location.href = 'contest.html#vote'; }, 450);
+  /* ★ 24 พ.ย. โหวตในหน้านี้เลย ไม่เด้งไปหน้าอื่น */
+  var _p=DATA.find(function(x){return String(x.id)===String(id);});
+  if(window.c7Pick){ window.c7Pick(_p, btn, ev); if(ev) hearts(ev.clientX, ev.clientY); return; }
+  location.href = 'contest.html#vote';
 }
 
 /* ============================================================
@@ -1289,7 +1293,7 @@ try{
   var REG_TOKEN = "COM7LKER2569";
   var REG_MAXPX = 1200;
   var G = function(id){return document.getElementById(id);};
-  var COMPANIES = ["บริษัท คอมเซเว่น จำกัด (มหาชน)","บริษัท ดับเบิ้ล เซเว่น จำกัด","บริษัท ซี โนว์ ฮาว จำกัด","บริษัท เอเดพท์ จำกัด","บริษัท ธันเดอร์ ฟิน ฟิน จำกัด","บริษัท ไอแคร์ประกันภัย จำกัด (มหาชน)","บริษัท ไอเทค ซอฟต์แวร์ จำกัด","บริษัท โฟร์พอส์ จำกัด","บริษัท อินเตอร์วิชั่น บิสิเนสกรุ๊ป จำกัด","บริษัท แบรกซ์3853 จำกัด","บริษัท แบรกซ์แอนด์เบน จำกัด","บริษัท โกลด์อินทิเกรท จำกัด","EV7 Company Limited"];
+  var COMPANIES = ["บริษัท คอมเซเว่น จำกัด (มหาชน)","บริษัท ดับเบิ้ล เซเว่น จำกัด","บริษัท ซี โนว์ ฮาว จำกัด","บริษัท เอเดพท์ จำกัด","บริษัท ยูฟัน แคปปิตอล จำกัด","บริษัท ไอแคร์ประกันภัย จำกัด (มหาชน)","บริษัท ไอเทค ซอฟต์แวร์ จำกัด","บริษัท โฟร์พอส์ จำกัด","บริษัท อินเตอร์วิชั่น บิสิเนสกรุ๊ป จำกัด","บริษัท แบรกซ์3853 จำกัด","บริษัท แบรกซ์แอนด์เบน จำกัด","บริษัท โกลด์อินทิเกรท จำกัด","EV7 Company Limited"];
   var tt;
   function regToast(m){var t=G("regToast");t.textContent=m;t.classList.add("on");clearTimeout(tt);tt=setTimeout(function(){t.classList.remove("on");},2800);}
   function regLive(){return REG_URL && REG_URL.indexOf("PASTE")!==0 && REG_URL.indexOf("script.google.com")>=0;}
@@ -1401,6 +1405,100 @@ document.addEventListener("click",function(e){ if(e.target&&e.target.id==="pdpaC
   function poll(){ if(!API) return; var cb='c7st'+Date.now(), s=document.createElement('script'); window[cb]=function(r){ try{ window.c7StageApply(r); }finally{ delete window[cb]; s.remove(); } }; s.src=API+'?action=health&callback='+cb+'&_='+Date.now(); document.body.appendChild(s); }
   window.addEventListener('load',function(){ setInterval(poll,30000); });
   window.addEventListener('resize',navH);
+})();
+</script>
+
+<style id="c7-inpage-vote">
+.btn-vote.c7sel{background:linear-gradient(180deg,#b8f0c4,#6fd38a)!important;border-color:#6fd38a!important;color:#10301a!important}
+.btn-vote.c7sel svg{stroke:#10301a!important;fill:#10301a!important}
+#c7vbar{position:fixed;left:50%;bottom:14px;transform:translateX(-50%);z-index:9990;display:none;align-items:center;gap:10px;padding:8px 8px 8px 16px;border-radius:999px;background:rgba(16,10,40,.94);border:1.5px solid #e7c56a;box-shadow:0 10px 30px rgba(0,0,0,.55);color:#f7e3a8;font:500 14px Prompt,sans-serif;max-width:calc(100vw - 20px);white-space:nowrap}
+#c7vbar.on{display:flex}#c7vbar a{color:#f7e3a8;text-decoration:underline;cursor:pointer;font-size:13px}
+#c7vbar button{border:0;border-radius:999px;padding:10px 18px;background:linear-gradient(180deg,#FBEBB6,#E7C56A 55%,#C9972F);color:#2a1a05;font:600 14px Prompt,sans-serif;cursor:pointer}
+@media(max-width:420px){#c7vbar{font-size:12.5px;gap:7px;padding-left:12px}#c7vbar button{padding:9px 13px;font-size:13px}#c7vbar a{font-size:12px}}
+#c7vov{position:fixed;top:0;right:0;bottom:0;left:0;z-index:10000;background:rgba(5,3,20,.72);display:none;align-items:center;justify-content:center;padding:16px}
+#c7vov.on{display:flex}
+#c7vov .pn{width:100%;max-width:440px;max-height:92vh;overflow:auto;background:linear-gradient(160deg,#241650,#120b2a);border:1.5px solid rgba(231,197,106,.6);border-radius:22px;padding:22px 20px;color:#fff;font-family:Prompt,sans-serif;position:relative;box-sizing:border-box}
+#c7vov h2{margin:0 0 4px;color:#F7E3A8;font-size:21px;text-align:center}#c7vov .sub{margin:0 0 12px;text-align:center;opacity:.8;font-size:13px}
+#c7vov .sum{background:rgba(255,255,255,.06);border-radius:12px;padding:10px 12px;font-size:13px;line-height:1.6;margin-bottom:12px}
+#c7vov label{display:block;font-size:13px;color:#F7E3A8;margin:8px 0 4px}
+#c7vov input,#c7vov select{width:100%;box-sizing:border-box;padding:12px 14px;border-radius:12px;border:1px solid rgba(231,197,106,.45);background:rgba(255,255,255,.06);color:#fff;font:400 15px Prompt,sans-serif}
+#c7vov select option{color:#000}#c7vov .bad{border-color:#ff7b7b}
+#c7vov .go{width:100%;margin-top:14px;border:0;border-radius:999px;padding:13px;background:linear-gradient(180deg,#FBEBB6,#E7C56A 55%,#C9972F);color:#2a1a05;font:600 15px Prompt,sans-serif;cursor:pointer}
+#c7vov .go:disabled{opacity:.6}#c7vov .x{position:absolute;top:10px;right:12px;border:0;background:rgba(255,255,255,.1);color:#fff;width:34px;height:34px;border-radius:50%;font-size:18px;cursor:pointer}
+#c7vov .msg{margin-top:10px;font-size:13px;text-align:center;color:#ffd36b;min-height:18px}
+</style>
+<div id="c7vbar" role="status"><span id="c7vcnt"></span><a id="c7vedit">แก้ผลเดิม</a><button id="c7vgo" type="button">ยืนยันโหวต</button></div>
+<div id="c7vov"><div class="pn" role="dialog" aria-modal="true">
+<button class="x" type="button" id="c7vx" aria-label="ปิด">✕</button>
+<h2 id="c7vt">ยืนยันการโหวต</h2><p class="sub" id="c7vs">กรอกข้อมูลผู้โหวต ระบบจะจำไว้ในเครื่องนี้</p>
+<div class="sum" id="c7vsum"></div>
+<label for="c7vid">รหัสพนักงาน *</label><input id="c7vid" inputmode="numeric" autocomplete="off">
+<label for="c7vnm">ชื่อ-สกุล *</label><input id="c7vnm" autocomplete="name">
+<label for="c7vco">บริษัท *</label><select id="c7vco"></select>
+<button class="go" id="c7vsend" type="button">ยืนยันโหวต</button><div class="msg" id="c7vmsg"></div>
+</div></div>
+<script>
+/* ★ 24 พ.ย. 2569 แจ็ค — โหวตในหน้าผู้เข้าประกวดได้เลย (เลือกหญิง 3 + ชาย 3 · แก้ได้ · ยืนยันในหน้านี้) */
+(function(){
+  var API="https://script.google.com/macros/s/AKfycbxxfSz7t00UR9g4H78boZm4RJRLN3O0uqsRnDVEnTK_sEFkZlHiweCdOnEeL0slpuAZuQ/exec",TOKEN="COM7LKER2569",Q=3;
+  var COMPANIES=["บริษัท คอมเซเว่น จำกัด (มหาชน)","บริษัท ดับเบิ้ล เซเว่น จำกัด","บริษัท ซี โนว์ ฮาว จำกัด","บริษัท เอเดพท์ จำกัด","บริษัท ยูฟัน แคปปิตอล จำกัด","บริษัท ไอแคร์ประกันภัย จำกัด (มหาชน)","บริษัท ไอเทค ซอฟต์แวร์ จำกัด","บริษัท โฟร์พอส์ จำกัด","บริษัท อินเตอร์วิชั่น บิสิเนสกรุ๊ป จำกัด","บริษัท แบรกซ์3853 จำกัด","บริษัท แบรกซ์แอนด์เบน จำกัด","บริษัท โกลด์อินทิเกรท จำกัด","EV7 Company Limited"];
+  var SEL={female:[],male:[]},NAMES={},voter=null,mode="new";
+  var ST=window["local"+"Storage"];
+  try{voter=JSON.parse(ST.getItem("com7_voter")||"null")}catch(e){}
+  function $(i){return document.getElementById(i)}
+  function esc(s){return String(s==null?"":s).replace(/[<>&"']/g,function(c){return{"<":"&lt;",">":"&gt;","&":"&amp;",'"':"&quot;","'":"&#39;"}[c]})}
+  function toast(m){var t=$("toastMsg"),b=$("toast");if(t&&b){t.textContent=m;b.classList.add("show");clearTimeout(window._tt);window._tt=setTimeout(function(){b.classList.remove("show")},2600)}else alert(m)}
+  function jp(p,cb){var n="__c7v"+Date.now()+Math.floor(Math.random()*9999),s=document.createElement("script"),done=false;
+    var t=setTimeout(function(){if(done)return;done=true;try{delete window[n]}catch(e){}s.remove();cb(null)},20000);
+    window[n]=function(d){if(done)return;done=true;clearTimeout(t);try{delete window[n]}catch(e){}s.remove();cb(d)};
+    s.onerror=function(){if(done)return;done=true;clearTimeout(t);s.remove();cb(null)};
+    s.src=API+"?"+Object.keys(p).map(function(k){return encodeURIComponent(k)+"="+encodeURIComponent(Array.isArray(p[k])?p[k].join(","):p[k])}).join("&")+"&callback="+n;document.body.appendChild(s)}
+  $("c7vco").innerHTML='<option value="">— เลือกบริษัท —</option>'+COMPANIES.map(function(c){return"<option>"+esc(c)+"</option>"}).join("");
+  function isSel(id){return SEL.female.indexOf(id)>=0||SEL.male.indexOf(id)>=0}
+  function paint(){
+    document.querySelectorAll("[data-vote]").forEach(function(b){var on=isSel(b.dataset.vote);b.classList.toggle("c7sel",on);b.classList.remove("voted");b.classList.remove("disabled");var s=b.querySelector("span");if(s)s.textContent=on?"✓ เลือกแล้ว":"โหวต"});
+    var m=$("mVote");if(m&&window.__c7mid){var on=isSel(window.__c7mid);m.classList.toggle("c7sel",on);m.classList.remove("voted");m.classList.remove("disabled");var s=m.querySelector("span");if(s)s.textContent=on?"✓ เลือกแล้ว (แตะเพื่อเอาออก)":"โหวตคนนี้"}
+    var n=SEL.female.length+SEL.male.length;$("c7vcnt").textContent="หญิง "+SEL.female.length+"/"+Q+" · ชาย "+SEL.male.length+"/"+Q;
+    $("c7vbar").classList.add("on");$("c7vgo").disabled=false;$("c7vgo").style.opacity=n?"1":".55"}
+  window.c7Pick=function(p,btn){
+    if(!p){toast("ไม่พบข้อมูลผู้เข้าประกวด ลองรีเฟรชหน้า");return}
+    var id=String(p.id),g=p.type==="male"?"male":"female",a=SEL[g],i=a.indexOf(id);
+    window.__c7mid=id;NAMES[id]=p.name;
+    if(i>=0){a.splice(i,1);toast("เอาออกแล้ว")}
+    else{if(a.length>=Q){toast((g==="male"?"นพมาศชาย":"นพมาศหญิง")+" เลือกได้สูงสุด "+Q+" คน · แตะคนเดิมเพื่อเอาออกก่อน");return}
+      a.push(id);try{navigator.vibrate&&navigator.vibrate(10)}catch(e){}toast("เลือกแล้ว "+(g==="male"?"ชาย":"หญิง")+" "+a.length+"/"+Q+" · กด ‘ยืนยันโหวต’ ด้านล่าง")}
+    paint()};
+  var gObs=new MutationObserver(function(){if($("c7vbar").classList.contains("on"))paint()});
+  function hook(){var g=$("grid");if(g)gObs.observe(g,{childList:true});var md=$("modal");if(md)new MutationObserver(function(){if(md.classList.contains("open")){var t=($("mNo")||{}).textContent||"";var id=t.replace("#","").trim();if(id){window.__c7mid=id.length<5?("C"+id.padStart(4,"0")):id}if($("c7vbar").classList.contains("on"))setTimeout(paint,0)}}).observe(md,{attributes:true,attributeFilter:["class"]})}
+  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",hook);else hook();
+  function nm(id){return esc(NAMES[id]||id)}
+  function openV(edit){
+    if(!edit&&!SEL.female.length&&!SEL.male.length){toast("ยังไม่ได้เลือกใครเลย · แตะ ‘โหวต’ ที่การ์ดก่อนนะ");return}
+    mode=edit?"fetch":"new";
+    $("c7vt").textContent=edit?"แก้ผลโหวตเดิม":"ยืนยันการโหวต";
+    $("c7vs").textContent=edit?"กรอกข้อมูลเดิม ระบบจะดึงคนที่เคยเลือกไว้มาให้แก้":"กรอกข้อมูลผู้โหวต ระบบจะจำไว้ในเครื่องนี้";
+    $("c7vsum").style.display=edit?"none":"";
+    $("c7vsum").innerHTML="👑 หญิง: "+(SEL.female.map(nm).join(", ")||"-")+"<br>👑 ชาย: "+(SEL.male.map(nm).join(", ")||"-");
+    if(voter){$("c7vid").value=voter.id||"";$("c7vnm").value=voter.name||"";$("c7vco").value=voter.company||""}
+    $("c7vsend").textContent=edit?"ดึงผลโหวตเดิม":"ยืนยันโหวต";$("c7vsend").disabled=false;$("c7vmsg").textContent="";
+    $("c7vov").classList.add("on");document.body.style.overflow="hidden"}
+  function closeV(){$("c7vov").classList.remove("on");document.body.style.overflow=""}
+  function who(){var v={id:$("c7vid").value.trim(),name:$("c7vnm").value.trim(),company:$("c7vco").value};
+    ["c7vid","c7vnm","c7vco"].forEach(function(x){$(x).classList.remove("bad")});
+    var bad=!v.id?"c7vid":!v.name?"c7vnm":!v.company?"c7vco":"";if(bad){$(bad).classList.add("bad");$("c7vmsg").textContent="กรอกข้อมูลให้ครบ";return null}
+    voter=v;try{ST.setItem("com7_voter",JSON.stringify(v))}catch(e){}return v}
+  function send(){if(mode!=="fetch"&&!SEL.female.length&&!SEL.male.length){$("c7vmsg").textContent="ยังไม่ได้เลือกใครเลย";return}var v=who();if(!v)return;var b=$("c7vsend");if(b.disabled)return;b.disabled=true;var old=b.textContent;b.textContent="กำลังส่ง...";$("c7vmsg").textContent="";
+    if(mode==="fetch"){
+      jp({action:"myvote",voterId:v.id,voterName:v.name,voterCompany:v.company},function(r){b.disabled=false;b.textContent=old;
+        if(r&&r.ok&&r.found){SEL.female=(r.female||[]).map(String);SEL.male=(r.male||[]).map(String);closeV();paint();toast("ดึงผลเดิมแล้ว · แตะเพื่อแก้ แล้วกด ‘ยืนยันโหวต’");mode="edit"}
+        else $("c7vmsg").textContent=r?"ไม่พบผลโหวตเดิมของรหัสนี้":"เชื่อมต่อช้า ลองกดอีกครั้ง"});return}
+    var p={token:TOKEN,action:"vote",mode:mode==="edit"?"edit":"new","ผู้โหวต":v.id,"ชื่อผู้โหวต":v.name,"บริษัทผู้โหวต":v.company,female:SEL.female,male:SEL.male};
+    jp(p,function(r){b.disabled=false;b.textContent=old;
+      if(r&&r.ok){closeV();mode="edit";toast(r.message||"โหวตสำเร็จ 🎉 แก้ได้จนถึง 15:00");$("c7vgo").textContent="อัปเดตโหวต"}
+      else if(r&&r.code==="ALREADY_VOTED"){mode="edit";$("c7vt").textContent="รหัสนี้โหวตไปแล้ว";$("c7vs").textContent="ต้องการแทนที่ด้วยตัวเลือกใหม่นี้หรือไม่";b.textContent="แทนที่ผลโหวตเดิม"}
+      else $("c7vmsg").textContent=r?(r.error||"โหวตไม่สำเร็จ"):"เชื่อมต่อช้า ลองกดอีกครั้ง (ยังไม่ได้บันทึก)"})}
+  $("c7vgo").onclick=function(){openV(false)};$("c7vedit").onclick=function(){openV(true)};
+  $("c7vsend").onclick=send;$("c7vx").onclick=closeV;$("c7vov").addEventListener("click",function(e){if(e.target.id==="c7vov")closeV()});
 })();
 </script>
 <script src="com7-extras.js" defer></script>
