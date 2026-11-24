@@ -872,5 +872,22 @@ var t=m.offsetTop-r.offsetHeight*0.28;r.style.setProperty('top',t+'px','importan
 if(!x){x=document.createElement('span');x.className='rbx';x.innerHTML='<i></i><i></i>';p.insertBefore(x,r)}
 var d=r.offsetWidth,w=d*0.5,h=d*0.62;x.style.setProperty('--w',w+'px');x.style.setProperty('--h',h+'px');
 x.style.left=(r.offsetLeft+d/2-w/2)+'px';x.style.top=(r.offsetTop+d*0.72)+'px'})}setInterval(f,500);addEventListener('resize',f);})();</script>
+<script id="c7-embed-links">
+/* ★ 24 พ.ย. หน้าเวทีที่ฝังอยู่ในหน้าผู้เข้าประกวด: กดลิงก์ "ผู้เข้าประกวด" = ปิดหน้าเวที กลับไปรายชื่อ (ไม่เปิดซ้อนในกรอบ)
+   ลิงก์หน้าอื่นเปิดเต็มหน้าต่าง ไม่เปิดในกรอบ */
+(function(){
+  var inFrame=false; try{ inFrame = window.self!==window.top; }catch(e){ inFrame=true; }
+  if(!inFrame) return;
+  document.addEventListener('click',function(e){
+    var a=e.target.closest&&e.target.closest('a[href]'); if(!a) return;
+    var href=a.getAttribute('href')||''; if(/^(#|javascript:|mailto:|tel:)/i.test(href) || a.target==='_blank') return;
+    e.preventDefault();
+    try{
+      if(/(^|\/)contestants\.html(\?|#|$)/i.test(href) && window.parent.c7StageHide){ window.parent.c7StageHide(); window.parent.scrollTo(0,0); return; }
+      window.top.location.href = new URL(href, location.href).href;
+    }catch(err){ window.open(new URL(href, location.href).href,'_top'); }
+  },true);
+})();
+</script>
 </body>
 </html>
