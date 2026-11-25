@@ -395,7 +395,17 @@ body.win-on::before{content:"";position:fixed;top:0;right:0;bottom:0;left:0;z-in
 #stWin .p .rbx i:first-child{background:linear-gradient(180deg,var(--rb1),color-mix(in srgb,var(--rb1) 70%,#000));transform:rotate(12deg);transform-origin:top right}
 #stWin .p .rbx i:last-child{background:linear-gradient(180deg,var(--rb2),color-mix(in srgb,var(--rb2) 70%,#000));transform:rotate(-12deg);transform-origin:top left}
 #stWin .p.r1 .rbx{--rb1:#7b3fd0;--rb2:#e3b95a}#stWin .p.r2 .rbx{--rb1:#3c4bb8;--rb2:#d9dce6}#stWin .p.r3 .rbx{--rb1:#9a2b6e;--rb2:#e8a978}
-</style><style id="c7-win-deco-gate">/* ★ 24 พ.ย. ของตกแต่งหน้าประกาศผล แสดงเฉพาะตอนประกาศผล */body:not(.win-on) .lt-deco,body:not(.win-on) .lt-glow,body:not(.win-on) .lt-pet,body:not(.win-on) #pvFx,body:not(.win-on) .pv-orb,body:not(.win-on) .pv-chedi{display:none!important}</style></head>
+</style><style id="c7-win-deco-gate">/* ★ 24 พ.ย. ของตกแต่งหน้าประกาศผล แสดงเฉพาะตอนประกาศผล */body:not(.win-on) .lt-deco,body:not(.win-on) .lt-glow,body:not(.win-on) .lt-pet,body:not(.win-on) #pvFx,body:not(.win-on) .pv-orb,body:not(.win-on) .pv-chedi{display:none!important}</style><style id="c7-mobile-podium">
+/* ★ 25 พ.ย. มือถือ: การ์ดอันดับ 2-3 เริ่มเสมอกัน สูงเท่ากัน ปุ่มโหลดการ์ดอยู่บรรทัดเดียวกัน + เว้นที่ด้านล่างไม่ให้ปุ่มลอยทับ */
+@media(max-width:620px){
+  #stWin .podium,#stWin .podium.n2{align-items:stretch!important}
+  #stWin .p.r2,#stWin .p.r3{display:flex;flex-direction:column;margin-top:28px!important}
+  #stWin .p.r2 .bd,#stWin .p.r3 .bd{flex:1;display:flex;flex-direction:column}
+  #stWin .p.r2 .bd .dl,#stWin .p.r3 .bd .dl{margin-top:auto}
+  #stWin .p.r2 .cn,#stWin .p.r3 .cn{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  #stWin{padding-bottom:96px!important}
+}
+</style></head>
 <body>
 <header class="c7top" id="c7top">
   <a class="c7brand" href="index.html">COM<b>7</b></a>
